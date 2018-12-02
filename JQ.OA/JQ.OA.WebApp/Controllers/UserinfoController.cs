@@ -21,7 +21,7 @@ namespace JQ.OA.WebApp.Controllers
             ViewData.Model = userinfoList;
             return View();
         }
-
+        #region Retrive user info
         public ActionResult GetUserInfo()
         {
             int pageIndex = Request["page"] != null ? int.Parse(Request["page"]) : 1;
@@ -51,5 +51,27 @@ namespace JQ.OA.WebApp.Controllers
                        select new { ID = u.ID, UserName = u.UName, UserPass = u.UPwd, Remark = u.Remark, RegTime = u.SubTime };
             return Json(new { rows = temp, total = userInfoParam.TotalCount }, JsonRequestBehavior.AllowGet);
         }
+        #endregion
+
+        #region Delete users
+        public ActionResult DeleteUserInfo()
+        {
+            string strId = Request["strId"];
+            string[] strIds = strId.Split(',');
+            List<int> delIds = new List<int>();
+            foreach (var id in strId)
+            {
+                delIds.Add(Convert.ToInt32(id));
+            }
+
+            if (userInfoService.DeleteEntities(delIds))
+            {
+                return Content("ok");
+            }
+
+            return Content("no");
+                 
+        }
+        #endregion
     }
 }

@@ -17,6 +17,7 @@
         $(function () {
             loadData();
         });
+
         function loadData(pars) {
             $('#tt').datagrid({
                 url: '/UserInfo/GetUserInfo',
@@ -41,9 +42,9 @@
                     { field: 'Remark', title: 'Remark', width: 120 },
                     {
                         field: 'RegTime', title: 'Reg Time', width: 80, align: 'right',
-                        formatter: function (value, row, index) {
-                            return (eval(value.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d");
-                        }
+                        //formatter: function (value, row, index) {
+                        //    return (eval(value.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d");
+                        //}
                     }
                 ]],
                 toolbar: [{
@@ -52,7 +53,7 @@
                     iconCls: 'icon-remove',
                     handler: function () {
                         
-                        deleteInfo();
+                        deleteUsers();
                     }
                 }, {
                     id: 'btnAdd',
@@ -60,7 +61,7 @@
                     iconCls: 'icon-add',
                     handler: function () {
 
-                        addInfo();
+                        //addInfo();
                     }
                 }, {
                     id: 'btnEdit',
@@ -68,12 +69,46 @@
                     iconCls: 'icon-edit',
                     handler: function () {
 
-                        eidtInfo();
+                        //eidtInfo();
                     }
                 }],
             })
         }
 
+        function deleteUsers() {
+            var rows = $("#tt").datagrid('getSelections');
+            if (!rows || rows.length == 0) {
+                $.messager.alert("Tips", "Please selected the users to delete", "error");
+            }
+            $.messager.confirm("Tips", "Do you want to delete these users?", function (r) {
+                if(r) {
+                    var strId = "";
+                    for (var i = 0; i < rows.length; i++) {
+                        strId = strId + rows[i].ID + ",";//1,2,3,
+                    }
+                    //rows.foreach(row => {
+                    //    strId += row.ID + ","; //StrId = [1,2,3]
+                    //})
+                    strId = strId.substr(0, strId.length - 1);
+                    $.post("/UserInfo/DeleteUserInfo", { "strId": strId }, function (data) {
+                        if (data == "ok") {
+                            $("#tt").datagrid('clearSelections');
+                            $("#tt").datagrid('reload'); // Use reload instead of loadData
+                            //loadData();
+                        } else {
+                            $.messager.alert("Tips", "Failed to delete users", "error");
+                        }
+                    })
+                }
+            })
+        }
+
+        function ChangeDateFormat(cellval) {
+            var date = new Date(parseInt(cellval.replace("/Date(", "").replace(")/", ""), 10));
+            var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+            var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+            return date.getFullYear() + "-" + month + "-" + currentDate;
+        }
     </script>
 </head>
 <body>
