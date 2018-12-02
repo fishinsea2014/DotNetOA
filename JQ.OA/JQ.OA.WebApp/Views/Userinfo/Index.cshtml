@@ -1,69 +1,85 @@
-﻿@model IEnumerable<JQ.QA.Model.UserInfo>
-
-@{
-    ViewBag.Title = "Index";
+﻿@{
+    Layout = null;
 }
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Users Management</title>
+    <link href="~/Content/themes/default/easyui.css" rel="stylesheet" />
+    <link href="~/Content/themes/icon.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.7.1.min.js"></script>
+    <script src="~/Scripts/jquery.easyui.min.js"></script>
+    <script src="~/Scripts/easyui-lang-en.js"></script>
+    <script src="~/Scripts/datapattern.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            loadData();
+        });
+        function loadData(pars) {
+            $('#tt').datagrid({
+                url: '/UserInfo/GetUserInfo',
+                title: 'User Management',
+                width: 700,
+                height: 400,
+                fitColumns: true, //Columns self adjustment
+                nowrap: false,
+                idField: 'ID',//The column of the key
+                loadMsg: 'Loading users info...',
+                pagination: true,//Paging or not
+                singleSelect: false,//Allow to select single row or not
+                pageSize: 5,//Max items in a page
+                pageNumber: 1,//Current page number
+                pageList: [5, 10, 15],
+                queryParams: pars,//Paras sent to back end.
+                columns: [[//c.UserName, c.UserPass, c.Email, c.RegTime
+                    { field: 'ck', checkbox: true, align: 'left', width: 50 },
+                    { field: 'ID', title: 'Number', width: 80 },
+                    { field: 'UserName', title: 'Name', width: 120 },
+                    { field: 'UserPass', title: 'Password', width: 120 },
+                    { field: 'Remark', title: 'Remark', width: 120 },
+                    {
+                        field: 'RegTime', title: 'Reg Time', width: 80, align: 'right',
+                        formatter: function (value, row, index) {
+                            return (eval(value.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d");
+                        }
+                    }
+                ]],
+                toolbar: [{
+                    id: 'btnDelete',
+                    text: 'Delete',
+                    iconCls: 'icon-remove',
+                    handler: function () {
+                        
+                        deleteInfo();
+                    }
+                }, {
+                    id: 'btnAdd',
+                    text: 'Add',
+                    iconCls: 'icon-add',
+                    handler: function () {
 
-<h2>Index</h2>
+                        addInfo();
+                    }
+                }, {
+                    id: 'btnEdit',
+                    text: 'Edit',
+                    iconCls: 'icon-edit',
+                    handler: function () {
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.UName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UPwd)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SubTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DelFlag)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ModifiedOn)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Remark)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Sort)
-        </th>
-        <th></th>
-    </tr>
+                        eidtInfo();
+                    }
+                }],
+            })
+        }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.UName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UPwd)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SubTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DelFlag)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ModifiedOn)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Remark)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Sort)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+    </script>
+</head>
+<body>
+    <div>
+        <table id="tt" style="width: 700px;" title="Users management" iconcls="icon-edit" />
+    </div>
 
-</table>
+</body>
+</html>
