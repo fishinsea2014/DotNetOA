@@ -12,8 +12,8 @@ namespace JQ.OA.WebApp.Controllers
 {
     public class UserinfoController : Controller
     {
-        //IBll.IUserInfoService UserInfoService { get; set; }
-        IBll.IUserInfoService userInfoService = new Bll.UserInfoService();
+        IBll.IUserInfoService userInfoService { get; set; }
+        //IBll.IUserInfoService userInfoService = new Bll.UserInfoService();
         //IBll.IUserInfoService UserInfoService { get; set; }
         // GET: Userinfo
         public ActionResult Index()
