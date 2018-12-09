@@ -12,13 +12,13 @@ namespace JQ.OA.WebApp.Controllers
 {
     public class UserinfoController : Controller
     {
-        //IBll.IUserInfoService userInfoService { get; set; }
-        IBll.IUserInfoService userInfoService = new Bll.UserInfoService();
+        IBll.IUserInfoService UserInfoService { get; set; }
+        //IBll.IUserInfoService userInfoService = new Bll.UserInfoService();
         //IBll.IUserInfoService UserInfoService { get; set; }
         // GET: Userinfo
         public ActionResult Index()
         {
-            var userinfoList = userInfoService.LoadEntities( u => true);
+            var userinfoList = UserInfoService.LoadEntities( u => true);
             ViewData.Model = userinfoList;
             return View();
         }
@@ -46,7 +46,7 @@ namespace JQ.OA.WebApp.Controllers
             //var userInfoList = userInfoService.LoadPageEntities<int>(pageIndex, pageSize, out totalCount, c => c.DelFlag == delFlag, c => c.ID, true);
 
             //Thhis is retriving users' info by searching parameters
-            var userInfoList = userInfoService.LoadSearchEntities(userInfoParam);
+            var userInfoList = UserInfoService.LoadSearchEntities(userInfoParam);
             var temp = from u in userInfoList
                        select new { ID = u.ID, UserName = u.UName, UserPass = u.UPwd, Remark = u.Remark, RegTime = u.SubTime };
             return Json(new { rows = temp, total = userInfoParam.TotalCount }, JsonRequestBehavior.AllowGet);
@@ -65,7 +65,7 @@ namespace JQ.OA.WebApp.Controllers
                 delIds.Add(Convert.ToInt32(id));
             }
 
-            if (userInfoService.DeleteEntities(delIds))
+            if (UserInfoService.DeleteEntities(delIds))
             {
                 return Content("ok");
             }
@@ -81,7 +81,7 @@ namespace JQ.OA.WebApp.Controllers
             userInfo.DelFlag = 0;
             userInfo.ModifiedOn = DateTime.Now;
             userInfo.SubTime = DateTime.Now;
-            userInfoService.AddEntity(userInfo);
+            UserInfoService.AddEntity(userInfo);
             return Content("ok");
         }
         #endregion
@@ -90,7 +90,7 @@ namespace JQ.OA.WebApp.Controllers
         public ActionResult GetUserInfoModel()
         {
             int id = int.Parse(Request["id"]);
-            UserInfo userInfo = userInfoService.LoadEntities(u => u.ID == id).FirstOrDefault();
+            UserInfo userInfo = UserInfoService.LoadEntities(u => u.ID == id).FirstOrDefault();
             if (userInfo != null)
             {
                 return Json(new { serverData = userInfo, msg = "ok" }, JsonRequestBehavior.AllowGet);
@@ -107,7 +107,7 @@ namespace JQ.OA.WebApp.Controllers
         public ActionResult EditUserinfo(UserInfo userInfo)
         {
             userInfo.ModifiedOn = DateTime.Now;
-            if (userInfoService.EditEntity(userInfo))
+            if (UserInfoService.EditEntity(userInfo))
             {
                 return Content("ok");
             }
