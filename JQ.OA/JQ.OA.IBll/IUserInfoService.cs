@@ -1,4 +1,5 @@
 ﻿using JQ.QA.Model;
+using JQ.QA.Model.SearchParam;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +15,10 @@ namespace JQ.OA.IBll
     {
         
         bool DeleteEntities(List<int> list);
-        
-        
+        IQueryable<UserInfo> LoadSearchEntities(UserInfoParam userInSearchfoParam);
+
+
+
     }
 
 }

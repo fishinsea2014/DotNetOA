@@ -1,5 +1,7 @@
 ﻿using JQ.OA.IBll;
 using JQ.QA.Model;
+using JQ.QA.Model.Enum;
+using JQ.QA.Model.SearchParam;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +35,30 @@ namespace JQ.OA.Bll
             }
             return this.GetCurrentDbSession.SaveChange();
         }
-       
+
+        /// <summary>
+        /// Load users' info by searching parameters.
+        /// </summary>
+        /// <param name="userInSearchfoParam"></param>
+        /// <returns></returns>
+        public  IQueryable<UserInfo> LoadSearchEntities(UserInfoParam userInSearchfoParam)
+        {
+            short delFlag = (short)DelFlagEnum.Normal;
+            var temp = this.GetCurrentDbSession.UserInfoDal.LoadEntities(c => c.DelFlag == delFlag);
+            if (!string.IsNullOrEmpty(userInSearchfoParam.UserName))
+            {
+                temp = temp.Where<UserInfo>(u => u.UName.Contains(userInSearchfoParam.UserName));
+            }
+            if (!string.IsNullOrEmpty(userInSearchfoParam.Remark))
+            {
+                temp = temp.Where<UserInfo>(u => u.Remark.Contains(userInSearchfoParam.Remark));
+            }
+
+            userInSearchfoParam.TotalCount = temp.Count();
+            return temp.OrderBy<UserInfo, int>(u => u.ID)
+                .Skip<UserInfo>((userInSearchfoParam.PageIndex - 1) * userInSearchfoParam.PageSize)
+                .Take<UserInfo>(userInSearchfoParam.PageSize);
+        }
     }
 
 }

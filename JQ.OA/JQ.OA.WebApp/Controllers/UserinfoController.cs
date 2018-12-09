@@ -22,7 +22,7 @@ namespace JQ.OA.WebApp.Controllers
             ViewData.Model = userinfoList;
             return View();
         }
-        #region Retrive user info
+        #region Retrive users info
         public ActionResult GetUserInfo()
         {
             int pageIndex = Request["page"] != null ? int.Parse(Request["page"]) : 1;
@@ -41,16 +41,15 @@ namespace JQ.OA.WebApp.Controllers
                 Remark = remark
             };
 
-            short delFlag = (short) DelFlagEnum.Normal;
-            //var userInfoList=UserInfoService.LoadPageEntities<int>(pageIndex, pageSize, out totalCount, c => c.DelFlag == delFlag, c => c.ID, true);
+            //This is for retriving all users' info
+            //short delFlag = (short) DelFlagEnum.Normal;
+            //var userInfoList = userInfoService.LoadPageEntities<int>(pageIndex, pageSize, out totalCount, c => c.DelFlag == delFlag, c => c.ID, true);
 
-            
-            var userInfoList = userInfoService.LoadPageEntities<int>(pageIndex, pageSize, out totalCount, c => c.DelFlag == delFlag, c => c.ID, true);
-            //var userInfoList=UserInfoService.LoadPageEntities<int>(pageIndex, pageSize, out totalCount, c => c.DelFlag == delFlag, c => c.ID, true);
-
+            //Thhis is retriving users' info by searching parameters
+            var userInfoList = userInfoService.LoadSearchEntities(userInfoParam);
             var temp = from u in userInfoList
                        select new { ID = u.ID, UserName = u.UName, UserPass = u.UPwd, Remark = u.Remark, RegTime = u.SubTime };
-            return Json(new { rows = temp, total = totalCount }, JsonRequestBehavior.AllowGet);
+            return Json(new { rows = temp, total = userInfoParam.TotalCount }, JsonRequestBehavior.AllowGet);
             //return Json(new { rows = temp, total = 100 }, JsonRequestBehavior.AllowGet);
         }
         #endregion
@@ -84,6 +83,38 @@ namespace JQ.OA.WebApp.Controllers
             userInfo.SubTime = DateTime.Now;
             userInfoService.AddEntity(userInfo);
             return Content("ok");
+        }
+        #endregion
+
+        #region  Retrive a user's info by ID
+        public ActionResult GetUserInfoModel()
+        {
+            int id = int.Parse(Request["id"]);
+            UserInfo userInfo = userInfoService.LoadEntities(u => u.ID == id).FirstOrDefault();
+            if (userInfo != null)
+            {
+                return Json(new { serverData = userInfo, msg = "ok" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { msg = "no" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        #endregion
+
+        #region Update a user's info
+        public ActionResult EditUserinfo(UserInfo userInfo)
+        {
+            userInfo.ModifiedOn = DateTime.Now;
+            if (userInfoService.EditEntity(userInfo))
+            {
+                return Content("ok");
+            }
+            else
+            {
+                return Content("no");
+            }
         }
         #endregion
     }

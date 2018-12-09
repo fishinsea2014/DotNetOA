@@ -19,6 +19,16 @@
         $(function () {
             loadData();
             $("#addDiv").css("display", "none");
+            $("#editDiv").css("display", "none");
+            //Searching
+            $("#btnSearch").click(function () {
+                var pars = {
+                    name: $("#txtUserName").val(),
+                    remark: $("#txtRemark").val()
+                };
+                loadData(pars);
+            });
+
         });
         
         function loadData(pars) {
@@ -66,7 +76,6 @@
                     text: 'Add',
                     iconCls: 'icon-add',
                     handler: function () {
-
                         addInfo();
                     }
                 }, {
@@ -74,13 +83,13 @@
                     text: 'Edit',
                     iconCls: 'icon-edit',
                     handler: function () {
-
-                        //eidtInfo();
+                        editInfo();
                     }
                 }],
             })
         }
 
+        //Delete selected users
         function deleteUsers() {
             var rows = $("#tt").datagrid('getSelections');
             if (!rows || rows.length == 0) {
@@ -135,9 +144,64 @@
             });
         }
 
+        //Edit a user info
+        function editInfo() {
+            var rows = $('#tt').datagrid('getSelections');
+            if (rows.length != 1) {
+                $.messager.alert("Tips", "Please select one and only one item", "error");
+                return;
+            }
+
+            $.post("/UserInfo/GetUserInfoModel", { "id": rows[0].ID }, function (data) {
+                if (data.msg == "ok") {
+                    $("#txtUName").val(data.serverData.UName);
+                    $("#txtUPwd").val(data.serverData.UPwd);
+                    $("#txtRemark").val(data.serverData.Remark);
+                    $("#txtSort").val(data.serverData.Sort);
+                    $("#txtSubTime").val(ChangeDateFormat(data.serverData.SubTime));
+                    $("#txtDelFlag").val(data.serverData.DelFlag);
+                    $("#txtId").val(data.serverData.ID);
+                    $("#editDiv").css("display", "block");
+                    $("#editDiv").dialog({
+                        title: "Edit a user's info",
+                        width: 300,
+                        height: 300,
+                        collapsible: true,
+                        resizable: true,
+                        modal: true,
+                        buttons: [{
+                            text: "Ok",
+                            iconCls: 'icon-ok',
+                            handler: function () {
+                                $("#editForm").submit();
+                            }
+                        },
+                        {
+                            text: "Cancel",
+                            handler: function () {
+                                $('#editDiv').dialog('close');
+                            }
+
+                        }]
+                    });
+                } else {
+                    $.messager.alert("Tips", "The user does not exist", "error");
+                }
+            })            
+        }
+
+        //Actions after edit dialog
+        function afterEdit(data) {
+            if (data == "ok") {
+                $('#editDiv').dialog('close');
+                $('#tt').datagrid('reload');
+            } else {
+                $.messager.alert("Tips", "Failed to update the user", "error");
+            }
+        }
         
 
-        //If add a user successfuly
+        //Actions after add a user
         function afterAdd(data) {
             if (data == "ok") {
                 $("#addForm input").val(""); //Clear input values
@@ -158,6 +222,12 @@
 </head>
 <body>
     <div>
+        <div>
+            User Name: <input type="text" id="txtUserName" />
+            &nbsp;&nbsp;
+            Remark: <input type="text" id="txtRemark" />
+            <input type="button" value="Search" id="btnSearch" />
+        </div>
         <table id="tt" style="width: 700px;" title="Users management" iconcls="icon-edit" ></table>
     </div>
     <!--Add a user -->
