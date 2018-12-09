@@ -13,7 +13,7 @@ namespace SpringNet
 
         public string ShowMsg()
         {
-            return "Hello :" + UserName + "and the age is : " + Person.Age;
+            return "Hello : " + UserName + " and the age is : " + Person.Age;
         }
     }
 }
