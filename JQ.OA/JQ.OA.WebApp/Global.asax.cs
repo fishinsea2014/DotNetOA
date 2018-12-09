@@ -10,7 +10,7 @@ using System.Web.Routing;
 
 namespace JQ.OA.WebApp
 {
-    public class MvcApplication : SpringMvcApplication //System.Web.HttpApplication
+    public class MvcApplication : SpringMvcApplication //Inheritate spring instead of System.Web.HttpApplication
     {
         protected void Application_Start()
         {
