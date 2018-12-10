@@ -1,4 +1,5 @@
 ﻿using JQ.OA.WebApp.Models;
+using log4net;
 using Spring.Web.Mvc;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace JQ.OA.WebApp
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             //Write the errors into log file
-            string fileLogPath = Server.MapPath("/Log/");
+            string fileLogPath = Server.MapPath("/Log/"); 
             //Get a thread from thread pool to monitor the exceptions
             ThreadPool.QueueUserWorkItem((waitCallBack) =>  //The parameter is a lambda function
             { 
@@ -33,8 +34,11 @@ namespace JQ.OA.WebApp
                     if (MyExceptionAttribute.ExceptionQueue.Count > 0)
                     {
                         Exception ex = MyExceptionAttribute.ExceptionQueue.Dequeue(); //Dequeue an item
-                        string fileName = DateTime.Now.ToString("yyyy-MM-dd") + ".txt";
-                        File.AppendAllText(fileLogPath + fileName, ex.ToString(), System.Text.Encoding.Default);
+                        //string fileName = DateTime.Now.ToString("yyyy-MM-dd") + ".txt";
+                        //File.AppendAllText(fileLogPath + fileName, ex.ToString(), System.Text.Encoding.Default);
+                        ILog logger = LogManager.GetLogger("errorMsg");
+                        logger.Error(ex.ToString());
+                        Console.WriteLine(logger.GetType());
                     }
                     else
                     {
