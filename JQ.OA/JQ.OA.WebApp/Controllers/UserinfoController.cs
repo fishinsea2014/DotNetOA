@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace JQ.OA.WebApp.Controllers
 {
-    public class UserinfoController : Controller
+    public class UserinfoController : BaseController // Controller
     {
         IBll.IUserInfoService userInfoService { get; set; }
         //IBll.IUserInfoService userInfoService = new Bll.UserInfoService();

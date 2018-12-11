@@ -34,11 +34,12 @@ namespace JQ.OA.WebApp
                     if (MyExceptionAttribute.ExceptionQueue.Count > 0)
                     {
                         Exception ex = MyExceptionAttribute.ExceptionQueue.Dequeue(); //Dequeue an item
-                        //string fileName = DateTime.Now.ToString("yyyy-MM-dd") + ".txt";
-                        //File.AppendAllText(fileLogPath + fileName, ex.ToString(), System.Text.Encoding.Default);
-                        ILog logger = LogManager.GetLogger("errorMsg");
-                        logger.Error(ex.ToString());
-                        Console.WriteLine(logger.GetType());
+                        string fileName = DateTime.Now.ToString("yyyy-MM-dd") + ".txt";
+                        File.AppendAllText(fileLogPath + fileName, ex.ToString(), System.Text.Encoding.Default);
+                        //TODO: log4net do not work.
+                        //ILog logger = LogManager.GetLogger("errorMsg");
+                        //logger.Error(ex.ToString());
+                        //Console.WriteLine(logger.GetType());
                     }
                     else
                     {

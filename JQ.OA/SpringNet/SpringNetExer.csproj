@@ -74,5 +74,11 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\JQ.OA.Common\JQ.OA.Common.csproj">
+      <Project>{1ac892df-88e0-4222-b6bc-e53183cdfc6f}</Project>
+      <Name>JQ.OA.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

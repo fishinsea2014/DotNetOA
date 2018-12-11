@@ -183,8 +183,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ExceptionTextController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\UserinfoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -560,10 +562,12 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Login\index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Log\" />
+    <Folder Include="Views\Base\" />
     <Folder Include="Views\ExceptionText\" />
   </ItemGroup>
   <ItemGroup>
@@ -583,6 +587,10 @@
     <ProjectReference Include="..\JQ.OA.Bll\JQ.OA.Bll.csproj">
       <Project>{c3e4bcc8-c375-405b-971e-81bd400cf141}</Project>
       <Name>JQ.OA.Bll</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JQ.OA.Common\JQ.OA.Common.csproj">
+      <Project>{1AC892DF-88E0-4222-B6BC-E53183CDFC6F}</Project>
+      <Name>JQ.OA.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\JQ.OA.IBll\JQ.OA.IBll.csproj">
       <Project>{13fa1f68-3fa5-4b30-b55e-200f5e61cb5c}</Project>
