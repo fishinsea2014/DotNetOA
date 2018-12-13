@@ -34,12 +34,21 @@ namespace JQ.OA.WebApp.Controllers
                 return Content("no: Capture code is error");
             }
 
+            //Validate the user name and password
             string userName = Request["LoginCode"];
             string userPwd = Request["LoginPwd"];
             UserInfo userInfo = UserInfoService.LoadEntities(u => u.UName == userName && u.UPwd == userPwd).FirstOrDefault();
             if (userInfo != null)
             {
-                Session["userInfo"] = userInfo;
+                //Session["userInfo"] = userInfo;
+
+                //Keep the users' session to memcache server
+                string sessionId = Guid.NewGuid().ToString(); //Take the guid as the memcache key
+
+                //Keep an userInfo object in memcache by the key of sessionId
+                //Serialize the userInfo object to string before put it into memcache
+
+                MemcacheHelper.Set(sessionId, SerializerHelper.SerializeToString(userInfo), DateTime.Now.AddMinutes(20));
                 return Content("Ok: Login succeed");
             }
 

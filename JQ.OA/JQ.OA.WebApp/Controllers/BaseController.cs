@@ -18,7 +18,7 @@ namespace JQ.OA.WebApp.Controllers
             if (Session["userInfo"] == null)
             {
                 filterContext.HttpContext.Response.Redirect("/Login/Index");
-
+                return;
             } 
         }
 

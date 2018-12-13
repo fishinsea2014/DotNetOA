@@ -21,6 +21,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JQ.OA.DALFactory", "JQ.OA.D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpringNetExer", "SpringNet\SpringNetExer.csproj", "{ED2EC8E1-7ED2-4428-AC20-C9DAD2CCB19E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo", "Demo", "{6D703E86-CB58-47C0-A927-026441DF3569}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemcacheTest", "MemcacheTest\MemcacheTest.csproj", "{B696D9AB-399E-4ACE-8818-4454A785096A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,9 +67,16 @@ Global
 		{ED2EC8E1-7ED2-4428-AC20-C9DAD2CCB19E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED2EC8E1-7ED2-4428-AC20-C9DAD2CCB19E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED2EC8E1-7ED2-4428-AC20-C9DAD2CCB19E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B696D9AB-399E-4ACE-8818-4454A785096A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B696D9AB-399E-4ACE-8818-4454A785096A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B696D9AB-399E-4ACE-8818-4454A785096A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B696D9AB-399E-4ACE-8818-4454A785096A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B696D9AB-399E-4ACE-8818-4454A785096A} = {6D703E86-CB58-47C0-A927-026441DF3569}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8CFFD84F-BF4D-466B-9C5B-4EEAD952A483}

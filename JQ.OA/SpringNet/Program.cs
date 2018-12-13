@@ -20,6 +20,7 @@ namespace SpringNet
             ValidateCode v = new ValidateCode();
             Console.WriteLine(v.CreateValidateCode(4));
             Console.Read();
+            
         }
     }
 }
