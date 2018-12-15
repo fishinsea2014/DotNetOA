@@ -19,8 +19,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JQ.OA.WebApp", "JQ.OA.WebAp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JQ.OA.DALFactory", "JQ.OA.DALFactory\JQ.OA.DALFactory.csproj", "{AEE81353-3148-4410-8334-EDE8B4C57D66}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpringNetExer", "SpringNet\SpringNetExer.csproj", "{ED2EC8E1-7ED2-4428-AC20-C9DAD2CCB19E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,10 +57,6 @@ Global
 		{AEE81353-3148-4410-8334-EDE8B4C57D66}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AEE81353-3148-4410-8334-EDE8B4C57D66}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AEE81353-3148-4410-8334-EDE8B4C57D66}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ED2EC8E1-7ED2-4428-AC20-C9DAD2CCB19E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ED2EC8E1-7ED2-4428-AC20-C9DAD2CCB19E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ED2EC8E1-7ED2-4428-AC20-C9DAD2CCB19E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ED2EC8E1-7ED2-4428-AC20-C9DAD2CCB19E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

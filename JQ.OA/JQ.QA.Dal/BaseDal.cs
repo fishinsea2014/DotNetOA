@@ -28,7 +28,7 @@ namespace JQ.QA.Dal
             return Db.Set<T>().Where<T>(whereLambda);
         }
 
-
+        
         /// <summary>
         /// Paging
         /// </summary>
@@ -40,9 +40,7 @@ namespace JQ.QA.Dal
         /// <param name="orderbyLambda"></param>
         /// <param name="isAsc">true: increase, false:decrease </param>
         /// <returns></returns>
-        public IQueryable<T> LoadPageEntities<s>(int pageIdex, int pageSize, out int totalCount
-            , Expression<Func<T, bool>> whereLambda
-            , Expression<Func<T, s>> orderbyLambda, bool isAsc)
+        public IQueryable<T> LoadPageEntities<s>(int pageIdex, int pageSize, out int totalCount, Expression<Func<T, bool>> whereLambda, Expression<Func<T, s>> orderbyLambda, bool isAsc)
         {
             //TODO: modify isAsc in database to bool
             var temp = Db.Set<T>().Where<T>(whereLambda);
@@ -56,10 +54,8 @@ namespace JQ.QA.Dal
                 temp = temp.OrderByDescending<T, s>(orderbyLambda).Skip<T>((pageIdex - 1) * pageSize).Take<T>(pageSize);
             }
             return temp;
+
         }
-
-
-
         public T AddEntity(T entity)
         {
             Db.Set<T>().Add(entity);

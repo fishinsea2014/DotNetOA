@@ -1,8 +1,4 @@
-JQ.OA/packages/Microsoft.AspNet.WebApi.Client.5.2.4/lib/netstandard2.0/System.Net.Http.Formatting.xml
-JQ.OA/packages/
-JQ.OA/JQ.OA.WebApp/bin/
+
 **/bin/
 **/obj/
-JQ.OA/JQ.QA.Model/App.Config
-JQ.OA/JQ.OA.WebApp/Web.config
 JQ.OA/.vs/
