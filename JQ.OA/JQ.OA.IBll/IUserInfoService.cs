@@ -10,7 +10,7 @@ namespace JQ.OA.IBll
     /// <summary>
     /// Specific methods for UserInfo
     /// </summary>
-    public interface  IUserInfoService : IBaseService<UserInfo>
+    public partial interface  IUserInfoService : IBaseService<UserInfo>
     {
         
         bool DeleteEntities(List<int> list);

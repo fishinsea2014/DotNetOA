@@ -10,7 +10,7 @@ namespace JQ.OA.IBll
 {
     public interface  IBaseService<T> where T : class, new()
     {
-        IDBSession GetCurrentDbSession { get; }
+        IDbSession GetCurrentDbSession { get; }
         IBaseDal<T> CurrentDal { get; set; }
         IQueryable<T> LoadEntities(Expression<Func<T, bool>> whereLambda);
 

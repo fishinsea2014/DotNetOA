@@ -14,7 +14,7 @@ namespace JQ.OA.Bll
 
     
     
-        public IDBSession GetCurrentDbSession
+        public IDbSession GetCurrentDbSession
         {
             get
             {
@@ -46,19 +46,19 @@ namespace JQ.OA.Bll
 
         public bool DeleteEntity(T entity)
         {
-            CurrentDal.DeleteEntity(entity);
+            CurrentDal.Delete(entity);
             return this.GetCurrentDbSession.SaveChange();
         }
 
         public bool EditEntity(T entity)
         {
-            CurrentDal.EditEntity(entity);
+            CurrentDal.Update(entity);
             return this.GetCurrentDbSession.SaveChange();
         }
 
         public T AddEntity (T entity)
         {
-            CurrentDal.AddEntity(entity);
+            CurrentDal.Add(entity);
             this.GetCurrentDbSession.SaveChange();
             return entity;
         }

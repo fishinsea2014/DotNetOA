@@ -13,15 +13,8 @@ namespace JQ.QA.Model
     using System.Collections.Generic;
     
     [Serializable]
-    public partial class UserInfo
+    public partial class Department
     {
         public int Id { get; set; }
-        public string UName { get; set; }
-        public string UPwd { get; set; }
-        public Nullable<System.TimeSpan> SubTime { get; set; }
-        public string DelFlag { get; set; }
-        public string ModifiedOn { get; set; }
-        public string Remark { get; set; }
-        public string Sort { get; set; }
     }
 }

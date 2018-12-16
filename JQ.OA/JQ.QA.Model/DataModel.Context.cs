@@ -13,10 +13,10 @@ namespace JQ.QA.Model
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class OAEntities : DbContext
+    public partial class JasonExerEntities : DbContext
     {
-        public OAEntities()
-            : base("name=OAEntities")
+        public JasonExerEntities()
+            : base("name=JasonExerEntities")
         {
         }
     
@@ -26,5 +26,7 @@ namespace JQ.QA.Model
         }
     
         public virtual DbSet<UserInfo> UserInfoes { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<Department> Departments { get; set; }
     }
 }

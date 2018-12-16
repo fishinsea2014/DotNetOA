@@ -56,21 +56,21 @@ namespace JQ.QA.Dal
             return temp;
 
         }
-        public T AddEntity(T entity)
+        public T Add(T entity)
         {
             Db.Set<T>().Add(entity);
             //Db.SaveChanges();
             return entity;
         }
 
-        public bool DeleteEntity(T entity)
+        public bool Delete(T entity)
         {
             Db.Entry<T>(entity).State = System.Data.Entity.EntityState.Deleted;
             //return Db.SaveChanges() > 0;
             return true;
         }
 
-        public bool EditEntity(T entity)
+        public bool Update(T entity)
         {
             Db.Entry<T>(entity).State = System.Data.Entity.EntityState.Modified;
             //return Db.SaveChanges() > 0;

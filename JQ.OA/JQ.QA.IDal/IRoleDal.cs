@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 
 namespace JQ.QA.IDal
 {
-    public partial interface IDbSession
+    public partial interface IRoleDal
     {
-        
-        bool SaveChange();
     }
 }

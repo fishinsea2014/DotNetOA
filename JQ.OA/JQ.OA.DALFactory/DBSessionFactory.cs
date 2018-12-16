@@ -10,9 +10,9 @@ namespace JQ.OA.DALFactory
 {
     public class DBSessionFactory
     {
-        public static IDBSession CreateDbSession()
+        public static IDbSession CreateDbSession()
         {
-            IDBSession dbSession = (IDBSession)CallContext.GetData("dbSession");
+            IDbSession dbSession = (IDbSession)CallContext.GetData("dbSession");
             if (dbSession == null)
             {
                 dbSession = new DALFactory.DBSession();

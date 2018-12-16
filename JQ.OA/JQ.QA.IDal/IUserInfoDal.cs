@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace JQ.QA.IDal
 {
-    public interface IUserInfoDal : IBaseDal<UserInfo>
+    public partial interface IUserInfoDal : IBaseDal<UserInfo>
     {
         //Define individual method here
 

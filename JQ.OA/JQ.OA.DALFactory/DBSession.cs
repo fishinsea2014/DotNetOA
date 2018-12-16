@@ -14,30 +14,30 @@ namespace JQ.OA.DALFactory
     /// Create data access instance
     /// The Bll 
     /// </summary>
-    public class DBSession : IDBSession
+    public partial class DBSession : IDbSession
     {
         //JasonExerEntities Db = new JasonExerEntities();
         public DbContext Db
         {
             get { return DbContextFactory.CreateDbContext(); }
         }
-        private IUserInfoDal _UserInfoDal;
-        //DbContext
-        public IUserInfoDal UserInfoDal
-        {
-            get
-            {
-                if (_UserInfoDal == null)
-                {
-                    //_UserInfoDal = new UserInfoDal();                    
-                    _UserInfoDal = AbstractFactory.CreateUserInfoDal();
+        //private IUserInfoDal _UserInfoDal;
+        ////DbContext
+        //public IUserInfoDal UserInfoDal
+        //{
+        //    get
+        //    {
+        //        if (_UserInfoDal == null)
+        //        {
+        //            //_UserInfoDal = new UserInfoDal();                    
+        //            _UserInfoDal = AbstractFactory.CreateUserInfoDal();
 
-                }
-                return _UserInfoDal;
-            }
+        //        }
+        //        return _UserInfoDal;
+        //    }
 
-            set { _UserInfoDal = value;  }
-        }
+        //    set { _UserInfoDal = value;  }
+        //}
 
         /// <summary>
         /// When handle multiple table in one action, then:

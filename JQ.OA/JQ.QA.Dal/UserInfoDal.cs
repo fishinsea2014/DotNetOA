@@ -8,7 +8,7 @@ using System.Data.Entity;
 
 namespace JQ.QA.Dal
 {
-    public class UserInfoDal : BaseDal<UserInfo>, IUserInfoDal
+    public partial class UserInfoDal : BaseDal<UserInfo>, IUserInfoDal
     {
         //Implementing some specific method
         

@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JQ.QA.IDal
+namespace T4Demo
 {
-    public partial interface IDbSession
+    class Program
     {
-        
-        bool SaveChange();
+        static void Main(string[] args)
+        {
+        }
     }
 }

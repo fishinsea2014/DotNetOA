@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F1B475F2-724E-4511-853E-B86A05BEB55E}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>JQ.QA.Dal</RootNamespace>
-    <AssemblyName>JQ.QA.Dal</AssemblyName>
+    <ProjectGuid>{14D21B85-2C44-4768-952C-4FEB470E20D8}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>T4Demo</RootNamespace>
+    <AssemblyName>T4Demo</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -30,14 +32,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.Entity" />
-    <Reference Include="System.Data.Entity.Design" />
-    <Reference Include="System.ServiceModel.DomainServices.EntityFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,30 +42,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseDal.cs" />
-    <Compile Include="Dal.cs">
+    <Compile Include="Demo.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Dal.tt</DependentUpon>
+      <DependentUpon>Demo.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbContextFactory.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserInfoDal.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\JQ.QA.IDal\JQ.QA.IDal.csproj">
-      <Project>{fddda171-941d-4292-b969-5707351d683f}</Project>
-      <Name>JQ.QA.IDal</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\JQ.QA.Model\JQ.QA.Model.csproj">
-      <Project>{cde28e73-9a92-43f1-8f9a-a9c66bb86107}</Project>
-      <Name>JQ.QA.Model</Name>
-    </ProjectReference>
+    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Dal.tt">
+    <Content Include="Demo.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Dal.cs</LastGenOutput>
+      <LastGenOutput>Demo.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
