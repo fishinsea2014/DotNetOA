@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JQ.OA.Common
 {
-    public class Class1
+    class LogHelper
     {
     }
 }

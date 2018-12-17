@@ -12,21 +12,12 @@ namespace JQ.OA.DALFactory
     /// <summary>
     /// Utilise reflection to create an object
     /// </summary>
-    public class AbstractFactory
+    public partial class AbstractFactory
     {
         private readonly static string DalAssemblyPath = ConfigurationManager.AppSettings["DalAssemblyPath"];
         private readonly static string NameSpace = ConfigurationManager.AppSettings["NameSpace"];
 
-        /// <summary>
-        /// Create an Userinfo instance
-        /// </summary>
-        /// <returns></returns>
-        public static IUserInfoDal CreateUserInfoDal()
-        {
-            string fullClassName = NameSpace + ".UserInfoDal"; //Construct a full name of a class, include namespace
-            return CreateInstance(fullClassName) as IUserInfoDal;
-
-        }
+        
 
 
         /// <summary>

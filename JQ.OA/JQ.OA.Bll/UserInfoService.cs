@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace JQ.OA.Bll
 {
-    public class UserInfoService : BaseService<UserInfo>, IUserInfoService
+    public partial class UserInfoService : BaseService<UserInfo>, IUserInfoService
     {
 
-        public override void SetCurrentDal()
-        {
-            CurrentDal = this.GetCurrentDbSession.UserInfoDal;
-        }
+        //public override void SetCurrentDal()
+        //{
+        //    CurrentDal = this.GetCurrentDbSession.UserInfoDal;
+        //}
 
         /// <summary>
         /// Batch delete users

@@ -1,0 +1,55 @@
+﻿
+<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ include file="EF.Utility.CS.ttinclude"#>
+
+<#@ output extension=".cs"#>
+
+<#
+CodeGenerationTools code = new CodeGenerationTools(this);
+MetadataLoader loader = new MetadataLoader(this);
+CodeRegion region = new CodeRegion(this, 1);
+MetadataTools ef = new MetadataTools(this);
+string inputFile = @"..\\JQ.QA.Model\\DataModel.edmx";
+EdmItemCollection ItemCollection = loader.CreateEdmItemCollection(inputFile);
+string namespaceName = code.VsNamespaceSuggestion();
+EntityFrameworkTemplateFileManager fileManager = EntityFrameworkTemplateFileManager.Create(this);
+#>
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using JQ.QA.Model;
+
+namespace JQ.OA.Bll
+{
+<#
+//Emit Entity Types
+
+foreach (EntityType entity in ItemCollection.GetItems<EntityType>().OrderBy(e => e.Name))
+{
+	//fileManager.StartNewFine(entity.Name + "RepositoryExt.cs");
+	//BeginNamespace(namespaceName, code);
+
+#>
+	//public partial interface I<#=entity.Name#>Service : IBaseService<<#=entity.Name#>>{}
+
+	public partial class <#=entity.Name#>Service : BaseService<<#=entity.Name#>>, I<#=entity.Name#>Service
+    {
+
+        public override void SetCurrentDal()
+        {
+            CurrentDal = this.GetCurrentDbSession.<#=entity.Name#>Dal;
+        }
+	}
+
+
+<#}#>
+
+
+
+}
