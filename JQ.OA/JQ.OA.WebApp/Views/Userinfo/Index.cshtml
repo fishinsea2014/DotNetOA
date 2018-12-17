@@ -12,12 +12,12 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.UName)
+            @Html.DisplayNameFor(model => model.UserName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UPwd)
+            @Html.DisplayNameFor(model => model.Pwd)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.SubTime)
         </th>
         <th>
@@ -31,19 +31,19 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Sort)
-        </th>
+        </th>*@
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.UName)
+            @Html.DisplayFor(modelItem => item.UserName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.UPwd)
+            @Html.DisplayFor(modelItem => item.Pwd)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.SubTime)
         </td>
         <td>
@@ -57,7 +57,7 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Sort)
-        </td>
+        </td>*@
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
             @Html.ActionLink("Details", "Details", new { id=item.ID }) |

@@ -15,6 +15,7 @@ namespace JQ.OA.WebApp.Controllers
         {
             var userinfoList = userInfoService.LoadEntities( u => true);
             ViewData.Model = userinfoList;
+            
             return View();
         }
 

@@ -76,5 +76,10 @@ namespace JQ.QA.Dal
             //return Db.SaveChanges() > 0;
             return true;
         }
+
+        public bool SaveChange()
+        {
+            return Db.SaveChanges() > 0;
+        }
     }
 }

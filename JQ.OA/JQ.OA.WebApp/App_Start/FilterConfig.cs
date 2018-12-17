@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using JQ.OA.WebApp.Models;
+using System.Web;
 using System.Web.Mvc;
 
 namespace JQ.OA.WebApp
@@ -7,7 +8,8 @@ namespace JQ.OA.WebApp
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            filters.Add(new HandleErrorAttribute());
+            //filters.Add(new HandleErrorAttribute());
+            filters.Add(new MyExceptionFilterAttribute());
         }
     }
 }

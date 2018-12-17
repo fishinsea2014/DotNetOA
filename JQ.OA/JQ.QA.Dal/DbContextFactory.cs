@@ -22,7 +22,7 @@ namespace JQ.QA.Dal
         {
             DbContext dbContext = (DbContext)CallContext.GetData("dbContext");
             if (dbContext == null){
-                dbContext = new JasonExerEntities();
+                dbContext = new DataModelContainer();
                 CallContext.SetData("dbContext", dbContext);
             }
             return dbContext;

@@ -23,7 +23,7 @@ namespace JQ.OA.Bll
         /// <returns></returns>
         public bool DeleteEntities(List<int> list)
         {
-            var userInfoList = this.GetCurrentDbSession.UserInfoDal.LoadEntities(c => list.Contains(c.Id));
+            var userInfoList = this.GetCurrentDbSession.UserInfoDal.LoadEntities(c => list.Contains(c.ID));
             foreach (var userInfo in userInfoList)
             {
                 this.GetCurrentDbSession.UserInfoDal.Delete(userInfo);
