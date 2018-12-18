@@ -1,4 +1,5 @@
 ﻿using System;
+using JQ.OA.Bll;
 using JQ.QA.Dal;
 using JQ.QA.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -9,6 +10,7 @@ namespace OAUnitTest
     public class UnitTest1
     {
         private UserInfoDal userInfoDal = new UserInfoDal();
+        JQ.OA.IBll.IUserInfoService UserInfoService { get; set; }
         [TestMethod]
         public void TestAdd()
         {
@@ -36,6 +38,14 @@ namespace OAUnitTest
                 i++;
             }
             Assert.AreEqual(true, i> 0);
+        }
+
+        [TestMethod]
+        public void TestLoadEntitiesService()
+        {
+            string userName = "Jason";
+            string pwd = "123";
+            UserInfo userInfo = UserInfoService.LoadEntities(u => u.UserName == userName && u.Pwd == pwd).FirstOrDefault();
         }
     }
 }

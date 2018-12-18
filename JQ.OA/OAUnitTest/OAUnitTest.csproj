@@ -70,9 +70,21 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\JQ.OA.Bll\JQ.OA.Bll.csproj">
+      <Project>{C3E4BCC8-C375-405B-971E-81BD400CF141}</Project>
+      <Name>JQ.OA.Bll</Name>
+    </ProjectReference>
     <ProjectReference Include="..\JQ.OA.Common\JQ.OA.Common.csproj">
       <Project>{1ac892df-88e0-4222-b6bc-e53183cdfc6f}</Project>
       <Name>JQ.OA.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JQ.OA.DALFactory\JQ.OA.DALFactory.csproj">
+      <Project>{aee81353-3148-4410-8334-ede8b4c57d66}</Project>
+      <Name>JQ.OA.DALFactory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JQ.OA.IBll\JQ.OA.IBll.csproj">
+      <Project>{13fa1f68-3fa5-4b30-b55e-200f5e61cb5c}</Project>
+      <Name>JQ.OA.IBll</Name>
     </ProjectReference>
     <ProjectReference Include="..\JQ.QA.Dal\JQ.QA.Dal.csproj">
       <Project>{f1b475f2-724e-4511-853e-b86a05beb55e}</Project>

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using JQ.OA.Bll;
+using JQ.OA.IBll;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,8 +10,9 @@ namespace JQ.OA.WebApp.Controllers
 {
     public class UserinfoController : Controller
     {
-        //IBll.IUserInfoService userInfoService { get; set; }
-        IBll.IUserInfoService userInfoService = new Bll.UserInfoService();
+        IBll.IUserInfoService userInfoService { get; set; }
+        //IUserInfoService userInfoService = new UserInfoService();
+        //IBll.IUserInfoService userInfoService = new Bll.UserInfoService();
         // GET: Userinfo
         public ActionResult Index()
         {

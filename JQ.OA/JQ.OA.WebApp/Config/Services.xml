@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+
+  <!--<object id="DepartmentService" type="JQ.OA.BLL.DepartmentService, JQ.OA.BLL" >
+
+  </object>
+  <object id="RoleService" type="JQ.OA.BLL.RoleService, JQ.OA.BLL" >
+
+  </object>-->
+  <object id="UserInfoService" type="JQ.OA.BLL.UserInfoService, JQ.OA.BLL" >
+
+  </object>
+
+  <!--<object type="JQ.OA.Bll.UserInfoService, JQ.OA.Bll" singleton="false" name="UserInfoService"></object>-->
+
+  
+</objects>
