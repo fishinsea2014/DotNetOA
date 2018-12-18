@@ -8,10 +8,10 @@ using System.Web.Mvc;
 
 namespace JQ.OA.WebApp.Controllers
 {
-    public class UserinfoController : Controller
+    public class UserinfoController : BaseController
     {
-        IBll.IUserInfoService userInfoService { get; set; }
-        //IUserInfoService userInfoService = new UserInfoService();
+        //IBll.IUserInfoService userInfoService { get; set; }
+        IUserInfoService userInfoService = new UserInfoService();
         //IBll.IUserInfoService userInfoService = new Bll.UserInfoService();
         // GET: Userinfo
         public ActionResult Index()

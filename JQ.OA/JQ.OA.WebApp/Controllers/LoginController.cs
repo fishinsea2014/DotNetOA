@@ -13,7 +13,7 @@ namespace JQ.OA.WebApp.Controllers
     {
         // GET: Login
 
-        //IBll.IUserInfoService UserInfoService { get; set; }
+        //IBll.IUserInfoService userInfoService { get; set; }
 
         IBll.IUserInfoService userInfoService = new UserInfoService();
         public ActionResult Index()
