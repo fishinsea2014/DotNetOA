@@ -1,31 +1,242 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    Layout = null;
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="../../Content/LgUI/skins/Aqua/css/ligerui-all.css" rel="stylesheet" />
+    <link href="../../Content/LgUI/skins/ligerui-icons.css" rel="stylesheet" />
+
+    <script src="../../Scripts/jquery-1.8.0.min.js"></script>
+    <script src="../../Scripts/LgUI/ligerui.all.js"></script>
+    <style type="text/css">
+        .l-case-title {
+            font-weight: bold;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #winlinks {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            width: 100%;
+        }
+
+            #winlinks ul {
+                position: relative;
+            }
+
+            #winlinks li {
+                width: 70px;
+                cursor: pointer;
+                height: 80px;
+                position: absolute;
+                z-index: 101;
+                list-style: none;
+                text-align: center;
+            }
+
+                #winlinks li img {
+                    width: 36px;
+                    height: 36px;
+                }
+
+                #winlinks li span {
+                    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.3);
+                    border-radius: 10px 10px 10px 10px;
+                    display: block;
+                    font-size: 12px;
+                    margin-top: 1px;
+                    color: White;
+                    line-height: 18px;
+                    text-align: center;
+                }
+
+                #winlinks li.l-over div.bg {
+                    display: block;
+                }
+
+                #winlinks li div.bg {
+                    display: none;
+                    position: absolute;
+                    top: -2px;
+                    left: -2px;
+                    z-index: 0;
+                    width: 75px;
+                    height: 64px;
+                    -webkit-border-radius: 5px;
+                    -moz-border-radius: 5px;
+                    border-radius: 5px;
+                    background: #000;
+                    opacity: 0.1;
+                    filter: alpha(opacity=10);
+                }
+
+        .l-taskbar-task-icon {
+            top: 3px;
+            left: 6px;
+            background-image: none;
+        }
+
+        .l-taskbar-task-content {
+            margin-left: 30px;
+        }
+
+        .l-taskbar-task-icon img {
+            width: 22px;
+            height: 22px;
+        }
+
+        #header {
+            height: 69px;
+            background-image: url('../../Content/Images/bg3.png');
+            background-repeat: repeat-x;
+        }
+
+            #header img, h1 {
+                float: left;
+            }
+
+            #header h1 {
+                margin-top: 37px;
+            }
+
+        #imgUser {
+            margin-right: 10px;
+        }
+    </style>
+
+
+</head>
+
+<body style="overflow: hidden; background: url(../../Content/Images/7_7.jpg) no-repeat  center center;">
+    <div id="header">
+
+        <img src="../../Content/Images/logo.jpg" />
+        <h1 style="margin-left:15px">WELCOME TO JASON'S OA</h1>
+        <div style="float: right;">
+            <table>
+                <tr>
+                    <td style="vertical-align: bottom;font-size: 14px;font-weight:bold;">@DateTime.Now.ToString("yyyy-MM-dd") &nbsp;&nbsp; @DateTime.Now.DayOfWeek</td>
+                    <td><img id="imgUser" src="../../Content/Images/big.png" /></td>
+                </tr>
+            </table>
+        </div>
+
+
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    <div id="layout1">
+        <div position="center" style="background: url(../../Content/Images/7_7.jpg) no-repeat  center center;">
+            <div id="winlinks">
+                <ul></ul>
+            </div>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+
+</body>
+<script type="text/javascript">
+    var LINKWIDTH = 90, LINKHEIGHT = 90, TASKBARHEIGHT = 43;
+    var winlinksul = $("#winlinks ul");
+
+    //A dialog box pops up when you click on an icon
+    function f_open(url, title, icon) {
+        var win = $.ligerDialog.open(
+        {
+            height: 500, url: url, width: 600, showMax: true, showToggle: true, showMin: true, isResize: true, modal: false, title: title, slide: false, buttons: [
+              {
+                  text: 'OK', onclick: function (item, Dialog, index) {
+                      win.hide();
+                  }
+              }
+            ]
+        });
+        var task = jQuery.ligerui.win.tasks[win.id];
+        if (task) {
+            $(".l-taskbar-task-icon:first", task).html('<img src="' + icon + '" />');
+        }
+        return win;
+    }
+
+
+    //Displied icons
+    var links = [
+            { icon: '../../Content/Images/3DSMAX.png', title: 'Weekly Report', url: '../case/week.htm' },
+            { icon: '../../Content/Images/3DSMAX.png', title: 'treegrid', url: '../grid/treegrid/treegrid.htm' },
+            { icon: '../../Content/Images/3DSMAX.png', title: 'My Report', url: '../grid/mulheader/grid2.htm' },
+            { icon: '../../Content/Images/Program Files Folder.png', title: 'Frozen Grid', url: '../grid/frozen/frozengrid.htm' },
+            { icon: '../../Content/Images/Program Files Folder.png', title: 'Draggable', url: '../base/drag.htm' },
+            { icon: '../../Content/Images/Alien Folder.png', title: 'Menu Tree', url: '../tree/draggable.htm' },
+            { icon: '../../Content/Images/Xp-G5 006.png', title: 'Drop-down box', url: '../comboBox/comboBoxGrid.htm' },
+        { icon: '../../Content/Images/Xp-G5 006.png', title: 'Drop-down box', url: '../comboBox/comboBoxGrid.htm' },
+            { icon: '../../Content/Images/Alien Folder.png', title: 'layout', url: '../layout/layoutFullHeight.htm' },
+             { icon: '../../Content/Images/Alien Folder.png', title: 'menu', url: '../menu/menubar.htm' },
+             { icon: '../../Content/Images/Xp-G5 006.png', title: 'tab', url: '../tab/tabHtml.htm' },
+             { icon: '../../Content/Images/3DSMAX.png', title: 'Grouping', url: '../grid/groupable/checkbox.htm' }
+    ];
+
+    //Rearrange all the icons when the size of window changed
+    function onResize() {
+        var linksHeight = $(window).height() - TASKBARHEIGHT;
+        var winlinks = $("#winlinks");
+        winlinks.height(linksHeight);
+        var colMaxNumber = parseInt(linksHeight / LINKHEIGHT);//Maximum icons in a line
+        for (var i = 0, l = links.length; i < l; i++) {
+            var link = links[i];
+            var jlink = $("li[linkindex=" + i + "]", winlinks);
+            var top = (i % colMaxNumber) * LINKHEIGHT, left = parseInt(i / colMaxNumber) * LINKWIDTH;
+            if (isNaN(top) || isNaN(left)) continue;
+            jlink.css({ top: top, left: left });
+        }
+
+    }
+
+    //Go through all the items in icons' list, and put an image into the ul tag
+    function linksInit() {
+        for (var i = 0, l = links.length; i < l; i++) {
+            var link = links[i];
+            var jlink;
+            var jlink = $("<li></li>");
+            jlink.attr("linkindex", i);
+            jlink.append("<img src='" + link.icon + "' />");
+            jlink.append("<span>" + link.title + "</span>");
+            jlink.append("<div class='bg'></div>");
+            jlink.hover(function () {
+                $(this).addClass("l-over");
+            }, function () {
+                $(this).removeClass("l-over");
+            }).click(function () {
+                var linkindex = $(this).attr("linkindex");
+                var link = links[linkindex];
+                f_open(link.url, link.title, link.icon);
+            });
+            jlink.appendTo(winlinksul);
+        }
+
+    }
+
+    $(window).resize(onResize);
+    $.ligerui.win.removeTaskbar = function () { }; //No removal allowed
+    $.ligerui.win.createTaskbar(); //Create a taskbar when the page loads
+
+    linksInit();
+    onResize();
+
+    $("#layout1").ligerLayout();
+
+
+</script>
+</html>
