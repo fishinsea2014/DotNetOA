@@ -18,10 +18,32 @@ namespace JQ.OA.DALFactory
         /// <returns></returns>
 			
 
+        public static IActionInfoDal CreateActionInfoDal()
+        {
+            string fullClassName = NameSpace + ".ActionInfoDal"; //Construct a full name of a class, include namespace
+            return CreateInstance(fullClassName) as IActionInfoDal;
+
+        }
+	
+
+
+			
+
         public static IDepartmentDal CreateDepartmentDal()
         {
             string fullClassName = NameSpace + ".DepartmentDal"; //Construct a full name of a class, include namespace
             return CreateInstance(fullClassName) as IDepartmentDal;
+
+        }
+	
+
+
+			
+
+        public static IR_User_ActionDal CreateR_User_ActionDal()
+        {
+            string fullClassName = NameSpace + ".R_User_ActionDal"; //Construct a full name of a class, include namespace
+            return CreateInstance(fullClassName) as IR_User_ActionDal;
 
         }
 	
@@ -44,6 +66,17 @@ namespace JQ.OA.DALFactory
         {
             string fullClassName = NameSpace + ".UserInfoDal"; //Construct a full name of a class, include namespace
             return CreateInstance(fullClassName) as IUserInfoDal;
+
+        }
+	
+
+
+			
+
+        public static IUserInfoMetaDal CreateUserInfoMetaDal()
+        {
+            string fullClassName = NameSpace + ".UserInfoMetaDal"; //Construct a full name of a class, include namespace
+            return CreateInstance(fullClassName) as IUserInfoMetaDal;
 
         }
 	

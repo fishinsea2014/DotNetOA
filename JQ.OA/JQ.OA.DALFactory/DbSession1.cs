@@ -14,6 +14,18 @@ namespace JQ.OA.DALFactory
 	 public partial class DBSession :IDbSession
     {  
 			
+		private IActionInfoDal _ActionInfoDal;
+		public IActionInfoDal ActionInfoDal {
+			get {
+				if (_ActionInfoDal == null)
+				{
+				_ActionInfoDal = AbstractFactory.CreateActionInfoDal();
+					//_ActionInfoDal =new ActionInfoDal();
+				}
+				return _ActionInfoDal;
+			}
+		}
+			
 		private IDepartmentDal _DepartmentDal;
 		public IDepartmentDal DepartmentDal {
 			get {
@@ -23,6 +35,18 @@ namespace JQ.OA.DALFactory
 					//_DepartmentDal =new DepartmentDal();
 				}
 				return _DepartmentDal;
+			}
+		}
+			
+		private IR_User_ActionDal _R_User_ActionDal;
+		public IR_User_ActionDal R_User_ActionDal {
+			get {
+				if (_R_User_ActionDal == null)
+				{
+				_R_User_ActionDal = AbstractFactory.CreateR_User_ActionDal();
+					//_R_User_ActionDal =new R_User_ActionDal();
+				}
+				return _R_User_ActionDal;
 			}
 		}
 			
@@ -44,9 +68,21 @@ namespace JQ.OA.DALFactory
 				if (_UserInfoDal == null)
 				{
 				_UserInfoDal = AbstractFactory.CreateUserInfoDal();
-                    //_UserInfoDal =new UserInfoDal();
-                }
+					//_UserInfoDal =new UserInfoDal();
+				}
 				return _UserInfoDal;
+			}
+		}
+			
+		private IUserInfoMetaDal _UserInfoMetaDal;
+		public IUserInfoMetaDal UserInfoMetaDal {
+			get {
+				if (_UserInfoMetaDal == null)
+				{
+				_UserInfoMetaDal = AbstractFactory.CreateUserInfoMetaDal();
+					//_UserInfoMetaDal =new UserInfoMetaDal();
+				}
+				return _UserInfoMetaDal;
 			}
 		}
 			

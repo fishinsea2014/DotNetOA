@@ -45,7 +45,7 @@ namespace OAUnitTest
         {
             string userName = "Jason";
             string pwd = "123";
-            UserInfo userInfo = UserInfoService.LoadEntities(u => u.UserName == userName && u.Pwd == pwd).FirstOrDefault();
+            //UserInfo userInfo = UserInfoService.LoadEntities(u => u.UserName == userName && u.Pwd == pwd).FirstOrDefault();
         }
     }
 }

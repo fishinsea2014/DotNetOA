@@ -28,5 +28,8 @@ namespace JQ.QA.Model
         public DbSet<UserInfo> UserInfoes { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<ActionInfo> ActionInfoes { get; set; }
+        public DbSet<R_User_Action> R_User_Action { get; set; }
+        public DbSet<UserInfoMeta> UserInfoMetas { get; set; }
     }
 }
