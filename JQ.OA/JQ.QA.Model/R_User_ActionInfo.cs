@@ -12,12 +12,12 @@ namespace JQ.QA.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class R_User_Action
+    public partial class R_User_ActionInfo
     {
         public int ID { get; set; }
-        public string IsPass { get; set; }
+        public bool IsPass { get; set; }
         public int UserInfoID { get; set; }
-        public int ActionInfoId { get; set; }
+        public int ActionInfoID { get; set; }
     
         public virtual UserInfo UserInfo { get; set; }
         public virtual ActionInfo ActionInfo { get; set; }

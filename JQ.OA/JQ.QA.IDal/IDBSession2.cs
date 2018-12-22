@@ -16,7 +16,7 @@ namespace JQ.QA.IDal
 		
 				IDepartmentDal DepartmentDal { get; }
 		
-				IR_User_ActionDal R_User_ActionDal { get; }
+				IR_User_ActionInfoDal R_User_ActionInfoDal { get; }
 		
 				IRoleDal RoleDal { get; }
 		

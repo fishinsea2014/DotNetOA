@@ -12,6 +12,7 @@ namespace JQ.OA.WebApp.Models
         {
             base.OnException(filterContext);
             Common.LogHelper.WriteLog(filterContext.Exception.ToString());
+            Common.LogHelper.WriteLog("======================End of the log=================");
 
             filterContext.HttpContext.Response.Redirect("/Error.html");
             

@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using JQ.QA.Model;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 
 namespace JQ.OA.DALFactory
 {
@@ -47,7 +48,16 @@ namespace JQ.OA.DALFactory
         /// <returns></returns>
         public bool SaveChange()
         {
-            return Db.SaveChanges() > 0 ;
+            try
+            {
+                return Db.SaveChanges() > 0 ;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                Console.WriteLine(ex);
+            }
+            return false;
+            
             //return true;
         }
     }

@@ -16,24 +16,21 @@ namespace JQ.QA.Model
     {
         public Department()
         {
-            this.UserInfoes = new HashSet<UserInfo>();
-            this.Roles = new HashSet<Role>();
+            this.UserInfo = new HashSet<UserInfo>();
         }
     
         public int ID { get; set; }
+        public short DelFlag { get; set; }
+        public int SubBy { get; set; }
+        public System.DateTime SubTime { get; set; }
+        public int ParentId { get; set; }
         public string DepName { get; set; }
-        public Nullable<short> ParentId { get; set; }
-        public string DepMasterId { get; set; }
+        public int DepMasterId { get; set; }
         public string DepNo { get; set; }
-        public string IsLeaf { get; set; }
-        public Nullable<int> Level { get; set; }
+        public bool IsLeaf { get; set; }
+        public int Level { get; set; }
         public string TreePath { get; set; }
-        public Nullable<short> DelFlag { get; set; }
-        public Nullable<int> SubBy { get; set; }
-        public Nullable<System.DateTime> SubTime { get; set; }
-        public string Remark { get; set; }
     
-        public virtual ICollection<UserInfo> UserInfoes { get; set; }
-        public virtual ICollection<Role> Roles { get; set; }
+        public virtual ICollection<UserInfo> UserInfo { get; set; }
     }
 }

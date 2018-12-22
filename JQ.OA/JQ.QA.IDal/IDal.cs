@@ -20,7 +20,7 @@ namespace JQ.QA.IDal
     { 
 	}	
 	
-	public partial interface IR_User_ActionDal :IBaseDal<R_User_Action>
+	public partial interface IR_User_ActionInfoDal :IBaseDal<R_User_ActionInfo>
     { 
 	}	
 	

@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 12/21/2018 00:52:29
+-- Date Created: 12/22/2018 14:04:57
 -- Generated from EDMX file: D:\my_projects\DotNet_OA_V2\JQ.OA\JQ.QA.Model\DataModel.edmx
 -- --------------------------------------------------
 
@@ -17,179 +17,110 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[FK_UserInfoRole_UserInfo]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[UserInfoRole] DROP CONSTRAINT [FK_UserInfoRole_UserInfo];
-GO
-IF OBJECT_ID(N'[dbo].[FK_UserInfoRole_Role]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[UserInfoRole] DROP CONSTRAINT [FK_UserInfoRole_Role];
-GO
-IF OBJECT_ID(N'[dbo].[FK_ActionInfoRole_ActionInfo]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[ActionInfoRole] DROP CONSTRAINT [FK_ActionInfoRole_ActionInfo];
-GO
-IF OBJECT_ID(N'[dbo].[FK_ActionInfoRole_Role]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[ActionInfoRole] DROP CONSTRAINT [FK_ActionInfoRole_Role];
-GO
-IF OBJECT_ID(N'[dbo].[FK_UserInfoR_User_Action]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[R_User_Action] DROP CONSTRAINT [FK_UserInfoR_User_Action];
-GO
-IF OBJECT_ID(N'[dbo].[FK_ActionInfoR_User_Action]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[R_User_Action] DROP CONSTRAINT [FK_ActionInfoR_User_Action];
-GO
-IF OBJECT_ID(N'[dbo].[FK_UserInfoDepartment_UserInfo]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[UserInfoDepartment] DROP CONSTRAINT [FK_UserInfoDepartment_UserInfo];
-GO
-IF OBJECT_ID(N'[dbo].[FK_UserInfoDepartment_Department]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[UserInfoDepartment] DROP CONSTRAINT [FK_UserInfoDepartment_Department];
-GO
-IF OBJECT_ID(N'[dbo].[FK_DepartmentRole_Department]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[DepartmentRole] DROP CONSTRAINT [FK_DepartmentRole_Department];
-GO
-IF OBJECT_ID(N'[dbo].[FK_DepartmentRole_Role]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[DepartmentRole] DROP CONSTRAINT [FK_DepartmentRole_Role];
-GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[UserInfoes]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[UserInfoes];
-GO
-IF OBJECT_ID(N'[dbo].[Departments]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Departments];
-GO
-IF OBJECT_ID(N'[dbo].[Roles]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Roles];
-GO
-IF OBJECT_ID(N'[dbo].[ActionInfoes]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[ActionInfoes];
-GO
-IF OBJECT_ID(N'[dbo].[R_User_Action]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[R_User_Action];
-GO
-IF OBJECT_ID(N'[dbo].[UserInfoMetas]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[UserInfoMetas];
-GO
-IF OBJECT_ID(N'[dbo].[UserInfoRole]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[UserInfoRole];
-GO
-IF OBJECT_ID(N'[dbo].[ActionInfoRole]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[ActionInfoRole];
-GO
-IF OBJECT_ID(N'[dbo].[UserInfoDepartment]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[UserInfoDepartment];
-GO
-IF OBJECT_ID(N'[dbo].[DepartmentRole]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[DepartmentRole];
-GO
 
 -- --------------------------------------------------
 -- Creating all tables
 -- --------------------------------------------------
 
--- Creating table 'UserInfoes'
-CREATE TABLE [dbo].[UserInfoes] (
+-- Creating table 'UserInfo'
+CREATE TABLE [dbo].[UserInfo] (
     [ID] int IDENTITY(1,1) NOT NULL,
-    [UserName] nvarchar(max)  NOT NULL,
-    [Pwd] nvarchar(max)  NOT NULL,
-    [Mail] nvarchar(max)  NULL,
-    [Phone] nvarchar(max)  NULL,
-    [DelFlag] smallint  NULL,
-    [SubBy] int  NULL,
-    [SubTime] datetime  NULL,
-    [Remark] nvarchar(max)  NULL
+    [UserName] nvarchar(32)  NOT NULL,
+    [Pwd] nvarchar(32)  NOT NULL,
+    [Mail] nvarchar(256)  NULL,
+    [Phone] nvarchar(32)  NOT NULL,
+    [DelFlag] smallint  NOT NULL,
+    [SubBy] int  NOT NULL,
+    [SubTime] datetime  NOT NULL,
+    [Remark] nvarchar(256)  NULL
 );
 GO
 
--- Creating table 'Departments'
-CREATE TABLE [dbo].[Departments] (
+-- Creating table 'Role'
+CREATE TABLE [dbo].[Role] (
     [ID] int IDENTITY(1,1) NOT NULL,
-    [DepName] nvarchar(max)  NOT NULL,
-    [ParentId] smallint  NULL,
-    [DepMasterId] nvarchar(max)  NULL,
-    [DepNo] nvarchar(max)  NULL,
-    [IsLeaf] nvarchar(max)  NULL,
-    [Level] int  NULL,
-    [TreePath] nvarchar(128)  NULL,
-    [DelFlag] smallint  NULL,
-    [SubBy] int  NULL,
-    [SubTime] datetime  NULL,
-    [Remark] nvarchar(max)  NULL
+    [RoleName] nvarchar(32)  NOT NULL,
+    [DelFlag] smallint  NOT NULL,
+    [SubBy] int  NOT NULL,
+    [SubTime] datetime  NOT NULL
 );
 GO
 
--- Creating table 'Roles'
-CREATE TABLE [dbo].[Roles] (
+-- Creating table 'Department'
+CREATE TABLE [dbo].[Department] (
     [ID] int IDENTITY(1,1) NOT NULL,
-    [RoleName] nvarchar(max)  NOT NULL,
-    [DelFlag] smallint  NULL,
-    [SubBy] int  NULL,
-    [SubTime] datetime  NULL,
-    [Remark] nvarchar(max)  NULL
+    [DelFlag] smallint  NOT NULL,
+    [SubBy] int  NOT NULL,
+    [SubTime] datetime  NOT NULL,
+    [ParentId] int  NOT NULL,
+    [DepName] nvarchar(32)  NOT NULL,
+    [DepMasterId] int  NOT NULL,
+    [DepNo] nvarchar(32)  NOT NULL,
+    [IsLeaf] bit  NOT NULL,
+    [Level] int  NOT NULL,
+    [TreePath] nvarchar(128)  NOT NULL
 );
 GO
 
--- Creating table 'ActionInfoes'
-CREATE TABLE [dbo].[ActionInfoes] (
+-- Creating table 'ActionInfo'
+CREATE TABLE [dbo].[ActionInfo] (
     [ID] int IDENTITY(1,1) NOT NULL,
-    [Url] nvarchar(512)  NOT NULL,
-    [HttpMethod] nvarchar(32)  NULL,
-    [Controller] nvarchar(64)  NULL,
-    [ActionMethod] nvarchar(128)  NULL,
-    [DelFlag] smallint  NULL,
-    [SubBy] int  NULL,
-    [SubTime] datetime  NULL,
-    [Remark] nvarchar(max)  NULL
+    [DelFlag] smallint  NOT NULL,
+    [SubBy] int  NOT NULL,
+    [SubTime] datetime  NOT NULL,
+    [Url] nvarchar(512)  NULL,
+    [HttpMethod] varchar(32)  NULL,
+    [ActionName] nvarchar(32)  NOT NULL,
+    [Remark] nvarchar(128)  NULL,
+    [Controoller] nvarchar(128)  NOT NULL,
+    [ActionMethod] nvarchar(64)  NOT NULL
 );
 GO
 
--- Creating table 'R_User_Action'
-CREATE TABLE [dbo].[R_User_Action] (
+-- Creating table 'R_User_ActionInfo'
+CREATE TABLE [dbo].[R_User_ActionInfo] (
     [ID] int IDENTITY(1,1) NOT NULL,
-    [IsPass] nvarchar(max)  NULL,
+    [IsPass] bit  NOT NULL,
     [UserInfoID] int  NOT NULL,
-    [ActionInfoId] int  NOT NULL
+    [ActionInfoID] int  NOT NULL
 );
 GO
 
--- Creating table 'UserInfoMetas'
-CREATE TABLE [dbo].[UserInfoMetas] (
+-- Creating table 'UserInfoMeta'
+CREATE TABLE [dbo].[UserInfoMeta] (
     [ID] int IDENTITY(1,1) NOT NULL,
-    [Mobile] nvarchar(max)  NULL,
-    [Gender] nvarchar(max)  NULL,
-    [UserInfoId] nvarchar(max)  NULL,
-    [DelFlag] smallint  NULL,
-    [SubBy] int  NULL,
-    [SubTime] datetime  NULL,
-    [Remark] nvarchar(max)  NULL
+    [QQ] nvarchar(32)  NOT NULL,
+    [Msn] nvarchar(32)  NOT NULL,
+    [UserInfoId] int  NOT NULL,
+    [DelFlag] smallint  NOT NULL,
+    [SubBy] int  NOT NULL,
+    [SubTime] datetime  NOT NULL
 );
 GO
 
 -- Creating table 'UserInfoRole'
 CREATE TABLE [dbo].[UserInfoRole] (
-    [UserInfoes_ID] int  NOT NULL,
-    [Roles_ID] int  NOT NULL
-);
-GO
-
--- Creating table 'ActionInfoRole'
-CREATE TABLE [dbo].[ActionInfoRole] (
-    [ActionInfoes_ID] int  NOT NULL,
-    [Roles_ID] int  NOT NULL
+    [UserInfo_ID] int  NOT NULL,
+    [Role_ID] int  NOT NULL
 );
 GO
 
 -- Creating table 'UserInfoDepartment'
 CREATE TABLE [dbo].[UserInfoDepartment] (
-    [UserInfoes_ID] int  NOT NULL,
-    [Departments_ID] int  NOT NULL
+    [UserInfo_ID] int  NOT NULL,
+    [Department_ID] int  NOT NULL
 );
 GO
 
--- Creating table 'DepartmentRole'
-CREATE TABLE [dbo].[DepartmentRole] (
-    [Departments_ID] int  NOT NULL,
-    [Roles_ID] int  NOT NULL
+-- Creating table 'ActionInfoRole'
+CREATE TABLE [dbo].[ActionInfoRole] (
+    [ActionInfo_ID] int  NOT NULL,
+    [Role_ID] int  NOT NULL
 );
 GO
 
@@ -197,84 +128,78 @@ GO
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
 
--- Creating primary key on [ID] in table 'UserInfoes'
-ALTER TABLE [dbo].[UserInfoes]
-ADD CONSTRAINT [PK_UserInfoes]
+-- Creating primary key on [ID] in table 'UserInfo'
+ALTER TABLE [dbo].[UserInfo]
+ADD CONSTRAINT [PK_UserInfo]
     PRIMARY KEY CLUSTERED ([ID] ASC);
 GO
 
--- Creating primary key on [ID] in table 'Departments'
-ALTER TABLE [dbo].[Departments]
-ADD CONSTRAINT [PK_Departments]
+-- Creating primary key on [ID] in table 'Role'
+ALTER TABLE [dbo].[Role]
+ADD CONSTRAINT [PK_Role]
     PRIMARY KEY CLUSTERED ([ID] ASC);
 GO
 
--- Creating primary key on [ID] in table 'Roles'
-ALTER TABLE [dbo].[Roles]
-ADD CONSTRAINT [PK_Roles]
+-- Creating primary key on [ID] in table 'Department'
+ALTER TABLE [dbo].[Department]
+ADD CONSTRAINT [PK_Department]
     PRIMARY KEY CLUSTERED ([ID] ASC);
 GO
 
--- Creating primary key on [ID] in table 'ActionInfoes'
-ALTER TABLE [dbo].[ActionInfoes]
-ADD CONSTRAINT [PK_ActionInfoes]
+-- Creating primary key on [ID] in table 'ActionInfo'
+ALTER TABLE [dbo].[ActionInfo]
+ADD CONSTRAINT [PK_ActionInfo]
     PRIMARY KEY CLUSTERED ([ID] ASC);
 GO
 
--- Creating primary key on [ID] in table 'R_User_Action'
-ALTER TABLE [dbo].[R_User_Action]
-ADD CONSTRAINT [PK_R_User_Action]
+-- Creating primary key on [ID] in table 'R_User_ActionInfo'
+ALTER TABLE [dbo].[R_User_ActionInfo]
+ADD CONSTRAINT [PK_R_User_ActionInfo]
     PRIMARY KEY CLUSTERED ([ID] ASC);
 GO
 
--- Creating primary key on [ID] in table 'UserInfoMetas'
-ALTER TABLE [dbo].[UserInfoMetas]
-ADD CONSTRAINT [PK_UserInfoMetas]
+-- Creating primary key on [ID] in table 'UserInfoMeta'
+ALTER TABLE [dbo].[UserInfoMeta]
+ADD CONSTRAINT [PK_UserInfoMeta]
     PRIMARY KEY CLUSTERED ([ID] ASC);
 GO
 
--- Creating primary key on [UserInfoes_ID], [Roles_ID] in table 'UserInfoRole'
+-- Creating primary key on [UserInfo_ID], [Role_ID] in table 'UserInfoRole'
 ALTER TABLE [dbo].[UserInfoRole]
 ADD CONSTRAINT [PK_UserInfoRole]
-    PRIMARY KEY CLUSTERED ([UserInfoes_ID], [Roles_ID] ASC);
+    PRIMARY KEY CLUSTERED ([UserInfo_ID], [Role_ID] ASC);
 GO
 
--- Creating primary key on [ActionInfoes_ID], [Roles_ID] in table 'ActionInfoRole'
-ALTER TABLE [dbo].[ActionInfoRole]
-ADD CONSTRAINT [PK_ActionInfoRole]
-    PRIMARY KEY CLUSTERED ([ActionInfoes_ID], [Roles_ID] ASC);
-GO
-
--- Creating primary key on [UserInfoes_ID], [Departments_ID] in table 'UserInfoDepartment'
+-- Creating primary key on [UserInfo_ID], [Department_ID] in table 'UserInfoDepartment'
 ALTER TABLE [dbo].[UserInfoDepartment]
 ADD CONSTRAINT [PK_UserInfoDepartment]
-    PRIMARY KEY CLUSTERED ([UserInfoes_ID], [Departments_ID] ASC);
+    PRIMARY KEY CLUSTERED ([UserInfo_ID], [Department_ID] ASC);
 GO
 
--- Creating primary key on [Departments_ID], [Roles_ID] in table 'DepartmentRole'
-ALTER TABLE [dbo].[DepartmentRole]
-ADD CONSTRAINT [PK_DepartmentRole]
-    PRIMARY KEY CLUSTERED ([Departments_ID], [Roles_ID] ASC);
+-- Creating primary key on [ActionInfo_ID], [Role_ID] in table 'ActionInfoRole'
+ALTER TABLE [dbo].[ActionInfoRole]
+ADD CONSTRAINT [PK_ActionInfoRole]
+    PRIMARY KEY CLUSTERED ([ActionInfo_ID], [Role_ID] ASC);
 GO
 
 -- --------------------------------------------------
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
 
--- Creating foreign key on [UserInfoes_ID] in table 'UserInfoRole'
+-- Creating foreign key on [UserInfo_ID] in table 'UserInfoRole'
 ALTER TABLE [dbo].[UserInfoRole]
 ADD CONSTRAINT [FK_UserInfoRole_UserInfo]
-    FOREIGN KEY ([UserInfoes_ID])
-    REFERENCES [dbo].[UserInfoes]
+    FOREIGN KEY ([UserInfo_ID])
+    REFERENCES [dbo].[UserInfo]
         ([ID])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating foreign key on [Roles_ID] in table 'UserInfoRole'
+-- Creating foreign key on [Role_ID] in table 'UserInfoRole'
 ALTER TABLE [dbo].[UserInfoRole]
 ADD CONSTRAINT [FK_UserInfoRole_Role]
-    FOREIGN KEY ([Roles_ID])
-    REFERENCES [dbo].[Roles]
+    FOREIGN KEY ([Role_ID])
+    REFERENCES [dbo].[Role]
         ([ID])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
@@ -282,77 +207,38 @@ GO
 -- Creating non-clustered index for FOREIGN KEY 'FK_UserInfoRole_Role'
 CREATE INDEX [IX_FK_UserInfoRole_Role]
 ON [dbo].[UserInfoRole]
-    ([Roles_ID]);
+    ([Role_ID]);
 GO
 
--- Creating foreign key on [ActionInfoes_ID] in table 'ActionInfoRole'
-ALTER TABLE [dbo].[ActionInfoRole]
-ADD CONSTRAINT [FK_ActionInfoRole_ActionInfo]
-    FOREIGN KEY ([ActionInfoes_ID])
-    REFERENCES [dbo].[ActionInfoes]
-        ([ID])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating foreign key on [Roles_ID] in table 'ActionInfoRole'
-ALTER TABLE [dbo].[ActionInfoRole]
-ADD CONSTRAINT [FK_ActionInfoRole_Role]
-    FOREIGN KEY ([Roles_ID])
-    REFERENCES [dbo].[Roles]
-        ([ID])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_ActionInfoRole_Role'
-CREATE INDEX [IX_FK_ActionInfoRole_Role]
-ON [dbo].[ActionInfoRole]
-    ([Roles_ID]);
-GO
-
--- Creating foreign key on [UserInfoID] in table 'R_User_Action'
-ALTER TABLE [dbo].[R_User_Action]
-ADD CONSTRAINT [FK_UserInfoR_User_Action]
+-- Creating foreign key on [UserInfoID] in table 'R_User_ActionInfo'
+ALTER TABLE [dbo].[R_User_ActionInfo]
+ADD CONSTRAINT [FK_UserInfoR_User_ActionInfo]
     FOREIGN KEY ([UserInfoID])
-    REFERENCES [dbo].[UserInfoes]
+    REFERENCES [dbo].[UserInfo]
         ([ID])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating non-clustered index for FOREIGN KEY 'FK_UserInfoR_User_Action'
-CREATE INDEX [IX_FK_UserInfoR_User_Action]
-ON [dbo].[R_User_Action]
+-- Creating non-clustered index for FOREIGN KEY 'FK_UserInfoR_User_ActionInfo'
+CREATE INDEX [IX_FK_UserInfoR_User_ActionInfo]
+ON [dbo].[R_User_ActionInfo]
     ([UserInfoID]);
 GO
 
--- Creating foreign key on [ActionInfoId] in table 'R_User_Action'
-ALTER TABLE [dbo].[R_User_Action]
-ADD CONSTRAINT [FK_ActionInfoR_User_Action]
-    FOREIGN KEY ([ActionInfoId])
-    REFERENCES [dbo].[ActionInfoes]
-        ([ID])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_ActionInfoR_User_Action'
-CREATE INDEX [IX_FK_ActionInfoR_User_Action]
-ON [dbo].[R_User_Action]
-    ([ActionInfoId]);
-GO
-
--- Creating foreign key on [UserInfoes_ID] in table 'UserInfoDepartment'
+-- Creating foreign key on [UserInfo_ID] in table 'UserInfoDepartment'
 ALTER TABLE [dbo].[UserInfoDepartment]
 ADD CONSTRAINT [FK_UserInfoDepartment_UserInfo]
-    FOREIGN KEY ([UserInfoes_ID])
-    REFERENCES [dbo].[UserInfoes]
+    FOREIGN KEY ([UserInfo_ID])
+    REFERENCES [dbo].[UserInfo]
         ([ID])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating foreign key on [Departments_ID] in table 'UserInfoDepartment'
+-- Creating foreign key on [Department_ID] in table 'UserInfoDepartment'
 ALTER TABLE [dbo].[UserInfoDepartment]
 ADD CONSTRAINT [FK_UserInfoDepartment_Department]
-    FOREIGN KEY ([Departments_ID])
-    REFERENCES [dbo].[Departments]
+    FOREIGN KEY ([Department_ID])
+    REFERENCES [dbo].[Department]
         ([ID])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
@@ -360,31 +246,46 @@ GO
 -- Creating non-clustered index for FOREIGN KEY 'FK_UserInfoDepartment_Department'
 CREATE INDEX [IX_FK_UserInfoDepartment_Department]
 ON [dbo].[UserInfoDepartment]
-    ([Departments_ID]);
+    ([Department_ID]);
 GO
 
--- Creating foreign key on [Departments_ID] in table 'DepartmentRole'
-ALTER TABLE [dbo].[DepartmentRole]
-ADD CONSTRAINT [FK_DepartmentRole_Department]
-    FOREIGN KEY ([Departments_ID])
-    REFERENCES [dbo].[Departments]
+-- Creating foreign key on [ActionInfo_ID] in table 'ActionInfoRole'
+ALTER TABLE [dbo].[ActionInfoRole]
+ADD CONSTRAINT [FK_ActionInfoRole_ActionInfo]
+    FOREIGN KEY ([ActionInfo_ID])
+    REFERENCES [dbo].[ActionInfo]
         ([ID])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating foreign key on [Roles_ID] in table 'DepartmentRole'
-ALTER TABLE [dbo].[DepartmentRole]
-ADD CONSTRAINT [FK_DepartmentRole_Role]
-    FOREIGN KEY ([Roles_ID])
-    REFERENCES [dbo].[Roles]
+-- Creating foreign key on [Role_ID] in table 'ActionInfoRole'
+ALTER TABLE [dbo].[ActionInfoRole]
+ADD CONSTRAINT [FK_ActionInfoRole_Role]
+    FOREIGN KEY ([Role_ID])
+    REFERENCES [dbo].[Role]
         ([ID])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating non-clustered index for FOREIGN KEY 'FK_DepartmentRole_Role'
-CREATE INDEX [IX_FK_DepartmentRole_Role]
-ON [dbo].[DepartmentRole]
-    ([Roles_ID]);
+-- Creating non-clustered index for FOREIGN KEY 'FK_ActionInfoRole_Role'
+CREATE INDEX [IX_FK_ActionInfoRole_Role]
+ON [dbo].[ActionInfoRole]
+    ([Role_ID]);
+GO
+
+-- Creating foreign key on [ActionInfoID] in table 'R_User_ActionInfo'
+ALTER TABLE [dbo].[R_User_ActionInfo]
+ADD CONSTRAINT [FK_ActionInfoR_User_ActionInfo]
+    FOREIGN KEY ([ActionInfoID])
+    REFERENCES [dbo].[ActionInfo]
+        ([ID])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ActionInfoR_User_ActionInfo'
+CREATE INDEX [IX_FK_ActionInfoR_User_ActionInfo]
+ON [dbo].[R_User_ActionInfo]
+    ([ActionInfoID]);
 GO
 
 -- --------------------------------------------------

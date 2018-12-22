@@ -40,10 +40,10 @@ namespace JQ.OA.DALFactory
 
 			
 
-        public static IR_User_ActionDal CreateR_User_ActionDal()
+        public static IR_User_ActionInfoDal CreateR_User_ActionInfoDal()
         {
-            string fullClassName = NameSpace + ".R_User_ActionDal"; //Construct a full name of a class, include namespace
-            return CreateInstance(fullClassName) as IR_User_ActionDal;
+            string fullClassName = NameSpace + ".R_User_ActionInfoDal"; //Construct a full name of a class, include namespace
+            return CreateInstance(fullClassName) as IR_User_ActionInfoDal;
 
         }
 	

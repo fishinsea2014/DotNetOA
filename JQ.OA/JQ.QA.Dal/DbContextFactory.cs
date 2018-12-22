@@ -22,7 +22,7 @@ namespace JQ.QA.Dal
         {
             DbContext dbContext = (DbContext)CallContext.GetData("dbContext");
             if (dbContext == null){
-                dbContext = new DataModelContainer();
+                dbContext = new DataModelContainer1();
                 CallContext.SetData("dbContext", dbContext);
             }
             return dbContext;

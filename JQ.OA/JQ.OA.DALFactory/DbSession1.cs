@@ -38,15 +38,15 @@ namespace JQ.OA.DALFactory
 			}
 		}
 			
-		private IR_User_ActionDal _R_User_ActionDal;
-		public IR_User_ActionDal R_User_ActionDal {
+		private IR_User_ActionInfoDal _R_User_ActionInfoDal;
+		public IR_User_ActionInfoDal R_User_ActionInfoDal {
 			get {
-				if (_R_User_ActionDal == null)
+				if (_R_User_ActionInfoDal == null)
 				{
-				_R_User_ActionDal = AbstractFactory.CreateR_User_ActionDal();
-					//_R_User_ActionDal =new R_User_ActionDal();
+				_R_User_ActionInfoDal = AbstractFactory.CreateR_User_ActionInfoDal();
+					//_R_User_ActionInfoDal =new R_User_ActionInfoDal();
 				}
-				return _R_User_ActionDal;
+				return _R_User_ActionInfoDal;
 			}
 		}
 			

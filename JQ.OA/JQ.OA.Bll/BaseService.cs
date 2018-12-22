@@ -59,8 +59,13 @@ namespace JQ.OA.Bll
         public T AddEntity (T entity)
         {
             CurrentDal.Add(entity);
-            this.GetCurrentDbSession.SaveChange();
+            var r= this.SaveChanges();
             return entity;
+        }
+
+        public bool SaveChanges()
+        {
+            return GetCurrentDbSession.SaveChange();
         }
     }
 }

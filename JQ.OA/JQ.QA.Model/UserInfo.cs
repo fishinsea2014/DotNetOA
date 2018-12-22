@@ -16,9 +16,9 @@ namespace JQ.QA.Model
     {
         public UserInfo()
         {
-            this.Roles = new HashSet<Role>();
-            this.R_User_Action = new HashSet<R_User_Action>();
-            this.Departments = new HashSet<Department>();
+            this.Role = new HashSet<Role>();
+            this.R_User_ActionInfo = new HashSet<R_User_ActionInfo>();
+            this.Department = new HashSet<Department>();
         }
     
         public int ID { get; set; }
@@ -26,13 +26,13 @@ namespace JQ.QA.Model
         public string Pwd { get; set; }
         public string Mail { get; set; }
         public string Phone { get; set; }
-        public Nullable<short> DelFlag { get; set; }
-        public Nullable<int> SubBy { get; set; }
-        public Nullable<System.DateTime> SubTime { get; set; }
+        public short DelFlag { get; set; }
+        public int SubBy { get; set; }
+        public System.DateTime SubTime { get; set; }
         public string Remark { get; set; }
     
-        public virtual ICollection<Role> Roles { get; set; }
-        public virtual ICollection<R_User_Action> R_User_Action { get; set; }
-        public virtual ICollection<Department> Departments { get; set; }
+        public virtual ICollection<Role> Role { get; set; }
+        public virtual ICollection<R_User_ActionInfo> R_User_ActionInfo { get; set; }
+        public virtual ICollection<Department> Department { get; set; }
     }
 }

@@ -10,7 +10,7 @@ namespace JQ.QA.IDal
     public partial interface IUserInfoDal : IBaseDal<UserInfo>
     {
         //Define individual method here
-
+        //object LoadPageEntities();
     }
 }
  

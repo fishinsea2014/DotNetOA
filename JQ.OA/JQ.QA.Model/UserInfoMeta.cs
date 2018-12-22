@@ -15,12 +15,11 @@ namespace JQ.QA.Model
     public partial class UserInfoMeta
     {
         public int ID { get; set; }
-        public string Mobile { get; set; }
-        public string Gender { get; set; }
-        public string UserInfoId { get; set; }
-        public Nullable<short> DelFlag { get; set; }
-        public Nullable<int> SubBy { get; set; }
-        public Nullable<System.DateTime> SubTime { get; set; }
-        public string Remark { get; set; }
+        public string QQ { get; set; }
+        public string Msn { get; set; }
+        public int UserInfoId { get; set; }
+        public short DelFlag { get; set; }
+        public int SubBy { get; set; }
+        public System.DateTime SubTime { get; set; }
     }
 }

@@ -7,11 +7,11 @@
   <object id="RoleService" type="JQ.OA.BLL.RoleService, JQ.OA.BLL" >
 
   </object>-->
-  <object id="UserInfoService" type="JQ.OA.BLL.UserInfoService, JQ.OA.BLL" >
+  <!--<object id="UserInfoService" type="JQ.OA.BLL.UserInfoService, JQ.OA.BLL" singleton="false">
 
-  </object>
+  </object>-->
 
-  <!--<object type="JQ.OA.Bll.UserInfoService, JQ.OA.Bll" singleton="false" name="UserInfoService"></object>-->
+  <object type="JQ.OA.Bll.UserInfoService, JQ.OA.Bll" singleton="false" name="UserInfoService"></object>
 
   
 </objects>

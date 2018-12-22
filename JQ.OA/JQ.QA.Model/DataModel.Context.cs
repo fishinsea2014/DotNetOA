@@ -13,10 +13,10 @@ namespace JQ.QA.Model
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DataModelContainer : DbContext
+    public partial class DataModelContainer1 : DbContext
     {
-        public DataModelContainer()
-            : base("name=DataModelContainer")
+        public DataModelContainer1()
+            : base("name=DataModelContainer1")
         {
         }
     
@@ -25,11 +25,11 @@ namespace JQ.QA.Model
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<UserInfo> UserInfoes { get; set; }
-        public DbSet<Department> Departments { get; set; }
-        public DbSet<Role> Roles { get; set; }
-        public DbSet<ActionInfo> ActionInfoes { get; set; }
-        public DbSet<R_User_Action> R_User_Action { get; set; }
-        public DbSet<UserInfoMeta> UserInfoMetas { get; set; }
+        public DbSet<UserInfo> UserInfo { get; set; }
+        public DbSet<Role> Role { get; set; }
+        public DbSet<Department> Department { get; set; }
+        public DbSet<ActionInfo> ActionInfo { get; set; }
+        public DbSet<R_User_ActionInfo> R_User_ActionInfo { get; set; }
+        public DbSet<UserInfoMeta> UserInfoMeta { get; set; }
     }
 }

@@ -36,14 +36,14 @@ namespace JQ.OA.Bll
 	}
 
 
-	//public partial interface IR_User_ActionService : IBaseService<R_User_Action>{}
+	//public partial interface IR_User_ActionInfoService : IBaseService<R_User_ActionInfo>{}
 
-	public partial class R_User_ActionService : BaseService<R_User_Action>, IR_User_ActionService
+	public partial class R_User_ActionInfoService : BaseService<R_User_ActionInfo>, IR_User_ActionInfoService
     {
 
         public override void SetCurrentDal()
         {
-            CurrentDal = this.GetCurrentDbSession.R_User_ActionDal;
+            CurrentDal = this.GetCurrentDbSession.R_User_ActionInfoDal;
         }
 	}
 
