@@ -10,7 +10,7 @@ namespace OAUnitTest
     public class UnitTest1
     {
         private UserInfoDal userInfoDal = new UserInfoDal();
-        JQ.OA.IBll.IUserInfoService UserInfoService { get; set; }
+        JQ.OA.IBll.DepartmentService UserInfoService { get; set; }
         [TestMethod]
         public void TestAdd()
         {

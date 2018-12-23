@@ -23,7 +23,7 @@ namespace JQ.OA.IBll
 	public partial interface IRoleService : IBaseService<Role>{}
 
 
-	public partial interface IUserInfoService : IBaseService<UserInfo>{}
+	public partial interface DepartmentService : IBaseService<UserInfo>{}
 
 
 	public partial interface IUserInfoMetaService : IBaseService<UserInfoMeta>{}

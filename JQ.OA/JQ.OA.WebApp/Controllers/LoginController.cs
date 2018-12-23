@@ -15,7 +15,7 @@ namespace JQ.OA.WebApp.Controllers
 
         //IBll.IUserInfoService userInfoService { get; set; }
 
-        IBll.IUserInfoService userInfoService = new UserInfoService();
+        IBll.DepartmentService userInfoService = new UserInfoService();
         public ActionResult Index()
         {
             return View();

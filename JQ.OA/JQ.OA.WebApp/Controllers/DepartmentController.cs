@@ -10,19 +10,17 @@ using System.Web.Mvc;
 
 namespace JQ.OA.WebApp.Controllers
 {
-    //public class UserinfoController : BaseController
 
-    public class UserinfoController : Controller
+    public class DepartmentController : Controller
     {
-        IBll.DepartmentService userInfoService { get; set; }
-        //IUserInfoService userInfoService = new UserInfoService();
-        //IUserInfoService userInfoService = new UserInfoService();
-        // GET: Userinfo
+        IBll.DepartmentService departmentService { get; set; }
+       
+        // GET: Department
         public ActionResult Index()
         {
-            var userinfoList = userInfoService.LoadEntities( u => true);
-            ViewData.Model = userinfoList;
-            
+            var departmentList = departmentService.LoadEntities(u => true);
+            ViewData.Model = departmentList;
+
             return View();
         }
 
@@ -32,7 +30,7 @@ namespace JQ.OA.WebApp.Controllers
         /// <param name="SName">Searching string of user name</param>
         /// <param name="SMail">Searching string of user user email</param>
         /// <returns></returns>
-        public ActionResult GetAllUserInfos()
+        public ActionResult GetAllDepartments()
         {
             //Get the page size and page index from front end.
             int pageSize = Request["rows"] == null ? 10 : int.Parse(Request["rows"]);
@@ -45,7 +43,7 @@ namespace JQ.OA.WebApp.Controllers
             userParam.PageIndex = pageIndex;
             userParam.SName = Request["name"];
             userParam.SPhone = Request["phone"];
-            var pagedData = userInfoService.LoadSearchEntities(userParam);
+            var pagedData = departmentService.LoadSearchEntities(userParam);
 
             //Assembe the data into EasyUI table data, like : {total: 10; rows:[]}
             //Sovle the issue of loop dependency caused by navigation properties when serialising the data to Json
@@ -54,8 +52,20 @@ namespace JQ.OA.WebApp.Controllers
                 total = userParam.Total,
                 rows = (from u in pagedData
                         select
-                            new { u.ID, u.UserName, u.Pwd, u.Remark, u.DelFlag, u.Mail
-                                  , u.Phone, u.SubTime, u.SubBy, SubName = u.Department.Count }
+                            new
+                            {
+                                u.ID,
+                                u.UserName,
+                                u.Pwd,
+                                u.Remark,
+                                u.DelFlag,
+                                u.Mail
+                                  ,
+                                u.Phone,
+                                u.SubTime,
+                                u.SubBy,
+                                SubName = u.Department.Count
+                            }
                         ).ToList()
             };
 
@@ -63,7 +73,7 @@ namespace JQ.OA.WebApp.Controllers
         }
 
         #region Delete users
-        public ActionResult DeleteUserInfo()
+        public ActionResult DeleteDepartment()
         {
             string strId = Request["strId"];
             string[] strIds = strId.Split(',');
@@ -73,7 +83,7 @@ namespace JQ.OA.WebApp.Controllers
                 delIds.Add(Convert.ToInt32(id));
             }
 
-            if (userInfoService.DeleteEntities(delIds))
+            if (departmentService.DeleteEntities(delIds))
             {
                 return Content("ok");
             }
@@ -84,13 +94,13 @@ namespace JQ.OA.WebApp.Controllers
         #endregion
 
         #region  Retrive a user's info by ID
-        public ActionResult GetUserInfoModel()
+        public ActionResult GetDepartmentModel()
         {
             int id = int.Parse(Request["id"]);
-            UserInfo userInfo = userInfoService.LoadEntities(u => u.ID == id).FirstOrDefault();
-            if (userInfo != null)
+            Department department = Bll.DepartmentService.LoadEntities(u => u.ID == id).FirstOrDefault();
+            if (department != null)
             {
-                return Json(new { serverData = userInfo, msg = "ok" }, JsonRequestBehavior.AllowGet);
+                return Json(new { serverData = department, msg = "ok" }, JsonRequestBehavior.AllowGet);
             }
             else
             {
@@ -101,10 +111,10 @@ namespace JQ.OA.WebApp.Controllers
         #endregion
 
         #region Update a user's info
-        public ActionResult EditUserinfo(UserInfo userInfo)
+        public ActionResult EditDepartment(Department department)
         {
-            userInfo.SubTime = DateTime.Now;
-            if (userInfoService.EditEntity(userInfo))
+            department.SubTime = DateTime.Now;
+            if (departmentService.EditEntity(department))
             {
                 return Content("ok");
             }
@@ -116,14 +126,13 @@ namespace JQ.OA.WebApp.Controllers
         #endregion
 
         #region Add an user
-        public ActionResult Add(UserInfo userInfo)
+        public ActionResult Add(Department department)
         {
-            //userInfo.Init();
-            userInfo.DelFlag = 0;
-            userInfo.SubBy = 1;
-            userInfo.SubTime = DateTime.Now;
+            department.DelFlag = 0;
+            department.SubBy = 1;
+            department.SubTime = DateTime.Now;
             //int i = 8;
-            //userInfo = new UserInfo()
+            //department = new Department()
             //{
             //    UserName = "1Jason" + i,
             //    Pwd = "123" + i,
@@ -134,8 +143,8 @@ namespace JQ.OA.WebApp.Controllers
             //    Remark = "this is remark" + i
             //};
 
-            userInfoService.AddEntity(userInfo);
-            //if ( userInfoService.SaveChanges())
+            departmentService.AddEntity(department);
+            //if ( departmentService.SaveChanges())
             //{
 
             //    return Content("ok");

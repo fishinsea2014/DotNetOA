@@ -62,7 +62,7 @@ namespace JQ.OA.Bll
 
 	//public partial interface IUserInfoService : IBaseService<UserInfo>{}
 
-	public partial class UserInfoService : BaseService<UserInfo>, IUserInfoService
+	public partial class UserInfoService : BaseService<UserInfo>, IBll.DepartmentService
     {
 
         public override void SetCurrentDal()
