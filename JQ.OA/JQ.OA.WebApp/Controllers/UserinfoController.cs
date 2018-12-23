@@ -14,8 +14,8 @@ namespace JQ.OA.WebApp.Controllers
 
     public class UserinfoController : Controller
     {
-        //IBll.IUserInfoService userInfoService { get; set; }
-        IUserInfoService userInfoService = new UserInfoService();
+        IBll.IUserInfoService userInfoService { get; set; }
+        //IUserInfoService userInfoService = new UserInfoService();
         //IUserInfoService userInfoService = new UserInfoService();
         // GET: Userinfo
         public ActionResult Index()
@@ -121,10 +121,10 @@ namespace JQ.OA.WebApp.Controllers
             //userInfo.DelFlag = 0;
             //userInfo.SubBy = 1;
             //userInfo.SubTime = DateTime.Now;
-            int i = 88888;
+            int i = 8;
             userInfo = new UserInfo()
             {
-                UserName = "Jason" + i,
+                UserName = "1Jason" + i,
                 Pwd = "123" + i,
                 Phone = "1233" + i,
                 SubBy = 1,
