@@ -24,7 +24,7 @@
             $("#btnSearch").click(function () {
                 var pars = {
                     name: $("#txtUserName").val(),
-                    remark: $("#txtRemark").val()
+                    phone: $("#txtPhone").val()
                 };
                 loadData(pars);
             });
@@ -49,14 +49,14 @@
                 queryParams: pars,//Paras sent to back end.
                 columns: [[//c.UserName, c.UserPass, c.Email, c.RegTime
                     { field: 'ck', checkbox: true, align: 'left', width: 50 },
-                    { field: 'ID', title: 'Number', width: 80 },
+                    { field: 'ID', title: 'No.', width: 30 },
                     { field: 'UserName', title: 'Name', width: 120 },
-                    { field: 'UserPass', title: 'Password', width: 120 },
+                    { field: 'Pwd', title: 'Password', width: 100 },
                     { field: 'Mail', title: 'Email', width: 120 },
                     { field: 'Phone', title: 'Phone', width: 120 },
                     { field: 'Remark', title: 'Remark', width: 120 },
                     {
-                        field: 'SubTime', title: 'Reg Time', width: 80, align: 'right',
+                        field: 'SubTime', title: 'Reg Time', width: 130, align: 'right',
                         formatter: function (value, row, index) {
                             return (eval(value.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d");
                         }
@@ -154,9 +154,11 @@
 
             $.post("/UserInfo/GetUserInfoModel", { "id": rows[0].ID }, function (data) {
                 if (data.msg == "ok") {
-                    $("#txtUName").val(data.serverData.UserName);
-                    $("#txtUPwd").val(data.serverData.Pwd);
-                    $("#txtRemark").val(data.serverData.Remark);
+                    $("#txtEName").val(data.serverData.UserName);
+                    $("#txtEPwd").val(data.serverData.Pwd);
+                    $("#txtEMail").val(data.serverData.Mail);
+                    $("#txtEPhone").val(data.serverData.Phone);
+                    $("#txtERemark").val(data.serverData.Remark);                   
                     //$("#txtSubTime").val(ChangeDateFormat(data.serverData.SubTime));
                     //$("#txtDelFlag").val(data.serverData.DelFlag);
                     $("#txtId").val(data.serverData.ID);
@@ -202,7 +204,7 @@
 
         //Actions after add a user
         function afterAdd(data) {
-            if (data == "ok") {
+            if (data == "Ok") {
                 $("#addForm input").val(""); //Clear input values
                 $("#addDiv").dialog('close');
                 $("#tt").datagrid("reload");
@@ -224,7 +226,7 @@
         <div>
             User Name: <input type="text" id="txtUserName" />
             &nbsp;&nbsp;
-            Remark: <input type="text" id="txtRemark" />
+            Phone: <input type="text" id="txtPhone" />
             <input type="button" value="Search" id="btnSearch" />
         </div>
         <table id="tt" style="width: 700px;" title="Users management" iconcls="icon-edit"></table>
@@ -254,10 +256,13 @@
             <input type="hidden" name="SubTime" id="txtSubTime" />
             <input type="hidden" name="DelFlag" id="txtDelFlag" />
             <input type="hidden" name="ID" id="txtId" />
+            <input type="hidden" name="SubBy" id="txtSubBy" />
             <table>
-                <tr><td>User Name</td><td><input type="text" name="UName" id="txtUName" /></td></tr>
-                <tr><td>Password</td><td><input type="text" name="UPwd" id="txtUPwd" /></td></tr>
-                <tr><td>Remark</td><td><input type="text" name="Remark" id="txtRemark" /></td></tr>
+                <tr><td>User Name</td><td><input type="text" name="UserName" id="txtEName" /></td></tr>
+                <tr><td>Password</td><td><input type="text" name="Pwd" id="txtEPwd" /></td></tr>
+                <tr><td>Email</td><td><input type="text" name="Mail" id="txtEMail" /></td></tr>
+                <tr><td>Phone</td><td><input type="text" name="Phone" id="txtEPhone" /></td></tr>
+                <tr><td>Remark</td><td><input type="text" name="Remark" id="txtERemark" /></td></tr>
             </table>
         }
 

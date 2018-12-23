@@ -45,9 +45,9 @@ namespace JQ.OA.Bll
             }
 
             //Fileter by email search criteria
-            if (!string.IsNullOrEmpty(searchUserParam.SMail))
+            if (!string.IsNullOrEmpty(searchUserParam.SPhone))
             {
-                temp = temp.Where(u => u.Mail.Contains(searchUserParam.SMail));
+                temp = temp.Where(u => u.Phone.Contains(searchUserParam.SPhone));
             }
 
             searchUserParam.Total = temp.Count();

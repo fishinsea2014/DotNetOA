@@ -10,6 +10,6 @@ namespace JQ.QA.Model
     public class SearchUserParam : BaseQueryParams
     {
         public string SName { get; set; }   
-        public string SMail { get; set; }
+        public string SPhone { get; set; }
     }
 }

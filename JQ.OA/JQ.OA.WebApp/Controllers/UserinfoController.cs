@@ -32,7 +32,7 @@ namespace JQ.OA.WebApp.Controllers
         /// <param name="SName">Searching string of user name</param>
         /// <param name="SMail">Searching string of user user email</param>
         /// <returns></returns>
-        public ActionResult GetAllUserInfos(string SName, string SMail)
+        public ActionResult GetAllUserInfos()
         {
             //Get the page size and page index from front end.
             int pageSize = Request["rows"] == null ? 10 : int.Parse(Request["rows"]);
@@ -43,8 +43,8 @@ namespace JQ.OA.WebApp.Controllers
             SearchUserParam userParam = new SearchUserParam();
             userParam.PageSize = pageSize;
             userParam.PageIndex = pageIndex;
-            userParam.SName = SName;
-            userParam.SMail = SMail;
+            userParam.SName = Request["name"];
+            userParam.SPhone = Request["phone"];
             var pagedData = userInfoService.LoadSearchEntities(userParam);
 
             //Assembe the data into EasyUI table data, like : {total: 10; rows:[]}
@@ -54,7 +54,8 @@ namespace JQ.OA.WebApp.Controllers
                 total = userParam.Total,
                 rows = (from u in pagedData
                         select
-                            new { u.ID, u.UserName, u.DelFlag, u.Mail, u.Phone, u.SubTime, u.SubBy, SubName = u.Department.Count }
+                            new { u.ID, u.UserName, u.Pwd, u.Remark, u.DelFlag, u.Mail
+                                  , u.Phone, u.SubTime, u.SubBy, SubName = u.Department.Count }
                         ).ToList()
             };
 
@@ -118,20 +119,20 @@ namespace JQ.OA.WebApp.Controllers
         public ActionResult Add(UserInfo userInfo)
         {
             //userInfo.Init();
-            //userInfo.DelFlag = 0;
-            //userInfo.SubBy = 1;
-            //userInfo.SubTime = DateTime.Now;
-            int i = 8;
-            userInfo = new UserInfo()
-            {
-                UserName = "1Jason" + i,
-                Pwd = "123" + i,
-                Phone = "1233" + i,
-                SubBy = 1,
-                DelFlag = 0,
-                SubTime = DateTime.Now,
-                Remark = "this is remark" + i
-            };
+            userInfo.DelFlag = 0;
+            userInfo.SubBy = 1;
+            userInfo.SubTime = DateTime.Now;
+            //int i = 8;
+            //userInfo = new UserInfo()
+            //{
+            //    UserName = "1Jason" + i,
+            //    Pwd = "123" + i,
+            //    Phone = "1233" + i,
+            //    SubBy = 1,
+            //    DelFlag = 0,
+            //    SubTime = DateTime.Now,
+            //    Remark = "this is remark" + i
+            //};
 
             userInfoService.AddEntity(userInfo);
             //if ( userInfoService.SaveChanges())
