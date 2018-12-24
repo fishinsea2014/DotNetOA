@@ -14,8 +14,8 @@ namespace JQ.OA.WebApp.Controllers
 
     public class DepartmentController : Controller
     {
-        //IBll.DepartmentService departmentService { get; set; }
-        IBll.IDepartmentService departmentService = new Bll.DepartmentService();
+        IBll.DepartmentService departmentService { get; set; }
+        //IBll.IDepartmentService departmentService = new Bll.DepartmentService();
        
         // GET: Department
         public ActionResult Index()
