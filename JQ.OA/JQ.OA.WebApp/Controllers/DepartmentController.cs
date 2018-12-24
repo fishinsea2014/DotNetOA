@@ -14,7 +14,7 @@ namespace JQ.OA.WebApp.Controllers
 
     public class DepartmentController : Controller
     {
-        IBll.DepartmentService departmentService { get; set; }
+        IBll.IDepartmentService departmentService { get; set; }
         //IBll.IDepartmentService departmentService = new Bll.DepartmentService();
        
         // GET: Department
@@ -151,7 +151,7 @@ namespace JQ.OA.WebApp.Controllers
             //    departmentService.AddEntity(department);
             //}
 
-
+            //departmentService.AddEntity()
             departmentService.AddEntity(department);
             //if ( departmentService.SaveChanges())
             //{
