@@ -72,6 +72,7 @@
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Params\BaseSearchParams.cs" />
+    <Compile Include="Params\SearchDepParam.cs" />
     <Compile Include="Params\SearchUserParam.cs" />
     <Compile Include="Enum\DelFlagEnum.cs" />
     <Compile Include="OtherClass.cs" />

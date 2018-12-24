@@ -67,5 +67,7 @@ namespace JQ.OA.Bll
         {
             return GetCurrentDbSession.SaveChange();
         }
+
+        
     }
 }

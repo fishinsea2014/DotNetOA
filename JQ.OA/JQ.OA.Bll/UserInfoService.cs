@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace JQ.OA.Bll
 {
-    public partial class UserInfoService : BaseService<UserInfo>, IBll.DepartmentService
+    public partial class UserInfoService : BaseService<UserInfo>, IUserInfoService
     {
 
         //public override void SetCurrentDal()

@@ -2,6 +2,7 @@
 using JQ.OA.IBll;
 using JQ.QA.Model;
 using JQ.QA.Model.Enum;
+using JQ.QA.Model.Params;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,8 @@ namespace JQ.OA.WebApp.Controllers
 
     public class DepartmentController : Controller
     {
-        IBll.DepartmentService departmentService { get; set; }
+        //IBll.DepartmentService departmentService { get; set; }
+        IBll.IDepartmentService departmentService = new Bll.DepartmentService();
        
         // GET: Department
         public ActionResult Index()
@@ -38,33 +40,25 @@ namespace JQ.OA.WebApp.Controllers
 
             short delNormal = (short)DelFlagEnum.Normal;
 
-            SearchUserParam userParam = new SearchUserParam();
-            userParam.PageSize = pageSize;
-            userParam.PageIndex = pageIndex;
-            userParam.SName = Request["name"];
-            userParam.SPhone = Request["phone"];
-            var pagedData = departmentService.LoadSearchEntities(userParam);
+            SearchDepParam depParam = new SearchDepParam();
+            depParam.PageSize = pageSize;
+            depParam.PageIndex = pageIndex;
+            depParam.SName = Request["name"];
+            var pagedData = departmentService.LoadSearchEntities(depParam);
 
             //Assembe the data into EasyUI table data, like : {total: 10; rows:[]}
             //Sovle the issue of loop dependency caused by navigation properties when serialising the data to Json
             var data = new
             {
-                total = userParam.Total,
+                total = depParam.Total,
                 rows = (from u in pagedData
                         select
                             new
                             {
                                 u.ID,
-                                u.UserName,
-                                u.Pwd,
-                                u.Remark,
-                                u.DelFlag,
-                                u.Mail
-                                  ,
-                                u.Phone,
-                                u.SubTime,
-                                u.SubBy,
-                                SubName = u.Department.Count
+                                u.DepName,
+                                u.DepMasterId,
+                                u.DepNo                                
                             }
                         ).ToList()
             };
@@ -97,7 +91,7 @@ namespace JQ.OA.WebApp.Controllers
         public ActionResult GetDepartmentModel()
         {
             int id = int.Parse(Request["id"]);
-            Department department = Bll.DepartmentService.LoadEntities(u => u.ID == id).FirstOrDefault();
+            Department department = departmentService.LoadEntities(u => u.ID == id).FirstOrDefault();
             if (department != null)
             {
                 return Json(new { serverData = department, msg = "ok" }, JsonRequestBehavior.AllowGet);

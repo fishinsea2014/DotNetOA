@@ -1,9 +1,4 @@
-﻿
-
-
-
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,10 +18,13 @@ namespace JQ.OA.IBll
 	public partial interface IRoleService : IBaseService<Role>{}
 
 
-	public partial interface DepartmentService : IBaseService<UserInfo>{}
+    public partial interface DepartmentService : IBaseService<UserInfo>
+    {
+        bool DeleteEntities(List<int> delIds);
+    }
 
 
-	public partial interface IUserInfoMetaService : IBaseService<UserInfoMeta>{}
+    public partial interface IUserInfoMetaService : IBaseService<UserInfoMeta>{}
 
 
 

@@ -14,7 +14,7 @@ namespace JQ.OA.WebApp.Controllers
 
     public class UserinfoController : Controller
     {
-        IBll.DepartmentService userInfoService { get; set; }
+        UserInfoService userInfoService { get; set; }
         //IUserInfoService userInfoService = new UserInfoService();
         //IUserInfoService userInfoService = new UserInfoService();
         // GET: Userinfo

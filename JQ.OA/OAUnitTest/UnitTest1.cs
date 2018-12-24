@@ -10,9 +10,10 @@ namespace OAUnitTest
     public class UnitTest1
     {
         private UserInfoDal userInfoDal = new UserInfoDal();
-        JQ.OA.IBll.DepartmentService UserInfoService { get; set; }
+        JQ.OA.IBll.IUserInfoService UserInfoService { get; set; }
+
         [TestMethod]
-        public void TestAdd()
+        public void TestAddUsers()
         {
             UserInfo user1=new UserInfo();
 
@@ -34,6 +35,32 @@ namespace OAUnitTest
             userInfoDal.SaveChange();
             Assert.AreEqual(true, user1.ID > 0);
         }
+
+        [TestMethod]
+        public void TestAddDepartments()
+        {
+            UserInfo user1 = new UserInfo();
+
+            for (int i = 0; i < 25; i++)
+            {
+                user1 = new UserInfo()
+                {
+                    UserName = "Jason" + i,
+                    Pwd = "123" + i,
+                    Phone = "1233" + i,
+                    SubBy = 1,
+                    DelFlag = 0,
+                    SubTime = DateTime.Now,
+                    Remark = "this is remark" + i
+                };
+
+                userInfoDal.Add(user1);
+            }
+
+            userInfoDal.SaveChange();
+            Assert.AreEqual(true, user1.ID > 0);
+        }
+
 
         [TestMethod]
         public void TestLoad()

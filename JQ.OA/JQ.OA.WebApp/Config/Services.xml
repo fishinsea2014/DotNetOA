@@ -12,6 +12,6 @@
   </object>-->
 
   <object type="JQ.OA.Bll.UserInfoService, JQ.OA.Bll" singleton="false" name="UserInfoService"></object>
-
+  <object type="JQ.OA.Bll.DepartmentService, JQ.OA.Bll" singleton="false" name="DepartmentService"></object>
   
 </objects>
