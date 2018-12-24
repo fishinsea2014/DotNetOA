@@ -58,8 +58,8 @@ namespace JQ.OA.WebApp.Controllers
                                 u.ID,
                                 u.DepName,
                                 u.DepMasterId,
-                                u.DepNo                                
-                            }
+                                u.DepNo,  
+                                u.TreePath                                                            }
                         ).ToList()
             };
 
@@ -108,6 +108,7 @@ namespace JQ.OA.WebApp.Controllers
         public ActionResult EditDepartment(Department department)
         {
             department.SubTime = DateTime.Now;
+            department.TreePath = "no path";
             if (departmentService.EditEntity(department))
             {
                 return Content("ok");
@@ -125,17 +126,31 @@ namespace JQ.OA.WebApp.Controllers
             department.DelFlag = 0;
             department.SubBy = 1;
             department.SubTime = DateTime.Now;
+            department.ParentId = 0;
+            department.IsLeaf = false;
+            department.Level = 0;
+            department.TreePath = "no path";
+
+            //For adding test data
             //int i = 8;
-            //department = new Department()
+            //for (int i = 0; i < 23; i++)
             //{
-            //    UserName = "1Jason" + i,
-            //    Pwd = "123" + i,
-            //    Phone = "1233" + i,
-            //    SubBy = 1,
-            //    DelFlag = 0,
-            //    SubTime = DateTime.Now,
-            //    Remark = "this is remark" + i
-            //};
+            //    department = new Department()
+            //    {
+            //        DepName = "Dep" + i,
+            //        DepMasterId = i,
+            //        DepNo = "00" + i,
+            //        DelFlag = 0,
+            //        SubBy = 1,
+            //        SubTime = DateTime.Now,
+            //        ParentId = 0,
+            //        IsLeaf = false,
+            //        Level = 0,
+            //        TreePath = "no path"
+            //     };
+            //    departmentService.AddEntity(department);
+            //}
+
 
             departmentService.AddEntity(department);
             //if ( departmentService.SaveChanges())
