@@ -3,6 +3,10 @@
   <object type="JQ.OA.WebApp.Controllers.UserInfoController, JQ.OA.WebApp" singleton="false">
     <property name="UserInfoService" ref="UserInfoService" />
   </object>
+  <object type="JQ.OA.WebApp.Controllers.DepartmentController, JQ.OA.WebApp" singleton="false">
+    <property name="DepartmentService" ref="DepartmentService" />
+  </object>
+  
   <object type="JQ.OA.WebApp.Controllers.LoginController, JQ.OA.WebApp" singleton="false">
     <property name="UserInfoService" ref="UserInfoService" />
     <!--<property name="UserInfoService" ref="UserInfoService" />-->

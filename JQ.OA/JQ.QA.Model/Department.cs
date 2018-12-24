@@ -14,7 +14,23 @@ namespace JQ.QA.Model
     
     public partial class Department
     {
+        public Department()
+        {
+            this.UserInfo = new HashSet<UserInfo>();
+        }
+    
         public int ID { get; set; }
+        public short DelFlag { get; set; }
+        public int SubBy { get; set; }
+        public System.DateTime SubTime { get; set; }
+        public int ParentId { get; set; }
         public string DepName { get; set; }
+        public int DepMasterId { get; set; }
+        public string DepNo { get; set; }
+        public bool IsLeaf { get; set; }
+        public int Level { get; set; }
+        public string TreePath { get; set; }
+    
+        public virtual ICollection<UserInfo> UserInfo { get; set; }
     }
 }

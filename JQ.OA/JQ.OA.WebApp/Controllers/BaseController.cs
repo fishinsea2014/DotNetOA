@@ -28,7 +28,12 @@ namespace JQ.OA.WebApp.Controllers
                 return;
             }
 
-            //TODO: Verify whether the user has 
+            //Verify whether the user has permission to to the action
+            string urlStr = filterContext.HttpContext.Request.RawUrl; //e.g. /UserInfo/Index
+            if (  filterContext.HttpContext.Request.HttpMethod.ToLower() == "get")
+            {
+
+            }
 
         }
 

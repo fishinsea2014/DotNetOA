@@ -14,8 +14,25 @@ namespace JQ.QA.Model
     
     public partial class UserInfo
     {
+        public UserInfo()
+        {
+            this.Role = new HashSet<Role>();
+            this.R_User_ActionInfo = new HashSet<R_User_ActionInfo>();
+            this.Department = new HashSet<Department>();
+        }
+    
         public int ID { get; set; }
         public string UserName { get; set; }
         public string Pwd { get; set; }
+        public string Mail { get; set; }
+        public string Phone { get; set; }
+        public short DelFlag { get; set; }
+        public int SubBy { get; set; }
+        public System.DateTime SubTime { get; set; }
+        public string Remark { get; set; }
+    
+        public virtual ICollection<Role> Role { get; set; }
+        public virtual ICollection<R_User_ActionInfo> R_User_ActionInfo { get; set; }
+        public virtual ICollection<Department> Department { get; set; }
     }
 }

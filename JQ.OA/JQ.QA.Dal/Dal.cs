@@ -9,7 +9,15 @@ using JQ.QA.Model;
 
 namespace JQ.QA.Dal
 {
+		 public partial class ActionInfoDal : BaseDal<ActionInfo>,IActionInfoDal
+		{
+       
+		}	
 		 public partial class DepartmentDal : BaseDal<Department>,IDepartmentDal
+		{
+       
+		}	
+		 public partial class R_User_ActionInfoDal : BaseDal<R_User_ActionInfo>,IR_User_ActionInfoDal
 		{
        
 		}	
@@ -18,6 +26,10 @@ namespace JQ.QA.Dal
        
 		}	
 		 public partial class UserInfoDal : BaseDal<UserInfo>,IUserInfoDal
+		{
+       
+		}	
+		 public partial class UserInfoMetaDal : BaseDal<UserInfoMeta>,IUserInfoMetaDal
 		{
        
 		}	

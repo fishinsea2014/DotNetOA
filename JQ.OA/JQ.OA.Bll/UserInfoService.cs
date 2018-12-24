@@ -1,5 +1,7 @@
-﻿using JQ.OA.IBll;
+﻿using JQ.OA.DALFactory;
+using JQ.OA.IBll;
 using JQ.QA.Model;
+using JQ.QA.Model.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +31,29 @@ namespace JQ.OA.Bll
                 this.GetCurrentDbSession.UserInfoDal.Delete(userInfo);
             }
             return this.GetCurrentDbSession.SaveChange();
+        }
+
+        public IQueryable<UserInfo> LoadSearchEntities(SearchUserParam searchUserParam)
+        {
+            short delNormal = (short)DelFlagEnum.Normal;
+            var temp = GetCurrentDbSession.UserInfoDal.LoadEntities(u => u.DelFlag == delNormal);
+
+            //Fileter by username search criteria
+            if (!string.IsNullOrEmpty(searchUserParam.SName))
+            {
+                temp = temp.Where(u => u.UserName.Contains(searchUserParam.SName));
+            }
+
+            //Fileter by email search criteria
+            if (!string.IsNullOrEmpty(searchUserParam.SPhone))
+            {
+                temp = temp.Where(u => u.Phone.Contains(searchUserParam.SPhone));
+            }
+
+            searchUserParam.Total = temp.Count();
+
+            return temp.OrderBy(u => u.ID).Skip(searchUserParam.PageSize * (searchUserParam.PageIndex - 1))
+                                          .Take(searchUserParam.PageSize).AsQueryable();
         }
        
     }

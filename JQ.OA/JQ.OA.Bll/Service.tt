@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using JQ.QA.Model;
+using JQ.OA.IBll;
 
 namespace JQ.OA.Bll
 {

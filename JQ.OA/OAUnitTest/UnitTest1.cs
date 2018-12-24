@@ -11,20 +11,56 @@ namespace OAUnitTest
     {
         private UserInfoDal userInfoDal = new UserInfoDal();
         JQ.OA.IBll.IUserInfoService UserInfoService { get; set; }
+
         [TestMethod]
-        public void TestAdd()
+        public void TestAddUsers()
         {
+            UserInfo user1=new UserInfo();
 
+            for (int i = 0; i < 25; i++)
+            {
+                user1 =  new UserInfo(){
+                    UserName = "Jason"+i,
+                    Pwd = "123"+i,
+                    Phone = "1233"+i,
+                    SubBy = 1,
+                    DelFlag = 0,
+                    SubTime = DateTime.Now,
+                    Remark = "this is remark"+i
+                 };
+
+                 userInfoDal.Add(user1);
+            }
             
-            UserInfo user1 = new UserInfo() {
-                UserName = "Jason",
-                Pwd = "123"
-            };
-
-            userInfoDal.Add(user1);
             userInfoDal.SaveChange();
             Assert.AreEqual(true, user1.ID > 0);
         }
+
+        [TestMethod]
+        public void TestAddDepartments()
+        {
+            UserInfo user1 = new UserInfo();
+
+            for (int i = 0; i < 25; i++)
+            {
+                user1 = new UserInfo()
+                {
+                    UserName = "Jason" + i,
+                    Pwd = "123" + i,
+                    Phone = "1233" + i,
+                    SubBy = 1,
+                    DelFlag = 0,
+                    SubTime = DateTime.Now,
+                    Remark = "this is remark" + i
+                };
+
+                userInfoDal.Add(user1);
+            }
+
+            userInfoDal.SaveChange();
+            Assert.AreEqual(true, user1.ID > 0);
+        }
+
 
         [TestMethod]
         public void TestLoad()
@@ -45,7 +81,7 @@ namespace OAUnitTest
         {
             string userName = "Jason";
             string pwd = "123";
-            UserInfo userInfo = UserInfoService.LoadEntities(u => u.UserName == userName && u.Pwd == pwd).FirstOrDefault();
+            //UserInfo userInfo = UserInfoService.LoadEntities(u => u.UserName == userName && u.Pwd == pwd).FirstOrDefault();
         }
     }
 }

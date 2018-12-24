@@ -12,7 +12,15 @@ namespace JQ.QA.IDal
 {
 
 	
+	public partial interface IActionInfoDal :IBaseDal<ActionInfo>
+    { 
+	}	
+	
 	public partial interface IDepartmentDal :IBaseDal<Department>
+    { 
+	}	
+	
+	public partial interface IR_User_ActionInfoDal :IBaseDal<R_User_ActionInfo>
     { 
 	}	
 	
@@ -21,6 +29,10 @@ namespace JQ.QA.IDal
 	}	
 	
 	public partial interface IUserInfoDal :IBaseDal<UserInfo>
+    { 
+	}	
+	
+	public partial interface IUserInfoMetaDal :IBaseDal<UserInfoMeta>
     { 
 	}	
 

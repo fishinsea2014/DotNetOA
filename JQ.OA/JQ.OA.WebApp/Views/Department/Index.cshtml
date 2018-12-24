@@ -1,0 +1,270 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Departments Management</title>
+    <link href="~/Content/easyui.css" rel="stylesheet" />
+    <link href="~/Content/JQEasyUI/themes/icon.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.7.1.min.js"></script>
+    <script src="~/Scripts/jquery.easyui.min.js"></script>
+    <script src="~/Scripts/easyui-lang-en.js"></script>
+    <script src="~/Scripts/datapattern.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+
+    <script type="text/javascript">
+        $(function () {
+            loadData();
+            $("#addDiv").css("display", "none");
+            $("#editDiv").css("display", "none");
+            //Searching
+            $("#btnSearch").click(function () {
+                var pars = {
+                    name: $("#txtDepartmentName").val(),
+                    phone: $("#txtPhone").val()
+                };
+                loadData(pars);
+            });
+
+        });
+
+        function loadData(pars) {
+            $('#tt').datagrid({
+                url: '/Department/GetAllDepartments',
+                title: 'Department Management',
+                width: 700,
+                height: 400,
+                fitColumns: true, //Columns self adjustment
+                nowrap: false,
+                idField: 'ID',//The column of the key
+                loadMsg: 'Loading departments ...',
+                pagination: true,//Paging or not
+                singleSelect: false,//Allow to select single row or not
+                pageSize: 5,//Max items in a page
+                pageNumber: 1,//Current page number
+                pageList: [5, 10, 15],
+                queryParams: pars,//Paras sent to back end.
+                columns: [[//c.DepartmentName, c.DepartmentPass, c.Email, c.RegTime
+                    { field: 'ck', checkbox: true, align: 'left', width: 50 },
+                    { field: 'ID', title: 'No.', width: 30 },
+                    { field: 'DepName', title: 'Name', width: 120 },
+                    { field: 'DepNo', title: 'Dep No.', width: 100 },
+                    { field: 'DepMasterId', title: 'Dep Director', width: 120 },                    
+                    //{
+                    //    field: 'SubTime', title: 'Reg Time', width: 130, align: 'right',
+                    //    formatter: function (value, row, index) {
+                    //        return (eval(value.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d");
+                    //    }
+
+                    //}
+                ]],
+                toolbar: [{
+                    id: 'btnDelete',
+                    text: 'Delete',
+                    iconCls: 'icon-remove',
+                    handler: function () {
+
+                        deleteDepartments();
+                    }
+                }, {
+                    id: 'btnAdd',
+                    text: 'Add',
+                    iconCls: 'icon-add',
+                    handler: function () {
+                        addInfo();
+                    }
+                }, {
+                    id: 'btnEdit',
+                    text: 'Edit',
+                    iconCls: 'icon-edit',
+                    handler: function () {
+                        editInfo();
+                    }
+                }],
+            })
+        }
+
+        //Delete selected departments
+        function deleteDepartments() {
+            var rows = $("#tt").datagrid('getSelections');
+            if (!rows || rows.length == 0) {
+                $.messager.alert("Tips", "Please selected the departments to delete", "error");
+            }
+            $.messager.confirm("Tips", "Do you want to delete these departments?", function (r) {
+                if (r) {
+                    var strId = "";
+                    for (var i = 0; i < rows.length; i++) {
+                        strId = strId + rows[i].ID + ",";//1,2,3,
+                    }
+                    //rows.foreach(row => {
+                    //    strId += row.ID + ","; //StrId = [1,2,3]
+                    //})
+                    strId = strId.substr(0, strId.length - 1);
+                    $.post("/Department/DeleteDepartment", { "strId": strId }, function (data) {
+                        if (data == "ok") {
+                            $("#tt").datagrid('clearSelections');
+                            $("#tt").datagrid('reload'); // Use reload instead of loadData
+                            //loadData();
+                        } else {
+                            $.messager.alert("Tips", "Failed to delete departments", "error");
+                        }
+                    })
+                }
+            })
+        }
+
+        //Add a department dialog
+        function addInfo() {
+            $("#addDiv").css("display", "block");
+            $("#addDiv").dialog({
+                title: "Add a department",
+                width: 300,
+                height: 300,
+                collapsible: true,
+                resizable: true,
+                modal: true,
+                buttons: [{
+                    text: "Submit",
+                    iconCls: "icon-ok",
+
+                    handler: function () {
+                        $("#addForm").submit();
+                    }
+                }, {
+                    text: "Cancel",
+                    handler: function () {
+                        $("#addDiv").dialog('close');
+                    }
+                }]
+            });
+        }
+
+        //Edit a department 
+        function editInfo() {
+            var rows = $('#tt').datagrid('getSelections');
+            if (rows.length != 1) {
+                $.messager.alert("Tips", "Please select one and only one item", "error");
+                return;
+            }
+
+            $.post("/Department/GetDepartmentModel", { "id": rows[0].ID }, function (data) {
+                if (data.msg == "ok") {
+                    $("#txtEName").val(data.serverData.DepName);
+                    $("#txtENo").val(data.serverData.DepNo);
+                    $("#txtEMasterId").val(data.serverData.DepMasterId);                    
+                    $("#txtId").val(data.serverData.ID);
+                    $("#editDiv").css("display", "block");
+                    $("#editDiv").dialog({
+                        title: "Edit a department's ",
+                        width: 300,
+                        height: 300,
+                        collapsible: true,
+                        resizable: true,
+                        modal: true,
+                        buttons: [{
+                            text: "Ok",
+                            iconCls: 'icon-ok',
+                            handler: function () {
+                                $("#editForm").submit();
+                            }
+                        },
+                        {
+                            text: "Cancel",
+                            handler: function () {
+                                $('#editDiv').dialog('close');
+                            }
+
+                        }]
+                    });
+                } else {
+                    $.messager.alert("Tips", "The department does not exist", "error");
+                }
+            })
+        }
+
+        //Actions after edit dialog
+        function afterEdit(data) {
+            if (data == "ok") {
+                $('#editDiv').dialog('close');
+                $('#tt').datagrid('reload');
+            } else {
+                $.messager.alert("Tips", "Failed to update the department", "error");
+            }
+        }
+
+
+        //Actions after add a department
+        function afterAdd(data) {
+            if (data == "Ok") {
+                $("#addForm input").val(""); //Clear input values
+                $("#addDiv").dialog('close');
+                $("#tt").datagrid("reload");
+            } else {
+                $.messager.alert("Tips", "Failed to add a department", "error");
+            }
+        }
+
+        function ChangeDateFormat(cellval) {
+            var date = new Date(parseInt(cellval.replace("/Date(", "").replace(")/", ""), 10));
+            var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+            var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+            return date.getFullYear() + "-" + month + "-" + currentDate;
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <div>
+            Department Name: <input type="text" id="txtDepartmentName" />
+            &nbsp;&nbsp;
+            Phone: <input type="text" id="txtPhone" />
+            <input type="button" value="Search" id="btnSearch" />
+        </div>
+        <table id="tt" style="width: 700px;" title="Departments management" iconcls="icon-edit"></table>
+    </div>
+    <!--Add a department -->
+    <div id="addDiv">
+        @using (Ajax.BeginForm("Add", "Department",
+            new { }, new AjaxOptions() { HttpMethod = "post", OnSuccess = "afterAdd" }, new { id = "addForm" }))
+        {
+            <table>
+                <tr><td>Department Name</td><td><input type="text" name="DepName" /></td></tr>
+                <tr><td>Department No.</td><td><input type="text" name="DepNo" /></td></tr>
+                <tr><td>Master ID</td><td><input type="text" name="DepMasterId" /></td></tr>
+                
+            </table>
+        }
+    </div>
+
+    <!--Edit a Department-->
+    <div id="editDiv">
+        @using (Ajax.BeginForm("EditDepartment", "Department", new { },
+            new AjaxOptions() { HttpMethod = "post", OnSuccess = "afterEdit" }, new { id = "editForm" }))
+        {
+            <input type="hidden" name="SubTime" id="txtSubTime" />
+            <input type="hidden" name="DelFlag" id="txtDelFlag" />
+            <input type="hidden" name="ID" id="txtId" />
+            <input type="hidden" name="SubBy" id="txtSubBy" />
+            <input type="hidden" name="ParentId" id="txtParentId" />
+            <input type="hidden" name="IsLeaf" id="txtIsLeaf" />
+            <input type="hidden" name="Level" id="txtLevel" />
+            <input type="hidden" name="TreePath" id="txtTreePath" />
+
+            <table>
+                <tr><td>Department Name</td><td><input type="text" name="DepName" id="txtEName" /></td></tr>
+                <tr><td>Department No.</td><td><input type="text" name="DepNo" id="txtENo" /></td></tr>
+                <tr><td>Master ID</td><td><input type="text" name="DepMasterId" id="txtEMasterId" /></td></tr>
+
+            </table>
+        }
+
+    </div>
+
+
+
+</body>
+</html>
+

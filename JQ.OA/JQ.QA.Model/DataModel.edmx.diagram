@@ -4,10 +4,18 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="fe4afcec03ad45b7aa04463b8986a842" Name="Diagram1" >
-        <EntityTypeShape EntityType="DataModel.UserInfo" Width="1.5" PointX="2.125" PointY="1.375" />
-        <EntityTypeShape EntityType="DataModel.Department" Width="1.5" PointX="4.875" PointY="1.125" />
-        <EntityTypeShape EntityType="DataModel.Role" Width="1.5" PointX="3.75" PointY="4.5" />
+      <Diagram DiagramId="f32f174935324ff5a0947789f03e0385" Name="Diagram1" ZoomLevel="80" >
+        <EntityTypeShape EntityType="DataModel.UserInfo" Width="1.5" PointX="3" PointY="1.875" />
+        <EntityTypeShape EntityType="DataModel.Role" Width="1.5" PointX="5.625" PointY="1.375" />
+        <EntityTypeShape EntityType="DataModel.Department" Width="1.5" PointX="5.625" PointY="5" />
+        <EntityTypeShape EntityType="DataModel.ActionInfo" Width="1.5" PointX="3.375" PointY="6.875" />
+        <EntityTypeShape EntityType="DataModel.R_User_ActionInfo" Width="1.5" PointX="8.625" PointY="2.5" />
+        <EntityTypeShape EntityType="DataModel.UserInfoMeta" Width="1.5" PointX="0.75" PointY="6.75" />
+        <AssociationConnector Association="DataModel.UserInfoRole" />
+        <AssociationConnector Association="DataModel.UserInfoR_User_ActionInfo" />
+        <AssociationConnector Association="DataModel.UserInfoDepartment" />
+        <AssociationConnector Association="DataModel.ActionInfoRole" />
+        <AssociationConnector Association="DataModel.ActionInfoR_User_ActionInfo" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

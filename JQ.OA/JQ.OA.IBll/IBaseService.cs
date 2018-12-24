@@ -21,6 +21,7 @@ namespace JQ.OA.IBll
         bool DeleteEntity(T entity);
         bool EditEntity(T entity);
         T AddEntity(T entity);
+        bool SaveChanges();
     }
     
 }
