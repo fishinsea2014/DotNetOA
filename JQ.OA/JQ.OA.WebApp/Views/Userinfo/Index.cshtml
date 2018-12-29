@@ -20,6 +20,7 @@
             loadData();
             $("#addDiv").css("display", "none");
             $("#editDiv").css("display", "none");
+            $("#frameSetRold").css("display", "none");
             //Searching
             $("#btnSearch").click(function () {
                 var pars = {
@@ -85,8 +86,54 @@
                     handler: function () {
                         editInfo();
                     }
+                }, {
+                    id: 'btnSetRoles',
+                    text: 'Add Roles',
+                    iconCls: 'icon-man',
+                        handler: function () {
+                            var rows = $("#tt").datagrid('getSelections');
+                            if (rows.length != 1) {
+                                $.messager.alert("Failed", "Please select one and only one item.");
+                                return;
+                            }
+                            setRole(rows[0].ID);
+                    }
                 }],
             })
+        }
+
+        //Set roles for a user
+        function setRole(id) {
+            var url = "/UserInfo/SetRole/" + id;
+            $("#frameSetRole").attr("src", url);
+
+            $("#setRoleDiv").css("display", "block");
+            $("#setRoleDiv").dialog({
+                title: "Set role for user of " + id,
+                width: 400,
+                height: 400,
+                collapsible: true,
+                minimizable: true,
+                maximizable: true,
+                resizable: true,
+                modal: true,
+                buttons: [{
+                    text: 'Save',
+                    iconCls: 'icon-ok',
+                    handler: function () {
+                        //处罚  修改表单提交
+                        //在父容器中拿到子容器的window submitEditFrm();
+                        var iframeObj = $("#frameEdit")[0];
+                        iframeObj.contentWindow.submitEditFrm();
+                    }
+                }, {
+                    text: 'Cancel',
+                    iconCls: 'icon-cancel',
+                    handler: function () {
+                        $('#setRoleDiv').dialog('close');
+                    }
+                }]
+            });
         }
 
         //Delete selected users
@@ -213,6 +260,11 @@
             }
         }
 
+        //Close set roles dialog after setting roles
+        function afterSetRole() {
+            $('#setRoleDiv').dialog('close');
+        }
+
         function ChangeDateFormat(cellval) {
             var date = new Date(parseInt(cellval.replace("/Date(", "").replace(")/", ""), 10));
             var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
@@ -236,15 +288,15 @@
         @using (Ajax.BeginForm("Add", "UserInfo",
             new { }, new AjaxOptions() { HttpMethod = "post", OnSuccess = "afterAdd" }, new { id = "addForm" }))
         {
-        <table>
-            <tr><td>User Name</td><td><input type="text" name="UserName" /></td></tr>
-            <tr><td>Password</td><td><input type="text" name="Pwd" /></td></tr>
-            <tr><td>Email</td><td><input type="text" name="Email" /></td></tr>
-            <tr><td>Phone</td><td><input type="text" name="Phone" /></td></tr>
-            <tr><td>SubBy</td><td><input type="text" name="SubBy" /></td></tr>
-            <tr><td>Remark</td><td><input type="text" name="Remark" /></td></tr>
-            <tr><td>SortBy</td><td><input type="text" name="Sort" /></td></tr>
-        </table>
+            <table>
+                <tr><td>User Name</td><td><input type="text" name="UserName" /></td></tr>
+                <tr><td>Password</td><td><input type="text" name="Pwd" /></td></tr>
+                <tr><td>Email</td><td><input type="text" name="Email" /></td></tr>
+                <tr><td>Phone</td><td><input type="text" name="Phone" /></td></tr>
+                <tr><td>SubBy</td><td><input type="text" name="SubBy" /></td></tr>
+                <tr><td>Remark</td><td><input type="text" name="Remark" /></td></tr>
+                <tr><td>SortBy</td><td><input type="text" name="Sort" /></td></tr>
+            </table>
         }
     </div>
 
@@ -267,6 +319,13 @@
         }
 
     </div>
+
+    <!--Set roles for a user-->
+    <div id="setRoleDiv">
+        <iframe width="100%" height="100%" frameborder="0" id="frameSetRole" src="~/Error.html"></iframe>
+
+    </div>
+
 
 
 

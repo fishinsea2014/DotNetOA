@@ -257,6 +257,8 @@
     <Content Include="Views\Userinfo\create.cshtml" />
     <Content Include="Views\Department\Index.cshtml" />
     <Content Include="Views\Role\Index.cshtml" />
+    <Content Include="Views\Userinfo\ViewPage1.cshtml" />
+    <Content Include="Views\Userinfo\SetRole.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

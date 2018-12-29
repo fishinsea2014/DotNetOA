@@ -14,7 +14,8 @@ namespace JQ.OA.WebApp.Controllers
 
     public class UserinfoController : Controller
     {
-        UserInfoService userInfoService { get; set; }
+        IUserInfoService userInfoService { get; set; }
+        IRoleService roleService { get; set; }
         //IUserInfoService userInfoService = new UserInfoService();
         //IUserInfoService userInfoService = new UserInfoService();
         // GET: Userinfo
@@ -149,6 +150,19 @@ namespace JQ.OA.WebApp.Controllers
         public ActionResult create()
         {
             return Content("create");
+        }
+
+        public ActionResult SetRole(int id)
+        {
+            var normalFlag = (short)DelFlagEnum.Normal;
+            ViewBag.AllRoles = roleService.LoadEntities(u => u.DelFlag == normalFlag).ToList();
+            var user = userInfoService.LoadEntities(u => u.ID == id).FirstOrDefault();
+
+            ViewBag.ExistRoleIDs = (from r in user.Role
+                                    select r.ID).ToList();
+
+
+            return View(user);
         }
     }
 }

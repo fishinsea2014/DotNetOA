@@ -1,0 +1,56 @@
+﻿@model JQ.QA.Model.UserInfo
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <script src="~/Scripts/jquery-1.7.1.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <title>SetRole</title>
+    <script type="text/javascript">
+        $(function () {
+
+        })
+
+        //Close the dialog when complete setting roles
+        function afterSetRole(data) {
+            window.parent.window.afterSetRole();
+        }
+    </script>
+</head>
+<body>
+    <div> 
+        <h3>Set roles for the user : @Model.UserName</h3>
+        @{ 
+            List<JQ.QA.Model.Role> allRoles = ViewBag.AllRoles;
+            List<int> existRoleIds = ViewBag.ExistRoleIDs;
+            using (Ajax.BeginForm(new AjaxOptions() { HttpMethod = "post", OnSuccess = "afterSetRole" }))
+            {
+                <input type="hidden"   name="hideUserId" value="@Model.ID"/>
+                foreach (var role in allRoles)
+                {
+                    string id = "JQ_" + role.ID;
+                    <p>
+                        @if (existRoleIds.Contains(role.ID))
+                        {
+                        <input type="checkbox" checked="checked" name="@id" id="@id" value="@id" />
+                        }
+                        else {
+                        <input  type="checkbox" name="@id" id="@id" value="@id"/>
+                        }
+
+                        <label for="@id">@role.RoleName</label>
+                    </p>
+                }
+
+                    <input type="submit"  value="Save" />
+            }
+
+        }
+    </div>
+</body>
+</html>
