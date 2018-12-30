@@ -15,7 +15,7 @@ namespace JQ.OA.IBll
         
         bool DeleteEntities(List<int> list);
         IQueryable<UserInfo> LoadSearchEntities(SearchUserParam param);
-
+        bool SetUserRole(int userId, List<int> roleIds);
 
 
     }

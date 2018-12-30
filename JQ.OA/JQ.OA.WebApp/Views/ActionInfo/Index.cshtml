@@ -1,0 +1,118 @@
+﻿
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Actions Management </title>
+    <link href="~/Content/easyui.css" rel="stylesheet" />
+    <link href="~/Content/JQEasyUI/themes/icon.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.7.1.min.js"></script>
+    <script src="~/Scripts/jquery.easyui.min.js"></script>
+    <script src="~/Scripts/easyui-lang-en.js"></script>
+    <script src="~/Scripts/datapattern.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $("#addDiv").css("display", "none");
+            initTable();
+        });
+
+        function initTable(searchParam) {
+            $("#tt").datagrid({
+                url: '/ActionInfo/LoadActionInfos',//rows=10  page=1
+                title: 'Actions List',
+                width: 700,
+                height: 400,
+                fitColumns: true,
+                idField: 'ID',
+                loadMsg: 'Loding actions list...',
+                pagination: true,
+                singleSelect: false,
+                pageSize: 10,
+                pageNumber: 1,
+                pageList: [10, 20, 30],
+                //queryParams: sarcheParam,//parameters for searching items
+                columns: [[// a.ID,a.ActionName,a.HttpMethod,a.Remark,a.Url,a.SubTime,a.SubBy,a.Controoller,a.ActionMethod
+                    { field: 'ck', checkbox: true, align: 'left', width: 50 },
+                    { field: 'ID', title: 'Action No.', width: 80 },
+                    { field: 'ActionName', title: 'Name', width: 120 },
+                    { field: 'HttpMethod', title: 'Request Type', width: 120 },
+                    { field: 'Url', title: 'Request URL', width: 120 },
+                    { field: 'Controoller', title: 'Request controller', width: 120 },
+                    { field: 'ActionMethod', title: 'Request method', width: 120 },
+                    { field: 'SubBy', title: 'Submitter', width: 120 },
+                    {
+                        field: 'SubTime', title: 'Submit time', width: 80, align: 'right',
+                        formatter: function (value, row, index) {
+                            return (eval(value.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d");
+                        }
+                    }
+                ]],
+
+                toolbar: [{
+                    id: 'btnAdd',
+                    text: 'Add',
+                    iconCls: 'icon-add',
+                    handler: function () {                            
+                            showAddDialog();
+                            }
+                }
+                    ]
+            })
+        }
+        function showAddDialog() {
+            var url = "/ActionInfo/AddAction/";
+            $("#frameAddRole").attr("src", url);
+            $("#addDiv").css("display", "block");
+            $("#addDiv").dialog({
+                title: "Add A Action",
+                width: 400,
+                height: 400,
+                collapsible: true,
+                minimizable: true,
+                maximizable: true,
+                resizable: true,
+                modal: true,
+                buttons: [{
+                    text: "Add",
+                    iconCls: "icon-ok",
+                    handler: function () {
+                        //Call add function in Add dialog
+                        let iframeObj = $('#frameAddRole')[0];
+                        iframeObj.contentWindow.submitAddFrm();
+                    }
+                }, {
+                    text: 'Cancel',
+                    iconCls: 'icon-cancel',
+                    handler: function () {
+                    $('#addDiv').dialog('close');
+                }
+
+                    }]
+            });            
+        }
+
+        //Close add dialog after add an action successfully, this is called by child window of adding
+        function afterAddSuccess() {
+            $("#addDiv").dialog('close');
+            initTable();
+        }
+    </script>
+</head>
+<body>
+    <div> 
+        <div id="tt" style="width: 700px;" title="Actions List" iconcls="icon-edit">
+        </div>
+        <div id="addDiv">
+            <iframe width="100%" height="100%" frameborder="0" id="frameAddRole" src="~/Error.html"></iframe>
+        </div>
+    </div>
+</body>
+</html>

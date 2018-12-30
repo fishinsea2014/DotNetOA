@@ -17,6 +17,10 @@
   
   <object type="JQ.OA.WebApp.Controllers.LoginController, JQ.OA.WebApp" singleton="false">
     <property name="UserInfoService" ref="UserInfoService" />
-    <!--<property name="UserInfoService" ref="UserInfoService" />-->
+  </object>
+
+  <object type="JQ.OA.WebApp.Controllers.ActionInfoController, JQ.OA.WebApp" singleton="false">
+    <property name="ActionInfoService" ref="ActionInfoService" />
+    <property name="RoleService" ref="RoleService" />
   </object>
 </objects>

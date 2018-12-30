@@ -10,8 +10,10 @@ using System.Web.Mvc;
 
 namespace JQ.OA.WebApp.Controllers
 {
+    
     //public class UserinfoController : BaseController
 
+    //Use Controller for the convenient of developing
     public class UserinfoController : Controller
     {
         IUserInfoService userInfoService { get; set; }
@@ -163,6 +165,29 @@ namespace JQ.OA.WebApp.Controllers
 
 
             return View(user);
+        }
+        [HttpPost]
+        public ActionResult SetRole()
+        {
+            int userId = int.Parse(Request["hideUserId"]);
+            List<int> checkedRoleIds = new List<int>();
+            foreach (var key in Request.Form.AllKeys)
+            {
+                if (key.StartsWith("JQ_"))
+                {
+                    checkedRoleIds.Add(int.Parse(key.Replace("JQ_", "")));
+                }
+            }
+
+            //TODO
+            bool res = userInfoService.SetUserRole(userId, checkedRoleIds);
+            
+            if (res)
+            {
+                return Content("ok");
+            }
+
+            return Content("Failed to set roles for the user.");
         }
     }
 }

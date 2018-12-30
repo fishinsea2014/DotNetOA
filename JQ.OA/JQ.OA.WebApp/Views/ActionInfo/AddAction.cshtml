@@ -1,0 +1,80 @@
+﻿@model JQ.QA.Model.ActionInfo
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <script src="../../Scripts/jquery-1.7.1.js"></script>
+    <script src="../../Scripts/jquery.unobtrusive-ajax.js"></script>
+    <title>Add A Action</title>
+    <script type="text/javascript">
+
+        function submitAddFrm() {
+            $("#form").submit();
+        }
+
+        function afterAdd(data) {
+            if (data == "ok") {
+                //Call the afterAddSuccess method in the parent window.
+                window.parent.window.afterAddSuccess();
+            } else {
+                alert(data);
+            }
+        }
+
+    </script>
+</head>
+<body>
+    <div>
+        <h3>Add a action</h3>
+        @{ 
+            using (Ajax.BeginForm(new AjaxOptions() { HttpMethod = "Post", OnSuccess = "afterAdd" }))
+            {
+            <table>
+                <tr>
+                    <td>Action Name：</td>
+                    <td>
+                        <input type="text" name="ActionName" />
+                    </td>
+                </tr>
+
+                <tr>
+                <tr>
+                    <td>Request Method</td>
+                    <td>
+                        <select name="HttpMethod">
+                            <option value="Get">Get</option>
+                            <option value="Post">Post</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>URL：</td>
+                    <td>
+                        <input type="text" name="Url" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Remark：</td>
+                    <td>
+                        <input type="text" name="Remark" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" value="Save" />
+                    </td>
+                </tr>
+
+            </table>
+                }
+            }
+    </div>
+</body>
+</html>

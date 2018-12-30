@@ -55,7 +55,23 @@ namespace JQ.OA.Bll
             return temp.OrderBy(u => u.ID).Skip(searchUserParam.PageSize * (searchUserParam.PageIndex - 1))
                                           .Take(searchUserParam.PageSize).AsQueryable();
         }
-       
+
+
+        #region Set roles for a user
+        public bool SetUserRole(int userId, List<int> roleIds)
+        {
+            var user = this.GetCurrentDbSession.UserInfoDal.LoadEntities(u => u.ID == userId).FirstOrDefault();
+            user.Role.Clear();
+            foreach (var roleId in roleIds)
+            {
+                var role = this.GetCurrentDbSession.RoleDal.LoadEntities(r => r.ID == roleId).FirstOrDefault();
+                user.Role.Add(role);
+            }
+
+            return this.SaveChanges();
+            //return true;
+        } 
+        #endregion
     }
 
 }
