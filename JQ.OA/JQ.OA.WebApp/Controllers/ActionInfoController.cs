@@ -76,6 +76,23 @@ namespace JQ.OA.WebApp.Controllers
         }
         #endregion
 
+        public ActionResult DeleteIds()
+        {
+            string strId = Request["ids"];
+            string[] strIds = strId.Split(',');
+            List<int> delIds = new List<int>();
+            foreach (var id in strIds)
+            {
+                delIds.Add(Convert.ToInt32(id));
+            }
+
+            if (InfoService.DeleteEntities(delIds))
+            {
+                return Content("ok");
+            }
+
+            return Content("no");
+        }
 
 
         //[HttpPost]

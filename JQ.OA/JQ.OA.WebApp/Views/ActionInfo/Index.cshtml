@@ -57,13 +57,14 @@
                     }
                 ]],
 
-                toolbar: [{
-                    id: 'btnAdd',
-                    text: 'Add',
-                    iconCls: 'icon-add',
-                    handler: function () {                            
-                            showAddDialog();
-                            }
+                toolbar: [
+                    {
+                        id: 'btnAdd',
+                        text: 'Add',
+                        iconCls: 'icon-add',
+                        handler: function () {                            
+                                showAddDialog();
+                                }
                     },
                     {
                         id: 'btnEdit',
@@ -78,9 +79,43 @@
                             }
                             showEditDialog(rows[0].ID);
                         }
+                    },
+                    {
+                        id: 'btnDelete',
+                        text: 'Delete',
+                        iconCls: 'icon-delete',
+                        handler: function () {                           
+                            deleteItems();
+                        }
                     }
                     ]
             })
+        }
+
+        function deleteItems() {
+            var rows = $("#tt").datagrid('getSelections');
+
+            if (rows.length != 0) {
+                $.messager.alert("error", "Please choose at least one item.");
+                return;
+            }
+            $.messager.confirm("Tips", "delete these items?", function(r) {
+                if (r) {
+                    var ids = "";
+                    for (var i = 0; i < rows; i++) {
+                        ids += rows[i].ID + ",";
+                    }
+                    ids = ids.substr(0, ids.length - 1);
+                    $.post("/Action/DeleteIds", { ids: ids }, function (data) {
+                        if (data = "ok") {
+                            initTable();
+                        } else {
+                            $.messager.alert("error","Failed to delete these items.")
+                        }
+                    })
+                }
+            }
+
         }
 
         function showEditDialog(id) {
