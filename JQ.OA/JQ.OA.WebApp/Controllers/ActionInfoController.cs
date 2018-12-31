@@ -38,6 +38,8 @@ namespace JQ.OA.WebApp.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
+
+
         [HttpPost]
         public ActionResult AddAction(QA.Model.ActionInfo actionInfo)
         {
@@ -57,6 +59,43 @@ namespace JQ.OA.WebApp.Controllers
             return View();
         }
 
+
+        #region Eidt
+        public ActionResult Edit( int id)
+        {
+            QA.Model.ActionInfo actionInfo = actionInfoService.LoadEntities(action => action.ID == id).FirstOrDefault();
+
+            return View(actionInfo);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(QA.Model.ActionInfo actionInfo)
+        {
+            bool result = actionInfoService.EditEntity(actionInfo);
+            return Content("ok");
+        }
+        #endregion
+
+
+
+        //[HttpPost]
+        //public ActionResult EditAction( QA.Model.ActionInfo action)
+        //{            
+
+        //    bool result = actionInfoService.EditEntity(action);
+        //    if (result)
+        //    {
+        //        return Content("ok");
+        //    }
+        //    return Content("Failed to edit the action");
+
+        //}
+
+        //public ActionResult EditAction(int id)
+        //{
+        //    QA.Model.ActionInfo actionInfo = actionInfoService.LoadEntities(action => action.ID == id).FirstOrDefault();
+        //    return View(actionInfo);
+        //}
 
     }
 }
