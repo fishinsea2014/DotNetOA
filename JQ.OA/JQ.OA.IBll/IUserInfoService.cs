@@ -17,7 +17,6 @@ namespace JQ.OA.IBll
         IQueryable<UserInfo> LoadSearchEntities(SearchUserParam param);
         bool SetUserRole(int userId, List<int> roleIds);
 
-
     }
 
 }

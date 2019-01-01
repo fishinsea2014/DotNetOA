@@ -83,7 +83,7 @@
                     {
                         id: 'btnDelete',
                         text: 'Delete',
-                        iconCls: 'icon-delete',
+                        iconCls: 'icon-remove',
                         handler: function () {                           
                             deleteItems();
                         }
@@ -94,28 +94,51 @@
 
         function deleteItems() {
             var rows = $("#tt").datagrid('getSelections');
+            //var rows = $("#tt").datagrid('getSelections');
 
-            if (rows.length != 0) {
+            if (!rows || rows.length == 0) {
                 $.messager.alert("error", "Please choose at least one item.");
                 return;
             }
-            $.messager.confirm("Tips", "delete these items?", function(r) {
+
+            $.messager.confirm("Tips", "Do you want to delete these users?", function (r) {
                 if (r) {
-                    var ids = "";
-                    for (var i = 0; i < rows; i++) {
-                        ids += rows[i].ID + ",";
+                    var strId = "";
+                    for (var i = 0; i < rows.length; i++) {
+                        strId = strId + rows[i].ID + ",";//1,2,3,
                     }
-                    ids = ids.substr(0, ids.length - 1);
-                    $.post("/Action/DeleteIds", { ids: ids }, function (data) {
-                        if (data = "ok") {
-                            initTable();
+                    //rows.foreach(row => {
+                    //    strId += row.ID + ","; //StrId = [1,2,3]
+                    //})
+                    strId = strId.substr(0, strId.length - 1);
+                    $.post("/ActionInfo/DeleteIds", { "ids": strId }, function (data) {
+                        if (data == "ok") {
+                            $("#tt").datagrid('clearSelections');
+                            $("#tt").datagrid('reload'); // Use reload instead of loadData
+                            //loadData();
                         } else {
-                            $.messager.alert("error","Failed to delete these items.")
+                            $.messager.alert("Tips", "Failed to delete users", "error");
                         }
                     })
                 }
-            }
+            })
 
+            //$.messager.confirm("Tips", "delete these items?", function (r) {
+            //    if (r) {
+            //        var ids = "";
+            //        for (var i = 0; i < rows.length; i++) {
+            //            ids += rows[i].ID + ",";
+            //        }
+            //        ids = ids.substr(0, ids.length - 1);
+            //        $.post("/ActionInfo/DeleteIds", { "ids": ids }, function (data) {
+            //            if (data = "ok") {
+            //                initTable();
+            //            } else {
+            //                $.messager.alert("error", "Failed to delete these items.")
+            //            }
+            //        })
+            //    }
+            //});
         }
 
         function showEditDialog(id) {

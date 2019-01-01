@@ -75,7 +75,7 @@ namespace JQ.OA.WebApp.Controllers
             return Content("ok");
         }
         #endregion
-
+        [HttpPost]
         public ActionResult DeleteIds()
         {
             string strId = Request["ids"];
@@ -86,7 +86,7 @@ namespace JQ.OA.WebApp.Controllers
                 delIds.Add(Convert.ToInt32(id));
             }
 
-            if (InfoService.DeleteEntities(delIds))
+            if (actionInfoService.DeleteEntities(delIds))
             {
                 return Content("ok");
             }
