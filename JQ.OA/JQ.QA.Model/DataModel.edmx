@@ -111,6 +111,7 @@
     <Property Name="IsPass" Type="bit" Nullable="false" />
     <Property Name="UserInfoID" Type="int" Nullable="false" />
     <Property Name="ActionInfoID" Type="int" Nullable="false" />
+    <Property Name="DelFlag" Type="smallint" Nullable="false" />
   </EntityType>
   <EntityType Name="UserInfoMeta">
     <Key>
@@ -349,6 +350,7 @@
           <Property Name="ActionInfoID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="UserInfo" Relationship="DataModel.UserInfoR_User_ActionInfo" FromRole="R_User_ActionInfo" ToRole="UserInfo" />
           <NavigationProperty Name="ActionInfo" Relationship="DataModel.ActionInfoR_User_ActionInfo" FromRole="R_User_ActionInfo" ToRole="ActionInfo" />
+          <Property Name="DelFlag" Type="Int16" Nullable="false" />
         </EntityType>
         <EntityType Name="UserInfoMeta">
           <Key>
@@ -470,6 +472,7 @@
           <ScalarProperty Name="IsPass" ColumnName="IsPass" />
           <ScalarProperty Name="UserInfoID" ColumnName="UserInfoID" />
           <ScalarProperty Name="ActionInfoID" ColumnName="ActionInfoID" />
+          <ScalarProperty Name="DelFlag" ColumnName="DelFlag" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -18,6 +18,7 @@ namespace JQ.QA.Model
         public bool IsPass { get; set; }
         public int UserInfoID { get; set; }
         public int ActionInfoID { get; set; }
+        public short DelFlag { get; set; }
     
         public virtual UserInfo UserInfo { get; set; }
         public virtual ActionInfo ActionInfo { get; set; }

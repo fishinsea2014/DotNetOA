@@ -15,5 +15,6 @@
   <object type="JQ.OA.Bll.DepartmentService, JQ.OA.Bll" singleton="false" name="DepartmentService"></object>
   <object type="JQ.OA.Bll.RoleService, JQ.OA.Bll" singleton="false" name="RoleService"></object>
   <object type="JQ.OA.Bll.ActionInfoService, JQ.OA.Bll" singleton="false" name="ActionInfoService"></object>
+  <object type="JQ.OA.Bll.R_User_ActionInfoService, JQ.OA.Bll" singleton="false" name="R_User_ActionInfoService"></object>
   
 </objects>

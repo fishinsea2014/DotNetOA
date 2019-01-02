@@ -18,6 +18,8 @@ namespace JQ.OA.WebApp.Controllers
     {
         IUserInfoService userInfoService { get; set; }
         IRoleService roleService { get; set; }
+        IActionInfoService actionInfoService { get; set; }
+        IR_User_ActionInfoService r_User_ActionInfoService { get; set; }
         //IUserInfoService userInfoService = new UserInfoService();
         //IUserInfoService userInfoService = new UserInfoService();
         // GET: Userinfo
@@ -154,6 +156,7 @@ namespace JQ.OA.WebApp.Controllers
             return Content("create");
         }
 
+        #region Set roles for a user
         public ActionResult SetRole(int id)
         {
             var normalFlag = (short)DelFlagEnum.Normal;
@@ -181,7 +184,7 @@ namespace JQ.OA.WebApp.Controllers
 
             //TODO
             bool res = userInfoService.SetUserRole(userId, checkedRoleIds);
-            
+
             if (res)
             {
                 return Content("ok");
@@ -189,5 +192,47 @@ namespace JQ.OA.WebApp.Controllers
 
             return Content("Failed to set roles for the user.");
         }
+        #endregion
+
+        #region Set actions for a user
+        public ActionResult SetAction(int id)
+        {
+            short delNormal = (short)DelFlagEnum.Normal;
+            ViewData.Model = userInfoService.LoadEntities(u => u.ID == id).FirstOrDefault();
+            ViewBag.AllActionInfos = actionInfoService.LoadEntities(a => a.DelFlag == delNormal).ToList();
+            return View();
+        } 
+
+        public ActionResult SetUserActionPass(QA.Model.R_User_ActionInfo userAction)
+        {
+            var item = r_User_ActionInfoService.LoadEntities(r => r.UserInfoID == userAction.UserInfoID
+                                                               && r.ActionInfoID == userAction.ActionInfoID).FirstOrDefault();
+            if ( item == null)
+            {
+                r_User_ActionInfoService.AddEntity(userAction);
+            }
+            else
+            {
+                item.IsPass = userAction.IsPass;
+                item.DelFlag = (short)QA.Model.Enum.DelFlagEnum.Normal;
+                r_User_ActionInfoService.SaveChanges();
+            }
+
+            return Content("ok");
+        }
+
+        public ActionResult RemoveUserAction(int UserInfoID, int ActionInfoID)
+        {
+            var item = r_User_ActionInfoService.LoadEntities(r => r.UserInfoID == UserInfoID
+                                                               && r.ActionInfoID == ActionInfoID).FirstOrDefault();
+            if (item != null)
+            {
+                item.DelFlag = (short)QA.Model.Enum.DelFlagEnum.Deleted;
+                r_User_ActionInfoService.SaveChanges();
+            }
+
+            return Content("ok");
+        }
+        #endregion
     }
 }

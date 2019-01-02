@@ -9,6 +9,8 @@
   <object type="JQ.OA.WebApp.Controllers.UserInfoController, JQ.OA.WebApp" singleton="false">
     <property name="UserInfoService" ref="UserInfoService" />
     <property name="RoleService" ref="RoleService" />
+    <property name="ActionInfoService" ref="ActionInfoService" />    
+    <property name="R_User_ActionInfoService" ref="R_User_ActionInfoService" />
     
   </object>
   <object type="JQ.OA.WebApp.Controllers.DepartmentController, JQ.OA.WebApp" singleton="false">

@@ -89,7 +89,7 @@
                 }, {
                     id: 'btnSetRoles',
                     text: 'Add Roles',
-                    iconCls: 'icon-man',
+                    iconCls: 'icon-frash',
                         handler: function () {
                             var rows = $("#tt").datagrid('getSelections');
                             if (rows.length != 1) {
@@ -97,16 +97,59 @@
                                 return;
                             }
                             setRole(rows[0].ID);
+                        }
+                }, {
+                    id: 'btnSetActionss',
+                    text: 'Add Actions',
+                    iconCls: 'icon-man',
+                    handler: function () {
+                        var rows = $("#tt").datagrid('getSelections');
+                        if (rows.length != 1) {
+                            $.messager.alert("Failed", "Please select one and only one item.");
+                            return;
+                        }
+                        setAction(rows[0].ID);
                     }
-                }],
+                }]
             })
+        }
+
+        //Set actions for a user
+        function setAction(id) {
+            var url = "/UserInfo/SetAction/" + id;
+            $("#frameSetAction").attr("src", url);
+
+            $("#setActionDiv").css("display", "block");
+            $("#setActionDiv").dialog({
+                title: "Set action for user of " + id,
+                width: 600,
+                height: 400,
+                collapsible: true,
+                minimizable: true,
+                maximizable: true,
+                resizable: true,
+                modal: true,
+                buttons: [{
+                    text: 'Save',
+                    iconCls: 'icon-ok',
+                    handler: function () {                        
+                        var iframeObj = $("#frameEdit")[0];
+                        iframeObj.contentWindow.submitEditFrm();
+                    }
+                }, {
+                    text: 'Cancel',
+                    iconCls: 'icon-cancel',
+                    handler: function () {
+                        $('#setActionDiv').dialog('close');
+                    }
+                }]
+            });
         }
 
         //Set roles for a user
         function setRole(id) {
             var url = "/UserInfo/SetRole/" + id;
             $("#frameSetRole").attr("src", url);
-
             $("#setRoleDiv").css("display", "block");
             $("#setRoleDiv").dialog({
                 title: "Set role for user of " + id,
@@ -120,9 +163,7 @@
                 buttons: [{
                     text: 'Save',
                     iconCls: 'icon-ok',
-                    handler: function () {
-                        //处罚  修改表单提交
-                        //在父容器中拿到子容器的window submitEditFrm();
+                    handler: function () {                        
                         var iframeObj = $("#frameEdit")[0];
                         iframeObj.contentWindow.submitEditFrm();
                     }
@@ -323,6 +364,11 @@
     <!--Set roles for a user-->
     <div id="setRoleDiv">
         <iframe width="100%" height="100%" frameborder="0" id="frameSetRole" src="~/Error.html"></iframe>
+
+    </div>
+
+    <div id="setActionDiv">
+        <iframe width="100%" height="100%" frameborder="0" id="frameSetAction" src="~/Error.html"></iframe>
 
     </div>
 

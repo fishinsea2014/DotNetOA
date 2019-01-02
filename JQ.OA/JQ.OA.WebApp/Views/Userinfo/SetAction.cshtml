@@ -1,0 +1,135 @@
+﻿@model JQ.QA.Model.UserInfo
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/easyui.css" rel="stylesheet" />
+    <link href="~/Content/JQEasyUI/themes/icon.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.7.1.min.js"></script>
+    <script src="~/Scripts/jquery.easyui.min.js"></script>
+    <script src="~/Scripts/easyui-lang-en.js"></script>
+    <title>SetAction</title>
+    <script type="text/javascript">
+         //$(function (parameters) {
+        //    $(".setPass").click(function () {
+        //        if ($(this).attr("checked") == true) {
+        //            this.siblings(":checkbox").attr("checked", false);
+        //        }
+        //    })
+        //}); 
+        $(function (parameters) {
+            $(".setPass").click(function () {
+                //alert("click");
+                //Set the other checkbox to unchecked
+                if ($(this).attr("checked") == "checked") {
+                    //alert("true");
+                    $(this).siblings(":checkbox").attr("checked", false);
+
+                    var requestData = {
+                        IsPass: $(this).attr("isPass") == "true" ? true : false,
+                        UserInfoID: $("#userId").val(),
+                        ActionInfoID: $(this).attr("actionId")
+                    };
+
+                    $.post("/UserInfo/SetUserActionPass", requestData, function (data) {
+                        if (data != "ok") {
+                            alert("Failed to set actions for the user");
+                        }
+                    });
+                } else {
+                    var requestData = {
+                        UserInfoID: $('#userId').val(),
+                        ActionInfoID: $(this).attr("actionId")
+                    };
+
+                    $.post("/UserInfo/RemoveUserAction", requestData, function (data) {
+                        if (data != "ok") {
+                            alert("Failed to set actions for the user");
+                        }
+                    });
+                }
+                 
+                //Send request to server to update the status of the action
+
+
+            })
+        });
+
+        //$(function (parameters) {
+        //    $(".setPass").click(function () {
+        //        //去掉其他两个checkbox选中状态为 非checked
+        //        if ($(this).attr("checked") == "checked") {
+        //            $(this).siblings(":checkbox").attr("checked", false);
+        //            //发送异步请求
+        //            var requestData = {
+        //                IsPass: $(this).attr("isPass") == "true" ? true : false,
+        //                UserInfoID: $("#userId").val(),
+        //                ActionInfoID: $(this).attr("actionId")
+        //            };
+        //            $.post("/UserInfo/SetUserActionPasss", requestData, function (data) {
+        //                if (data != "ok") {
+        //                    alert("败了！");
+        //                }
+        //            });
+
+        //        } else {
+        //            var requestData = {
+        //                UserInfoID: $("#userId").val(),
+        //                ActionInfoID: $(this).attr("actionId")
+        //            };
+        //            $.post("/UserInfo/RemoveUserAction", requestData, function (data) {
+        //                if (data != "ok") {
+        //                    alert("败了！");
+        //                }
+        //            });
+        //        }
+
+        //    });
+        //});
+       
+        
+    </script>
+</head>
+<body>
+    <div> 
+        <h3>Set actions for user : @Model.UserName</h3>
+        <input type="hidden" id="userId" value="@Model.ID" />
+
+        @{ 
+            List<JQ.QA.Model.ActionInfo> allActions = ViewBag.AllActionInfos;
+
+            <table>
+                <tr>
+                    <th>Action No.</th>
+                    <th>Action Name</th>
+                    <th>URL</th>
+                    <th>Request Type</th>
+                    <th>Options</th>
+                </tr>
+                @foreach (var item in allActions)
+                {
+                    string strId = "JQ_" + item.ID;
+                <tr>
+                    <td>@item.ID</td>
+                    <td>@item.ActionName</td>
+                    <td>@item.Url</td>
+                    <td>@item.HttpMethod</td>
+                    <td>
+                        Allow <input actionId="@item.ID" class="setPass" isPass="true"  type="checkbox" id="@strId" name="@strId" />
+                        Deny <input actionId="@item.ID" type="checkbox" class="setPass" isPass="false" id="@strId" name="@strId" />
+                    </td>
+                    
+
+                </tr> 
+                }
+            </table>
+        }
+    </div>
+</body>
+</html>

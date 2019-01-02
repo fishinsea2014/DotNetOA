@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 12/22/2018 14:04:57
+-- Date Created: 01/02/2019 18:38:30
 -- Generated from EDMX file: D:\my_projects\DotNet_OA_V2\JQ.OA\JQ.QA.Model\DataModel.edmx
 -- --------------------------------------------------
 
@@ -17,11 +17,62 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[FK_UserInfoRole_UserInfo]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UserInfoRole] DROP CONSTRAINT [FK_UserInfoRole_UserInfo];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserInfoRole_Role]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UserInfoRole] DROP CONSTRAINT [FK_UserInfoRole_Role];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserInfoR_User_ActionInfo]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[R_User_ActionInfo] DROP CONSTRAINT [FK_UserInfoR_User_ActionInfo];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserInfoDepartment_UserInfo]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UserInfoDepartment] DROP CONSTRAINT [FK_UserInfoDepartment_UserInfo];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserInfoDepartment_Department]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UserInfoDepartment] DROP CONSTRAINT [FK_UserInfoDepartment_Department];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ActionInfoRole_ActionInfo]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ActionInfoRole] DROP CONSTRAINT [FK_ActionInfoRole_ActionInfo];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ActionInfoRole_Role]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ActionInfoRole] DROP CONSTRAINT [FK_ActionInfoRole_Role];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ActionInfoR_User_ActionInfo]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[R_User_ActionInfo] DROP CONSTRAINT [FK_ActionInfoR_User_ActionInfo];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[UserInfo]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[UserInfo];
+GO
+IF OBJECT_ID(N'[dbo].[Role]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Role];
+GO
+IF OBJECT_ID(N'[dbo].[Department]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Department];
+GO
+IF OBJECT_ID(N'[dbo].[ActionInfo]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ActionInfo];
+GO
+IF OBJECT_ID(N'[dbo].[R_User_ActionInfo]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[R_User_ActionInfo];
+GO
+IF OBJECT_ID(N'[dbo].[UserInfoMeta]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[UserInfoMeta];
+GO
+IF OBJECT_ID(N'[dbo].[UserInfoRole]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[UserInfoRole];
+GO
+IF OBJECT_ID(N'[dbo].[UserInfoDepartment]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[UserInfoDepartment];
+GO
+IF OBJECT_ID(N'[dbo].[ActionInfoRole]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ActionInfoRole];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -87,7 +138,8 @@ CREATE TABLE [dbo].[R_User_ActionInfo] (
     [ID] int IDENTITY(1,1) NOT NULL,
     [IsPass] bit  NOT NULL,
     [UserInfoID] int  NOT NULL,
-    [ActionInfoID] int  NOT NULL
+    [ActionInfoID] int  NOT NULL,
+    [DelFlag] smallint  NOT NULL
 );
 GO
 
