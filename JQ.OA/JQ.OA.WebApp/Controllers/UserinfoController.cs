@@ -200,6 +200,8 @@ namespace JQ.OA.WebApp.Controllers
             short delNormal = (short)DelFlagEnum.Normal;
             ViewData.Model = userInfoService.LoadEntities(u => u.ID == id).FirstOrDefault();
             ViewBag.AllActionInfos = actionInfoService.LoadEntities(a => a.DelFlag == delNormal).ToList();
+            ViewBag.ExistUserActions = r_User_ActionInfoService.LoadEntities(r => r.UserInfoID == id && r.DelFlag == delNormal)
+                                       .ToList();
             return View();
         } 
 

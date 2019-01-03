@@ -1,5 +1,5 @@
 ﻿@model JQ.QA.Model.UserInfo
-
+@using JQ.QA.Model
 @{
     Layout = null;
 }
@@ -103,33 +103,64 @@
 
         @{ 
             List<JQ.QA.Model.ActionInfo> allActions = ViewBag.AllActionInfos;
+            //List<JQ.QA.Model.R_User_ActionInfo> allExistActions = ViewBag.ExistUserActions;
+            List<R_User_ActionInfo> allExistActions = ViewBag.ExistUserActions;
 
-            <table>
-                <tr>
-                    <th>Action No.</th>
-                    <th>Action Name</th>
-                    <th>URL</th>
-                    <th>Request Type</th>
-                    <th>Options</th>
-                </tr>
-                @foreach (var item in allActions)
-                {
-                    string strId = "JQ_" + item.ID;
-                <tr>
-                    <td>@item.ID</td>
-                    <td>@item.ActionName</td>
-                    <td>@item.Url</td>
-                    <td>@item.HttpMethod</td>
-                    <td>
-                        Allow <input actionId="@item.ID" class="setPass" isPass="true"  type="checkbox" id="@strId" name="@strId" />
-                        Deny <input actionId="@item.ID" type="checkbox" class="setPass" isPass="false" id="@strId" name="@strId" />
-                    </td>
+
+    <table>
+        <tr>
+            <th>Action No.</th>
+            <th>Action Name</th>
+            <th>URL</th>
+            <th>Request Type</th>
+            <th>Options</th>
+        </tr> 
+        @foreach (var item in allActions)
+        {
+            string strId = "JQ_" + item.ID;
+            string strIdNO = "JQ_No_" + item.ID;
+            //var rExistUserAction = allExistActions.FindAll(r => r.ActionInfoID == item.ID).FirstOrDefault();
+            var rExistUserAction = allExistActions.FindAll(r => r.ActionInfoID == item.ID).FirstOrDefault();
+
+            <tr>
+                <td>@item.ID</td>
+                <td>@item.ActionName</td>
+                <td>@item.Url</td>
+                <td>@item.HttpMethod</td>
+                <td>
+
+                    @if (rExistUserAction == null)
+                    {
+                        <input actionId="@item.ID" class="setPass" isPass="true" type="checkbox" id="@strId" name="@strId" />
+                        <label for="@strId">Allow</label>
+                        <input actionId="@item.ID" type="checkbox" class="setPass" isPass="false" id="@strIdNO" name="@strId" />
+                        <label for="@strIdNO">Deny</label>
+                    }
+                    else
+                    {
+                        if (rExistUserAction.IsPass == true)
+                        {
+                            <input actionId="@item.ID" checked="checked" class="setPass" isPass="true" type="checkbox" id="@strId" name="@strId" />
+                            <label for="@strId">Allow</label>
+                            <input actionId="@item.ID" type="checkbox" class="setPass" isPass="false" id="@strIdNO" name="@strId" />
+                            <label for="@strIdNO">Deny</label>
+                        }
+                        else
+                        {
+                            <input actionId="@item.ID" class="setPass" isPass="true" type="checkbox" id="@strId" name="@strId" />
+                            <label for="@strId">Allow</label>
+                            <input actionId="@item.ID" checked="checked" type="checkbox" class="setPass" isPass="false" id="@strIdNO" name="@strId" />
+                            <label for="@strIdNO">Deny</label>
+                        }
+                    }
                     
+                </td>
 
-                </tr> 
-                }
-            </table>
+
+            </tr>
         }
-    </div>
+    </table>
+    }
+</div>
 </body>
 </html>
