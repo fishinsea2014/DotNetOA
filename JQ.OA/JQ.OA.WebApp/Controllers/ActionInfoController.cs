@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace JQ.OA.WebApp.Controllers
 {
-    public class ActionInfoController : Controller
+    public class ActionInfoController : BaseController
     {
         // GET: ActionInfo
 
@@ -25,8 +25,8 @@ namespace JQ.OA.WebApp.Controllers
             short delNormal = (short)QA.Model.Enum.DelFlagEnum.Normal;
 
             //PageIndex should be first.
-            var dpList = actionInfoService.LoadPageEntities(pageIndex, pageSize,  out total,
-                            d => d.DelFlag == delNormal, d =>d.ID,true);
+            var dpList = actionInfoService.LoadPageEntities(pageIndex, pageSize, out total,
+                            d => d.DelFlag == delNormal, d => d.ID, true);
 
             var data = new
             {
@@ -45,7 +45,7 @@ namespace JQ.OA.WebApp.Controllers
         {
             actionInfo.ActionMethod = string.Empty;
             actionInfo.Controoller = string.Empty;
-            actionInfo.SubBy = 1;
+            actionInfo.SubBy = this.LoginUserInfo.ID;
             actionInfo.SubTime = DateTime.Now;
             actionInfo.DelFlag = (short)QA.Model.Enum.DelFlagEnum.Normal;
 
@@ -61,7 +61,7 @@ namespace JQ.OA.WebApp.Controllers
 
 
         #region Eidt
-        public ActionResult Edit( int id)
+        public ActionResult Edit(int id)
         {
             QA.Model.ActionInfo actionInfo = actionInfoService.LoadEntities(action => action.ID == id).FirstOrDefault();
 
@@ -75,6 +75,8 @@ namespace JQ.OA.WebApp.Controllers
             return Content("ok");
         }
         #endregion
+
+        #region Delete
         [HttpPost]
         public ActionResult DeleteIds()
         {
@@ -93,26 +95,43 @@ namespace JQ.OA.WebApp.Controllers
 
             return Content("no");
         }
+        #endregion
+        #region Set roles for an action
+
+        public ActionResult SetRole(int id)
+        {
+            short DelFlagNormal = (short)QA.Model.Enum.DelFlagEnum.Normal;
+
+            QA.Model.ActionInfo actionInfo = actionInfoService.LoadEntities(action => action.ID == id).FirstOrDefault();
+
+            ViewBag.AllRoles = roleService.LoadEntities(r => r.DelFlag == DelFlagNormal).ToList();
+            ViewBag.ExistRolesIds = (from r in actionInfo.Role select r.ID).ToList();
+
+            return View(actionInfo);
+        } 
+        [HttpPost]
+        public ActionResult SetRole()
+        {
+            int actionId = int.Parse(Request["hidActionId"]);
+            List<int> checkedRoleIds = new List<int>();
+            foreach (var key in Request.Form.AllKeys)
+            {
+                if (key.StartsWith("JQ_"))
+                {
+                    checkedRoleIds.Add(int.Parse(key.Replace("JQ_", "")));
+                }
+            }
+
+            if (actionInfoService.SetActionRole(actionId, checkedRoleIds))
+            {
+                return Content("ok");
+            };
+            return Content("Failed to set roles for the action.");
+        }
+        #endregion
 
 
-        //[HttpPost]
-        //public ActionResult EditAction( QA.Model.ActionInfo action)
-        //{            
 
-        //    bool result = actionInfoService.EditEntity(action);
-        //    if (result)
-        //    {
-        //        return Content("ok");
-        //    }
-        //    return Content("Failed to edit the action");
-
-        //}
-
-        //public ActionResult EditAction(int id)
-        //{
-        //    QA.Model.ActionInfo actionInfo = actionInfoService.LoadEntities(action => action.ID == id).FirstOrDefault();
-        //    return View(actionInfo);
-        //}
 
     }
 }

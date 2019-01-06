@@ -11,10 +11,10 @@ using System.Web.Mvc;
 namespace JQ.OA.WebApp.Controllers
 {
     
-    //public class UserinfoController : BaseController
+    public class UserinfoController : BaseController
 
     //Use Controller for the convenient of developing
-    public class UserinfoController : Controller
+    //public class UserinfoController : Controller
     {
         IUserInfoService userInfoService { get; set; }
         IRoleService roleService { get; set; }
@@ -42,9 +42,6 @@ namespace JQ.OA.WebApp.Controllers
             //Get the page size and page index from front end.
             int pageSize = Request["rows"] == null ? 10 : int.Parse(Request["rows"]);
             int pageIndex = Request["page"] == null ? 1 : int.Parse(Request["page"]);
-
-            short delNormal = (short)DelFlagEnum.Normal;
-
             SearchUserParam userParam = new SearchUserParam();
             userParam.PageSize = pageSize;
             userParam.PageIndex = pageIndex;
@@ -125,7 +122,7 @@ namespace JQ.OA.WebApp.Controllers
         {
             //userInfo.Init();
             userInfo.DelFlag = 0;
-            userInfo.SubBy = 1;
+            userInfo.SubBy = this.LoginUserInfo.ID;
             userInfo.SubTime = DateTime.Now;
             //int i = 8;
             //userInfo = new UserInfo()

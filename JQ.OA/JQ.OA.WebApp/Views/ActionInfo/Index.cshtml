@@ -21,7 +21,8 @@
     <script type="text/javascript">
         $(function () {
             $("#addDiv").css("display", "none");
-            $("#editDiv").css("display", "none")
+            $("#editDiv").css("display", "none");
+            $("#setRoleDiv").css("display", "none");
             initTable();
         });
 
@@ -87,9 +88,59 @@
                         handler: function () {                           
                             deleteItems();
                         }
+                    },
+                    {
+                        id: 'btnSetRole',
+                        text: 'Set Role',
+                        iconCls: 'icon-redo',
+                        handler: function () {
+                            var rows = $("#tt").datagrid('getSelections');
+
+                            if (rows.length != 1) {
+                                $.messager.alert("error", "Please choose an item and only one item.");
+                                return;
+                            }
+                            showSetRoleDialog(rows[0].ID);
+                        }
                     }
                     ]
             })
+        }
+
+        function showSetRoleDialog(id) {
+            var url = "/ActionInfo/SetRole/" + id;
+            $("#frameSetRole").attr("src", url);
+
+            $("#setRoleDiv").css("display", "block");
+            $("#setRoleDiv").dialog({
+                title: "Set actions to a role",
+                width: 400,
+                height: 400,
+                collapsible: true,
+                minimizable: true,
+                maximizable: true,
+                resizable: true,
+                modal: true,
+                buttons: [{
+                    text: "Save",
+                    iconCls: "icon-ok",
+                    handler: function () {
+                        let iframeObj = $('#frameSetRole')[0];
+                        iframeObj.contentWindow.submitSetRoleFrm();
+                    }
+                }, {
+                    text: 'Cancel',
+                    iconCls: 'icon-cancel',
+                    handler: function () {
+                        $('#setRoleDiv').dialog('close');
+                    }
+
+                }]
+            })
+        }
+
+        function afterSetRole() {
+            $("#setRoleDiv").dialog('close');
         }
 
         function deleteItems() {
@@ -220,7 +271,7 @@
     </script>
 </head>
 <body>
-    <div> 
+    <div>
         <div id="tt" style="width: 700px;" title="Actions List" iconcls="icon-edit">
         </div>
         <div id="addDiv">
@@ -228,6 +279,10 @@
         </div>
         <div id="editDiv">
             <iframe width="100%" height="100%" frameborder="0" id="frameEditRole" src="~/Error.html"></iframe>
+        </div>
+
+        <div id="setRoleDiv">
+            <iframe width="100%" height="100%" frameborder="0" id="frameSetRole" src="~/Error.html"></iframe>
         </div>
     </div>
 </body>

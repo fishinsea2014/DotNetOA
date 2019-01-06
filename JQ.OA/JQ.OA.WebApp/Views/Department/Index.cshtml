@@ -8,14 +8,53 @@
     <title>Departments Management</title>
     <link href="~/Content/easyui.css" rel="stylesheet" />
     <link href="~/Content/JQEasyUI/themes/icon.css" rel="stylesheet" />
+
+    <link href="~/Content/zTreeStyle/zTreeIcons.css" rel="stylesheet" />
+    <link href="~/Content/zTreeStyle/zTreeStyle.css" rel="stylesheet" />
+
     <script src="~/Scripts/jquery-1.7.1.min.js"></script>
     <script src="~/Scripts/jquery.easyui.min.js"></script>
     <script src="~/Scripts/easyui-lang-en.js"></script>
     <script src="~/Scripts/datapattern.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/zTree/jquery.ztree-2.6.js"></script>
+
 
 
     <script type="text/javascript">
+        //Setup zTree for department tree in add dialog
+        var zTree; // tree object
+        //var treeNodes; //all nodes of the tree
+        var setting = {
+            showLine: true, //Display the lines between the nodes
+            checkable: true,
+            checkStyle: "radio",
+            checkRadioType: "all",
+            //async : true, //Get the nodes data by async, default is false  
+            //asyncUrl : url, //when async = true, indicate the URL for async method 
+            //asyncParam : ["CategoryId"],  
+            isSimpleData: true, //Utilse simple array format for data, default is false  
+            treeNodeKey: "CategoryId", //The type of current node when isSimpleData = true 
+            treeNodeParentKey: "ParentId", //The type of parent node when isSimpleData = true 
+            nameCol: "Name",       //the name of the current node 
+            expandSpeed: "fast", //The speed of the fold/unfold animation           
+            checkType: { "Y": "ps", "N": "ps" },
+            callback: { //Call back methods                              
+                dblclick: zTreeOnDblclick //when double click an nodes
+            }
+        }
+
+        function zTreeOnDblclick(event, treeId,treeNodes) {
+            var name = treeNodes.Name;
+            $("#Parent").val(name);
+            var id = treeNodes.CategoryId;
+            $("#ParentId").val(id);
+
+            $("#treeParentDepartment").dialog("close");
+        }
+
+        //End of setup zTree
+
         $(function () {
             loadData();
             $("#addDiv").css("display", "none");
@@ -29,9 +68,33 @@
                 loadData(pars);
             });
 
+            //Pop up a dialog when click select superior department box.
+            $("#Parent").click(function () {
+                $("#treeParentDepartment").css("display", "block");
+                $("#treeParentDepartment").dialog({
+                    title: "Select a superior department",
+                    width: 300,
+                    height: 300,
+                    collapsible: true,
+                    minimizable: true,
+                    maximizable: true,
+                    resizable: true,
+                    modal: true
+                });
+            })
+
         });
 
+        function initTree() {
+            $("#treeParentDepartment").css("display", "none");
+            $.getJSON("/Department/GetTreeDepNodes", {}, function (data) {
+                zTree = $("#tree").zTree(setting, data);
+            })
+            
+        }
+        
         function loadData(pars) {
+            initTree();
             $('#tt').datagrid({
                 url: '/Department/GetAllDepartments',
                 title: 'Department Management',
@@ -52,7 +115,7 @@
                     { field: 'ID', title: 'No.', width: 30 },
                     { field: 'DepName', title: 'Name', width: 120 },
                     { field: 'DepNo', title: 'Dep No.', width: 100 },
-                    { field: 'DepMasterId', title: 'Dep Director', width: 120 },                    
+                    { field: 'DepMasterId', title: 'Dep Director', width: 120 },
                     //{
                     //    field: 'SubTime', title: 'Reg Time', width: 130, align: 'right',
                     //    formatter: function (value, row, index) {
@@ -121,7 +184,7 @@
             $("#addDiv").css("display", "block");
             $("#addDiv").dialog({
                 title: "Add a department",
-                width: 300,
+                width: 400,
                 height: 300,
                 collapsible: true,
                 resizable: true,
@@ -142,7 +205,7 @@
             });
         }
 
-        //Edit a department 
+        //Edit a department
         function editInfo() {
             var rows = $('#tt').datagrid('getSelections');
             if (rows.length != 1) {
@@ -154,7 +217,7 @@
                 if (data.msg == "ok") {
                     $("#txtEName").val(data.serverData.DepName);
                     $("#txtENo").val(data.serverData.DepNo);
-                    $("#txtEMasterId").val(data.serverData.DepMasterId);                    
+                    $("#txtEMasterId").val(data.serverData.DepMasterId);
                     $("#txtId").val(data.serverData.ID);
                     $("#editDiv").css("display", "block");
                     $("#editDiv").dialog({
@@ -201,6 +264,7 @@
             if (data == "Ok") {
                 $("#addForm input").val(""); //Clear input values
                 $("#addDiv").dialog('close');
+                initTree();
                 $("#tt").datagrid("reload");
             } else {
                 $.messager.alert("Tips", "Failed to add a department", "error");
@@ -231,10 +295,17 @@
             new { }, new AjaxOptions() { HttpMethod = "post", OnSuccess = "afterAdd" }, new { id = "addForm" }))
         {
             <table>
+                <tr>
+                    <td>Superior Department</td>
+                    <td>
+                        <input type="text" value="--Select the superior--" name="Parent" id="Parent" />
+                        <input type="hidden" name="ParentId" id="ParentId" value="-1" />
+                    </td>
+                </tr>
                 <tr><td>Department Name</td><td><input type="text" name="DepName" /></td></tr>
                 <tr><td>Department No.</td><td><input type="text" name="DepNo" /></td></tr>
                 <tr><td>Master ID</td><td><input type="text" name="DepMasterId" /></td></tr>
-                
+
             </table>
         }
     </div>
@@ -261,6 +332,14 @@
             </table>
         }
 
+    </div>
+    <!--Select superior department-->
+    <div id="treeParentDepartment">
+        <input type="button" value="Unfold All" onclick="zTree.expandAll(true)" />
+        <input type="button" value="Fold All" onclick="zTree.expandAll(false)" />
+
+        <hr />
+        <ul id="tree" class="tree" style="width:300px; overflow:auto;"></ul>
     </div>
 
 

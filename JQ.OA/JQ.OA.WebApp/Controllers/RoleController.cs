@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace JQ.OA.WebApp.Controllers
 {
-    public class RoleController : Controller
+    public class RoleController : BaseController
     {
         IRoleService roleService { get; set; }
         IUserInfoService userInfoService { get; set; }
@@ -33,7 +33,7 @@ namespace JQ.OA.WebApp.Controllers
                                                          , d => d.DelFlag == delNormal, d => d.ID, true );
             var allUsers = userInfoService.LoadEntities(u => u.DelFlag == delNormal);
 
-            var data = from r in rolesList
+            var joindata = from r in rolesList
                        join u in allUsers on r.SubBy equals u.ID
                        select new { r.RoleName, r.ID, u.UserName, r.SubBy,r.SubTime };
             //Assembe the data into EasyUI table data, like : {total: 10; rows:[]}
@@ -53,6 +53,11 @@ namespace JQ.OA.WebApp.Controllers
             //                }
             //            ).ToList()
             //};
+            var data = new
+            {
+                total = total,
+                rows = joindata.ToList()
+            };
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }
@@ -61,7 +66,7 @@ namespace JQ.OA.WebApp.Controllers
         {
             short delNormal = (short)DelFlagEnum.Normal;
             //role.SubBy = this.LoginUserInfo.ID; 
-            role.SubBy = 0; //Just for the convinient of the coding
+            role.SubBy = this.LoginUserInfo.ID; //Just for the convinient of the coding
             role.SubTime = DateTime.Now;
             role.DelFlag = delNormal;
 

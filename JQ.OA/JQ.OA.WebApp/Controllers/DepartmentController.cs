@@ -12,7 +12,7 @@ using System.Web.Mvc;
 namespace JQ.OA.WebApp.Controllers
 {
 
-    public class DepartmentController : Controller
+    public class DepartmentController : BaseController
     {
         IBll.IDepartmentService departmentService { get; set; }
         //IBll.IDepartmentService departmentService = new Bll.DepartmentService();
@@ -124,9 +124,9 @@ namespace JQ.OA.WebApp.Controllers
         public ActionResult Add(Department department)
         {
             department.DelFlag = 0;
-            department.SubBy = 1;
+            department.SubBy = this.LoginUserInfo.ID;
             department.SubTime = DateTime.Now;
-            department.ParentId = 0;
+            //department.ParentId = 0;
             department.IsLeaf = false;
             department.Level = 0;
             department.TreePath = "no path";
@@ -162,6 +162,16 @@ namespace JQ.OA.WebApp.Controllers
             //return Content("Fail to add an user.");
             return Content("Ok");
         }
+        #endregion
+
+        #region Get the data for department tree
+        public ActionResult GetTreeDepNodes()
+        {
+            short delNormal = (short)DelFlagEnum.Normal;
+            var allDeps = from d in departmentService.LoadEntities(d => d.DelFlag == delNormal)
+                          select new { CategoryId = d.ID, ParentId = d.ParentId, Name = d.DepName };
+            return Json(allDeps, JsonRequestBehavior.AllowGet);
+        } 
         #endregion
 
         public ActionResult create()

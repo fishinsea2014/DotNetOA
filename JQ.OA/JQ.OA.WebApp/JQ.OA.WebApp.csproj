@@ -264,6 +264,7 @@
     <Content Include="Views\ActionInfo\AddAction.cshtml" />
     <Content Include="Views\ActionInfo\Edit.cshtml" />
     <Content Include="Views\Userinfo\SetAction.cshtml" />
+    <Content Include="Views\ActionInfo\SetRole.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

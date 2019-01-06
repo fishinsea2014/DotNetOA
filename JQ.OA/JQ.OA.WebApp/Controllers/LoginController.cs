@@ -58,6 +58,7 @@ namespace JQ.OA.WebApp.Controllers
                 //Serialize the userInfo object to string before put it into memcache
 
                 //MemcacheHelper.Set(sessionId, SerializerHelper.SerializeToString(userInfo), DateTime.Now.AddMinutes(20));
+                Session["LoginUser"] = userInfo;
                 return Content("Ok: Login succeed");
             }
 

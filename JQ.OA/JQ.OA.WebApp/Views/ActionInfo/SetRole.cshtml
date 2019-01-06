@@ -1,0 +1,55 @@
+﻿@model JQ.QA.Model.ActionInfo
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>SetRole</title>
+    <script src="../../Scripts/jquery-1.7.1.js"></script>
+    <script src="../../Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script type="text/javascript">
+        $(function () {
+
+        });
+
+        function afterSetRole(data) {
+            window.parent.window.afterSetRole();
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <h3>Set roles for action: @Model.ActionName</h3>
+        @{
+            List<JQ.QA.Model.Role> allRoles = ViewBag.AllRoles;
+            List<int> allExistRolesIds = ViewBag.ExistRolesIds;
+            using(Ajax.BeginForm(new AjaxOptions() { HttpMethod="Post", OnSuccess = "afterSetRole" }))
+            {
+                <input type="hidden" name="hidActionId" value="@Model.ID" />
+                foreach (var role in allRoles)
+                {
+                    string id = "JQ_" + role.ID;
+                    <p>
+                        @if (allExistRolesIds.Contains(role.ID))
+                        {
+                            <input checked="checked" type="checkbox" name="@id" value="@id" />
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="@id" value="@id" id="@id"/>
+                        }
+                            <label for="@id">@role.RoleName</label>
+                    </p>
+                }
+
+                    <input type="submit"  value="Save" />
+            }
+        }
+    </div>
+</body>
+</html>

@@ -17,5 +17,18 @@ namespace JQ.OA.Bll
             }
             return this.GetCurrentDbSession.SaveChange();
         }
+
+        public bool SetActionRole(int actionId, List<int> checkedRoleIds)
+        {
+            var actions = GetCurrentDbSession.ActionInfoDal.LoadEntities(a => a.ID == actionId).FirstOrDefault();
+            actions.Role.Clear();
+            foreach (var roleId in checkedRoleIds)
+            {
+                var role = GetCurrentDbSession.RoleDal.LoadEntities(r => r.ID == roleId).FirstOrDefault();
+                actions.Role.Add(role);
+            }
+
+            return this.SaveChanges();            
+        }
     }
 }

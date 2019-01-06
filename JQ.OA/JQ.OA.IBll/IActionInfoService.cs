@@ -9,6 +9,6 @@ namespace JQ.OA.IBll
     public partial interface IActionInfoService : IBaseService<QA.Model.ActionInfo> 
     {
          bool DeleteEntities(List<int> delIds);
-
+        bool SetActionRole(int actionId, List<int> checkedRoleIds);
     }
 }
