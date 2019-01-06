@@ -38,6 +38,18 @@ namespace JQ.OA.DALFactory
 			}
 		}
 			
+		private IMenuInfoDal _MenuInfoDal;
+		public IMenuInfoDal MenuInfoDal {
+			get {
+				if (_MenuInfoDal == null)
+				{
+				_MenuInfoDal = AbstractFactory.CreateMenuInfoDal();
+					//_MenuInfoDal =new MenuInfoDal();
+				}
+				return _MenuInfoDal;
+			}
+		}
+			
 		private IR_User_ActionInfoDal _R_User_ActionInfoDal;
 		public IR_User_ActionInfoDal R_User_ActionInfoDal {
 			get {

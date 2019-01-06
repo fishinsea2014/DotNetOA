@@ -17,6 +17,10 @@ namespace JQ.QA.Dal
 		{
        
 		}	
+		 public partial class MenuInfoDal : BaseDal<MenuInfo>,IMenuInfoDal
+		{
+       
+		}	
 		 public partial class R_User_ActionInfoDal : BaseDal<R_User_ActionInfo>,IR_User_ActionInfoDal
 		{
        

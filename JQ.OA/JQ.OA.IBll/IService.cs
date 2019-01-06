@@ -17,6 +17,9 @@ namespace JQ.OA.IBll
 	public partial interface IDepartmentService : IBaseService<Department>{}
 
 
+	public partial interface IMenuInfoService : IBaseService<MenuInfo>{}
+
+
 	public partial interface IR_User_ActionInfoService : IBaseService<R_User_ActionInfo>{}
 
 

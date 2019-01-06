@@ -276,6 +276,7 @@
             <End Role="ActionInfo" EntitySet="ActionInfo" />
             <End Role="R_User_ActionInfo" EntitySet="R_User_ActionInfo" />
           </AssociationSet>
+          <EntitySet Name="MenuInfoe" EntityType="DataModel.MenuInfo" />
         </EntityContainer>
         <EntityType Name="UserInfo">
           <Key>
@@ -400,6 +401,24 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="MenuInfo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MenuName" Type="String" Nullable="false" MaxLength="32" />
+          <Property Name="DelFlag" Type="Int16" Nullable="false" />
+          <Property Name="SubBy" Type="Int32" Nullable="false" />
+          <Property Name="SubTime" Type="DateTime" Nullable="false" />
+          <Property Name="ActionInfoId" Type="Int32" Nullable="false" />
+          <Property Name="Remark" Type="String" Nullable="true" MaxLength="128" />
+          <Property Name="Sort" Type="Int32" Nullable="false" />
+          <Property Name="IsVisable" Type="Boolean" Nullable="false" />
+          <Property Name="DialogHeight" Type="Int32" Nullable="false" />
+          <Property Name="DialogWidth" Type="Int32" Nullable="false" />
+          <Property Name="IconUrl" Type="String" Nullable="false" MaxLength="512" />
+          <Property Name="ParentId" Type="Int32" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->

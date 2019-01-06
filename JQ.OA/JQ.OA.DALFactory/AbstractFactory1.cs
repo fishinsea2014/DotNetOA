@@ -40,6 +40,17 @@ namespace JQ.OA.DALFactory
 
 			
 
+        public static IMenuInfoDal CreateMenuInfoDal()
+        {
+            string fullClassName = NameSpace + ".MenuInfoDal"; //Construct a full name of a class, include namespace
+            return CreateInstance(fullClassName) as IMenuInfoDal;
+
+        }
+	
+
+
+			
+
         public static IR_User_ActionInfoDal CreateR_User_ActionInfoDal()
         {
             string fullClassName = NameSpace + ".R_User_ActionInfoDal"; //Construct a full name of a class, include namespace

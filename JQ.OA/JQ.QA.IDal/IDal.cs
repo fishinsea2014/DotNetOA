@@ -20,6 +20,10 @@ namespace JQ.QA.IDal
     { 
 	}	
 	
+	public partial interface IMenuInfoDal :IBaseDal<MenuInfo>
+    { 
+	}	
+	
 	public partial interface IR_User_ActionInfoDal :IBaseDal<R_User_ActionInfo>
     { 
 	}	

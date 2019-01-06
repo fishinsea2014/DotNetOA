@@ -36,6 +36,18 @@ namespace JQ.OA.Bll
 	}
 
 
+	//public partial interface IMenuInfoService : IBaseService<MenuInfo>{}
+
+	public partial class MenuInfoService : BaseService<MenuInfo>, IMenuInfoService
+    {
+
+        public override void SetCurrentDal()
+        {
+            CurrentDal = this.GetCurrentDbSession.MenuInfoDal;
+        }
+	}
+
+
 	//public partial interface IR_User_ActionInfoService : IBaseService<R_User_ActionInfo>{}
 
 	public partial class R_User_ActionInfoService : BaseService<R_User_ActionInfo>, IR_User_ActionInfoService

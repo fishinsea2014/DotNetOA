@@ -71,6 +71,9 @@
     <Compile Include="Department.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="MenuInfo.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Params\BaseSearchParams.cs" />
     <Compile Include="Params\SearchDepParam.cs" />
     <Compile Include="Params\SearchUserParam.cs" />
