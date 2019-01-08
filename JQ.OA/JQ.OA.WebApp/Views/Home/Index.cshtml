@@ -119,19 +119,35 @@
             margin-right: 10px;
         }
     </style>
+    <script type="text/javascript">
+        var links = "";
+        $(function () {
+            
+            $.getJSON("Home/LoadMenu", {}, function (data) {
+                links = data;                
+                linksInit();
+                onResize();
+                $("#layout1").ligerLayout();
+            })
+            $('#userNameTop').text("Hello, " +localStorage.getItem('userName'));
+            //$('#userNameTop').text("hello jason");
+        })
+    </script>
 
 
 </head>
 
 <body style="overflow: hidden; background: url(../../Content/Images/7_7.jpg) no-repeat  center center;">
     <div id="header">
-
         <img src="../../Content/Images/logo.jpg" />
         <h1 style="margin-left:15px">WELCOME TO JASON'S OA</h1>
         <div style="float: right;">
             <table>
                 <tr>
-                    <td style="vertical-align: bottom;font-size: 14px;font-weight:bold;">@DateTime.Now.ToString("yyyy-MM-dd") &nbsp;&nbsp; @DateTime.Now.DayOfWeek</td>
+                    <td style="vertical-align: bottom;font-size: 14px;font-weight:bold;">
+                        <p>@DateTime.Now.ToString("yyyy-MM-dd") &nbsp;&nbsp; @DateTime.Now.DayOfWeek</p>
+                        <p id="userNameTop"></p>
+                    </td>
                     <td><img id="imgUser" src="../../Content/Images/big.png" /></td>
                 </tr>
             </table>
@@ -140,7 +156,7 @@
 
     </div>
     <div id="layout1">
-        <div position="center" style="background: url(../../Content/Images/7_7.jpg) no-repeat  center center;">
+        <div position="center" style="background: url(../../Content/Images/7_7.jpg)  center center;">
             <div id="winlinks">
                 <ul></ul>
             </div>
@@ -156,7 +172,7 @@
     function f_open(url, title, icon) {
         var win = $.ligerDialog.open(
         {
-            height: 500, url: url, width: 600, showMax: true, showToggle: true, showMin: true, isResize: true, modal: false, title: title, slide: false, buttons: [
+            height: 600, url: url, width: 800, showMax: true, showToggle: true, showMin: true, isResize: true, modal: false, title: title, slide: false, buttons: [
               {
                   text: 'OK', onclick: function (item, Dialog, index) {
                       win.hide();
@@ -173,15 +189,15 @@
 
 
     //Displied icons
-    var links = [
-            { icon: '../../Content/Images/Big.png', title: 'User Management', url: '/Userinfo' },
-            { icon: '../../Content/Images/3DSMAX.png', title: 'My Report', url: '../grid/mulheader/grid2.htm' },
-            { icon: '../../Content/Images/Program Files Folder.png', title: 'Draggable', url: '../base/drag.htm' },
-            { icon: '../../Content/Images/Alien Folder.png', title: 'Menu Tree', url: '../tree/draggable.htm' },
-            { icon: '../../Content/Images/Xp-G5 006.png', title: 'Drop-down box', url: '../comboBox/comboBoxGrid.htm' },
-            { icon: '../../Content/Images/Alien Folder.png', title: 'layout', url: '../layout/layoutFullHeight.htm' },
-             { icon: '../../Content/Images/Xp-G5 006.png', title: 'tab', url: '../tab/tabHtml.htm' },
-    ];
+    //var links = [
+    //        { icon: '../../Content/Images/Big.png', title: 'User Management', url: '/Userinfo' },
+    //        { icon: '../../Content/Images/3DSMAX.png', title: 'My Report', url: '../grid/mulheader/grid2.htm' },
+    //        { icon: '../../Content/Images/Program Files Folder.png', title: 'Draggable', url: '../base/drag.htm' },
+    //        { icon: '../../Content/Images/Alien Folder.png', title: 'Menu Tree', url: '../tree/draggable.htm' },
+    //        { icon: '../../Content/Images/Xp-G5 006.png', title: 'Drop-down box', url: '../comboBox/comboBoxGrid.htm' },
+    //        { icon: '../../Content/Images/Alien Folder.png', title: 'layout', url: '../layout/layoutFullHeight.htm' },
+    //         { icon: '../../Content/Images/Xp-G5 006.png', title: 'tab', url: '../tab/tabHtml.htm' },
+    //];
 
     //Rearrange all the icons when the size of window changed
     function onResize() {
@@ -227,10 +243,7 @@
     $.ligerui.win.removeTaskbar = function () { }; //No removal allowed
     $.ligerui.win.createTaskbar(); //Create a taskbar when the page loads
 
-    linksInit();
-    onResize();
-
-    $("#layout1").ligerLayout();
+    
 
 
 </script>

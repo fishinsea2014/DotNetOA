@@ -24,6 +24,7 @@
         function afterLogin(serverData) {
             var data = serverData.split(":");
             if (data[0] == "Ok") {
+                localStorage.setItem("userName", $('#LoginCode').val());
                 window.location.href = "/Home";
             } else {
                 $("#errorMsg").text(data[1]);

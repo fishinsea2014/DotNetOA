@@ -220,9 +220,15 @@
         }
 
         //Close add dialog after add a Menu successfully, this is called by child window of adding
-        function afterAddSuccess() {
-            $("#addDiv").dialog('close');
-            initTable();
+        function afterAddSuccess(data) {
+            if (data == "ok") {
+                $("#MenuAddFrm .text").val("");
+                $("#addDiv").dialog('close');
+                initTable();
+            } else {
+                $.messager.alert("Tips", "Failed to add a menu", "error");
+            }
+            
         }
     </script>
 </head>
@@ -239,20 +245,20 @@
                         <tr>
                             <td>Menu Name</td>
                             <td>
-                                <input type="text" name="MenuName" />
+                                <input type="text" class="text" name="MenuName" />
                             </td>
                         </tr>
 
                         <tr>
                             <td>Sort: </td>
                             <td>
-                                <input type="text" name="Sort" />
+                                <input type="text" class="text" name="Sort" />
                             </td>
                         </tr>
                         <tr>
                             <td>Icon</td>
                             <td id="iconTd">
-                                <input id="iconUrl" type="text" name="iconUrl" />
+                                <input id="iconUrl" type="text" class="text"  name="iconUrl" />
                                 <input id="iconInput" type="file" name="iconImg" />
                                 <input type="button" value="Upload Icon" id="btnUploadIconImg" />
                             </td>
@@ -261,14 +267,14 @@
                         <tr>
                             <td>Action: </td>
                             <td>
-                                <input type="text" name="ActionInfoId" />
+                                <input type="text"  class="text" name="ActionInfoId" />
                             </td>
                         </tr>
 
                         <tr>
                             <td>Remark: </td>
                             <td>
-                                <textarea name="Remark" cols="40" rows="20"></textarea>
+                                <textarea name="Remark"  class="text" cols="40" rows="20"></textarea>
                             </td>
                         </tr>
 
