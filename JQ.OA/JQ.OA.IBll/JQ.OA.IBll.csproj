@@ -43,6 +43,7 @@
     <Compile Include="IActionInfoService.cs" />
     <Compile Include="IBaseService.cs" />
     <Compile Include="IDepartmentService.cs" />
+    <Compile Include="IMemuInfoService.cs" />
     <Compile Include="IRoleService.cs" />
     <Compile Include="IService.cs">
       <AutoGen>True</AutoGen>

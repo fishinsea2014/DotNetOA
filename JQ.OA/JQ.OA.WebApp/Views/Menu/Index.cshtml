@@ -1,0 +1,290 @@
+﻿@model JQ.QA.Model.MenuInfo
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Menu Management</title>
+    <link href="~/Content/easyui.css" rel="stylesheet" />
+    <link href="~/Content/JQEasyUI/themes/icon.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.7.1.min.js"></script>
+    <script src="~/Scripts/jquery.easyui.min.js"></script>
+    <script src="~/Scripts/easyui-lang-en.js"></script>
+    <script src="~/Scripts/datapattern.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/MyAjaxForm.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#addDiv").css("display", "none");
+            $("#editDiv").css("display", "none");
+            initTable();
+
+            //When click upload icon image 
+            $("#btnUploadIconImg").click(function () {
+                if ($("#iconInput").val()) {
+                    //Post image to server asynchronously
+                    $("#MenuAddFrm").ajaxSubmit({
+                        error: function (error) { alert(error); },
+                        url: '/Menu/UploadIconImg', //Method in Menu controller
+                        type: "post",
+                        dataType: "text",
+                        success: function (data) {
+                            $("#iconUrl").val(data);
+                            $("#iconTd").append("<img src='" + data + "'width='50px' height='50px' />");
+                            $("#iconInput").val("");
+                        }
+
+                    })
+                } else {
+                    $.messager.alert("Error", "Please choose a right pic.")
+                }
+            })
+        });
+
+        function initTable(searchParam) {
+            $("#tt").datagrid({
+                url: '/Menu/LoadMenuInfos',//rows=10  page=1
+                title: 'Menu List',
+                width: 700,
+                height: 400,
+                fitColumns: true,
+                idField: 'ID',
+                loadMsg: 'Loding Menu list...',
+                pagination: true,
+                singleSelect: false,
+                pageSize: 10,
+                pageNumber: 1,
+                pageList: [10, 20, 30],
+                //queryParams: sarcheParam,//parameters for searching items
+                columns: [[
+                    { field: 'ck', checkbox: true, align: 'left', width: 50 },
+                    { field: 'ID', title: 'Menu No.', width: 80 },
+                    { field: 'MenuName', title: 'Name', width: 120 },
+                    { field: 'Url', title: 'Request URL', width: 120 },
+                    { field: 'ActionName', title: 'Action Name', width: 120 },
+                    { field: 'IsVisable', title: 'Visible? ', width: 120 },
+                    { field: 'SubBy', title: 'Submitter', width: 120 },
+                    {
+                        field: 'IconUrl', title: 'Icon Url', width: 100, align: "right",
+                        formatter: function (value, row, index) {
+                            return "<img alt='' src='" + value + "' width='50' height='50' /> ";
+                        }
+                    },
+                    {
+                        field: 'SubTime', title: 'Submit time', width: 80, align: 'right',
+                        formatter: function (value, row, index) {
+                            return (eval(value.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d");
+                        }
+                    }
+                ]],
+
+                toolbar: [
+                    {
+                        id: 'btnAdd',
+                        text: 'Add',
+                        iconCls: 'icon-add',
+                        handler: function () {
+                                showAddDialog();
+                                }
+                    },
+                    {
+                        id: 'btnEdit',
+                        text: 'Edit',
+                        iconCls: 'icon-edit',
+                        handler: function () {
+                            var rows = $("#tt").datagrid('getSelections');
+
+                            if (rows.length != 1) {
+                                $.messager.alert("error", "Please choose an item and only one item.");
+                                return;
+                            }
+                            showEditDialog(rows[0].ID);
+                        }
+                    },
+                    {
+                        id: 'btnDelete',
+                        text: 'Delete',
+                        iconCls: 'icon-remove',
+                        handler: function () {
+                            deleteItems();
+                        }
+                    }
+                    ]
+            })
+        }
+
+        
+        function deleteItems() {
+            var rows = $("#tt").datagrid('getSelections');
+            //var rows = $("#tt").datagrid('getSelections');
+
+            if (!rows || rows.length == 0) {
+                $.messager.alert("error", "Please choose at least one item.");
+                return;
+            }
+
+            $.messager.confirm("Tips", "Do you want to delete these users?", function (r) {
+                if (r) {
+                    var strId = "";
+                    for (var i = 0; i < rows.length; i++) {
+                        strId = strId + rows[i].ID + ",";//1,2,3,
+                    }
+                   
+                    strId = strId.substr(0, strId.length - 1);
+                    $.post("/Menu/DeleteMenus", { "strId": strId }, function (data) {
+                        if (data == "ok") {
+                            $("#tt").datagrid('clearSelections');
+                            $("#tt").datagrid('reload'); // Use reload instead of loadData
+                        } else {
+                            $.messager.alert("Tips", "Failed to delete users", "error");
+                        }
+                    })
+                }
+            })
+
+        }
+
+        function showEditDialog(id) {
+            var url = "/Menu/Edit/"+id;
+            $("#frameEditMenu").attr("src", url);
+
+            $("#editDiv").css("display", "block");
+            $("#editDiv").dialog({
+                title: "Edit An Menu",
+                width: 400,
+                height: 400,
+                collapsible: true,
+                minimizable: true,
+                maximizable: true,
+                resizable: true,
+                modal: true,
+                buttons: [{
+                    text: "Save",
+                    iconCls: "icon-ok",
+                    handler: function () {
+                        //Call add function in EditMenu.cshtml
+                        let iframeObj = $('#frameEditMenu')[0];
+                        iframeObj.contentWindow.submitEditFrm();
+                    }
+                }, {
+                    text: 'Cancel',
+                    iconCls: 'icon-cancel',
+                    handler: function () {
+                        $('#editDiv').dialog('close');
+                    }
+
+                }]
+            })
+        }
+
+        function afterEditSuccess() {
+            $("#editDiv").dialog('close');
+            initTable();
+        }
+
+        function showAddDialog() {
+            //var url = "/Menu/AddMenu/";
+            //$("#frameAddMenu").attr("src", url);
+            $("#addDiv").css("display", "block");
+            $("#addDiv").dialog({
+                title: "Add A Menu",
+                width: 600,
+                height: 400,
+                collapsible: true,
+                minimizable: true,
+                maximizable: true,
+                resizable: true,
+                modal: true,
+                buttons: [{
+                    text: "Add",
+                    iconCls: "icon-ok",
+                    handler: function () {
+                        //Call add function in Add dialog
+                        let iframeObj = $('#frameAddMenu')[0];
+                        iframeObj.contentWindow.submitAddFrm();
+                    }
+                }, {
+                    text: 'Cancel',
+                    iconCls: 'icon-cancel',
+                    handler: function () {
+                    $('#addDiv').dialog('close');
+                }
+
+                    }]
+            });
+        }
+
+        //Close add dialog after add a Menu successfully, this is called by child window of adding
+        function afterAddSuccess() {
+            $("#addDiv").dialog('close');
+            initTable();
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <div id="tt" style="width: 700px;" title="Menus List" iconcls="icon-edit">
+        </div>
+        <div id="addDiv">
+            @{
+                using (Ajax.BeginForm("AddMenu", "Menu", new AjaxOptions() { HttpMethod = "Post", OnSuccess = "afterAddSuccess" }
+                       , new { id = "MenuAddFrm", enctype = "multipart/form-data" }))
+                {
+                    <table>
+                        <tr>
+                            <td>Menu Name</td>
+                            <td>
+                                <input type="text" name="MenuName" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Sort: </td>
+                            <td>
+                                <input type="text" name="Sort" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Icon</td>
+                            <td id="iconTd">
+                                <input id="iconUrl" type="text" name="iconUrl" />
+                                <input id="iconInput" type="file" name="iconImg" />
+                                <input type="button" value="Upload Icon" id="btnUploadIconImg" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Action: </td>
+                            <td>
+                                <input type="text" name="ActionInfoId" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Remark: </td>
+                            <td>
+                                <textarea name="Remark" cols="40" rows="20"></textarea>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">
+                                <input type="submit" value="Add" />
+                            </td>
+                        </tr>
+                    </table>
+                }
+            }
+        </div>
+        <div id="editDiv">
+            <iframe width="100%" height="100%" frameborder="0" id="frameEditMenu" src="~/Error.html"></iframe>
+        </div>
+
+    </div>
+</body>
+</html>

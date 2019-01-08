@@ -8,7 +8,7 @@
 
 <html>
 <head>
-    <title>Edit</title>
+    <title>Edit an action</title>
     <meta name="viewport" content="width=device-width" />
     <script src="../../Scripts/jquery-1.7.1.js"></script>
     <script src="../../Scripts/jquery.unobtrusive-ajax.js"></script>
@@ -22,7 +22,7 @@
             }
         }
 
-        //触发 当前的修改的表单提交
+        
         function submitEditFrm() {
             $("form").submit();
         }
@@ -44,7 +44,7 @@
 
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.ActionName, "权限名")
+            @Html.LabelFor(model => model.ActionName, "Action Name")
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.ActionName)

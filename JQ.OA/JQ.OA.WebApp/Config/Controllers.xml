@@ -25,4 +25,9 @@
     <property name="ActionInfoService" ref="ActionInfoService" />
     <property name="RoleService" ref="RoleService" />
   </object>
+
+  <object type="JQ.OA.WebApp.Controllers.MenuController, JQ.OA.WebApp" singleton="false">
+    <property name="MenuInfoService" ref="MenuInfoService" />
+    <property name="ActionInfoService" ref="ActionInfoService" />
+  </object>
 </objects>

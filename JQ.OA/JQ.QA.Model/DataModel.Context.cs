@@ -31,6 +31,6 @@ namespace JQ.QA.Model
         public DbSet<ActionInfo> ActionInfo { get; set; }
         public DbSet<R_User_ActionInfo> R_User_ActionInfo { get; set; }
         public DbSet<UserInfoMeta> UserInfoMeta { get; set; }
-        public DbSet<MenuInfo> MenuInfoe { get; set; }
+        public DbSet<MenuInfo> MenuInfo { get; set; }
     }
 }

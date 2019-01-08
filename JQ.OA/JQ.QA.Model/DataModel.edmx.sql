@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 01/02/2019 18:38:30
+-- Date Created: 01/06/2019 23:13:12
 -- Generated from EDMX file: D:\my_projects\DotNet_OA_V2\JQ.OA\JQ.QA.Model\DataModel.edmx
 -- --------------------------------------------------
 
@@ -63,6 +63,9 @@ IF OBJECT_ID(N'[dbo].[R_User_ActionInfo]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[UserInfoMeta]', 'U') IS NOT NULL
     DROP TABLE [dbo].[UserInfoMeta];
+GO
+IF OBJECT_ID(N'[dbo].[MenuInfoe]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[MenuInfoe];
 GO
 IF OBJECT_ID(N'[dbo].[UserInfoRole]', 'U') IS NOT NULL
     DROP TABLE [dbo].[UserInfoRole];
@@ -155,6 +158,24 @@ CREATE TABLE [dbo].[UserInfoMeta] (
 );
 GO
 
+-- Creating table 'MenuInfo'
+CREATE TABLE [dbo].[MenuInfo] (
+    [ID] int IDENTITY(1,1) NOT NULL,
+    [MenuName] nvarchar(32)  NOT NULL,
+    [DelFlag] smallint  NOT NULL,
+    [SubBy] int  NOT NULL,
+    [SubTime] datetime  NOT NULL,
+    [ActionInfoId] int  NOT NULL,
+    [Remark] nvarchar(128)  NULL,
+    [Sort] int  NOT NULL,
+    [IsVisable] bit  NOT NULL,
+    [DialogHeight] int  NOT NULL,
+    [DialogWidth] int  NOT NULL,
+    [IconUrl] nvarchar(512)  NOT NULL,
+    [ParentId] int  NOT NULL
+);
+GO
+
 -- Creating table 'UserInfoRole'
 CREATE TABLE [dbo].[UserInfoRole] (
     [UserInfo_ID] int  NOT NULL,
@@ -213,6 +234,12 @@ GO
 -- Creating primary key on [ID] in table 'UserInfoMeta'
 ALTER TABLE [dbo].[UserInfoMeta]
 ADD CONSTRAINT [PK_UserInfoMeta]
+    PRIMARY KEY CLUSTERED ([ID] ASC);
+GO
+
+-- Creating primary key on [ID] in table 'MenuInfo'
+ALTER TABLE [dbo].[MenuInfo]
+ADD CONSTRAINT [PK_MenuInfo]
     PRIMARY KEY CLUSTERED ([ID] ASC);
 GO
 

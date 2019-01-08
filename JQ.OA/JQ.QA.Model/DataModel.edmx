@@ -12,6 +12,7 @@
     <EntitySet Name="ActionInfo" EntityType="DataModel.Store.ActionInfo" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="R_User_ActionInfo" EntityType="DataModel.Store.R_User_ActionInfo" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UserInfoMeta" EntityType="DataModel.Store.UserInfoMeta" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MenuInfo" EntityType="DataModel.Store.MenuInfo" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UserInfoRole" EntityType="DataModel.Store.UserInfoRole" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UserInfoDepartment" EntityType="DataModel.Store.UserInfoDepartment" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ActionInfoRole" EntityType="DataModel.Store.ActionInfoRole" store:Type="Tables" Schema="dbo" />
@@ -124,6 +125,24 @@
     <Property Name="DelFlag" Type="smallint" Nullable="false" />
     <Property Name="SubBy" Type="int" Nullable="false" />
     <Property Name="SubTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MenuInfo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MenuName" Type="nvarchar" Nullable="false" MaxLength="32" />
+    <Property Name="DelFlag" Type="smallint" Nullable="false" />
+    <Property Name="SubBy" Type="int" Nullable="false" />
+    <Property Name="SubTime" Type="datetime" Nullable="false" />
+    <Property Name="ActionInfoId" Type="int" Nullable="false" />
+    <Property Name="Remark" Type="nvarchar" Nullable="true" MaxLength="128" />
+    <Property Name="Sort" Type="int" Nullable="false" />
+    <Property Name="IsVisable" Type="bit" Nullable="false" />
+    <Property Name="DialogHeight" Type="int" Nullable="false" />
+    <Property Name="DialogWidth" Type="int" Nullable="false" />
+    <Property Name="IconUrl" Type="nvarchar" Nullable="false" MaxLength="512" />
+    <Property Name="ParentId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="UserInfoRole">
     <Key>
@@ -276,7 +295,7 @@
             <End Role="ActionInfo" EntitySet="ActionInfo" />
             <End Role="R_User_ActionInfo" EntitySet="R_User_ActionInfo" />
           </AssociationSet>
-          <EntitySet Name="MenuInfoe" EntityType="DataModel.MenuInfo" />
+          <EntitySet Name="MenuInfo" EntityType="DataModel.MenuInfo" />
         </EntityContainer>
         <EntityType Name="UserInfo">
           <Key>
@@ -505,6 +524,25 @@
           <ScalarProperty Name="DelFlag" ColumnName="DelFlag" />
           <ScalarProperty Name="SubBy" ColumnName="SubBy" />
           <ScalarProperty Name="SubTime" ColumnName="SubTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MenuInfo">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.MenuInfo)">
+        <MappingFragment StoreEntitySet="MenuInfo">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+          <ScalarProperty Name="DelFlag" ColumnName="DelFlag" />
+          <ScalarProperty Name="SubBy" ColumnName="SubBy" />
+          <ScalarProperty Name="SubTime" ColumnName="SubTime" />
+          <ScalarProperty Name="ActionInfoId" ColumnName="ActionInfoId" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Sort" ColumnName="Sort" />
+          <ScalarProperty Name="IsVisable" ColumnName="IsVisable" />
+          <ScalarProperty Name="DialogHeight" ColumnName="DialogHeight" />
+          <ScalarProperty Name="DialogWidth" ColumnName="DialogWidth" />
+          <ScalarProperty Name="IconUrl" ColumnName="IconUrl" />
+          <ScalarProperty Name="ParentId" ColumnName="ParentId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
