@@ -30,37 +30,24 @@ namespace WFWinFrmDemo
 
         private void button2_Click(object sender, EventArgs e)
         {
-            
-            //{
-            //    SqlConnection myConn = new SqlConnection(strCon);
-            //    myConn.Open();
-            //    string sql = "insert into OAData.dbo.test1(id,name) values (40,5) ";
-            //    try
-            //    {
-            //        SqlCommand comm = new SqlCommand(sql, myConn);
-            //        if (comm.ExecuteNonQuery() != 0)
-            //        {
-            //            Console.WriteLine("插入成功");
-            //        }
-            //    }
-            //    catch (Exception)
-            //    {
-            //        Console.WriteLine("插入失败");
-            //    } 
-            //}
+
+            //Using SQL persistence for Workflows and workflow service
+            //1. Install data tables with sql file of : SqlWorkflowInstanceStoreSchema.sql
+            //,  SqlWorkflowInstanceStoreLogic.sql and SqlWorkflowInstanceStoreSchemaUpgrade.sql	
+            //2. Ref workflowapplication: System.Activities.DurableInstancing, System.Activities;
+             
 
             WorkflowApplication application = new WorkflowApplication(new DemoActivity());
             SqlWorkflowInstanceStore sqlWorkflowInstanceStore = new SqlWorkflowInstanceStore(strCon);
 
-            //Connecting current application instance to database.
+            //3. Connecting current application instance to database.
             application.InstanceStore = sqlWorkflowInstanceStore; //Here must ref system.runtime.durableinstancing.
 
-            //When workflow is idle, serialize and unload the workflow, store in the database.
-            application.PersistableIdle = arg => { return PersistableIdleAction.Unload; };
-
-            
+            //4. When workflow is idle, serialize and unload the workflow, store in the database.
+            application.PersistableIdle = arg => { return PersistableIdleAction.Unload; };           
              
             application.Idle = (a) => { Console.WriteLine("Workflow is halting..."); };
+            //5. Run application and store the workflow in db
             application.Run();
             this.richTextBox1.Text = application.Id.ToString();
         }
@@ -72,14 +59,16 @@ namespace WFWinFrmDemo
 
         private void button4_Click(object sender, EventArgs e)
         {
+            //6. Retrive a workflow in database
             WorkflowApplication application = new WorkflowApplication(new DemoActivity());
             SqlWorkflowInstanceStore sqlWorkflowInstanceStore = new SqlWorkflowInstanceStore(strCon);
 
             //Connecting current application instance to database.
-            application.InstanceStore = sqlWorkflowInstanceStore; //Here must ref system.runtime.durableinstancing.
-                                                                  //When workflow is idle, serialize and unload the workflow, store in the database.
+            application.InstanceStore = sqlWorkflowInstanceStore; 
+
             application.PersistableIdle = arg => { return PersistableIdleAction.Unload; };
 
+            // 7 load the retrived workflow.
             application.Load(Guid.Parse(this.textBox1.Text));
 
             application.ResumeBookmark("UserFinancial", new object[] { "Website", 100000 });
