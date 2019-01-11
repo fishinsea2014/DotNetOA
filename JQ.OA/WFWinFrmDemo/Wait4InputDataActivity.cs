@@ -34,6 +34,7 @@ namespace WFWinFrmDemo
             //context.SetValue(Text, (T)value);
             object[] objs = (object[])value;
             context.SetValue(Text, objs[0].ToString());
+            //context.SetValue(Money, (int)objs[1]);
             context.SetValue(Money, (int)objs[1]);
             Console.WriteLine("Bookmark complete, continue...");
             //context.SetValue(Text, (int)value);

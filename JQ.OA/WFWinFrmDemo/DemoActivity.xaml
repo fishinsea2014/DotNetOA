@@ -63,9 +63,9 @@
             <Transition.To>
               <State x:Name="__ReferenceID2" DisplayName="Dep director approve" sap2010:WorkflowViewState.IdRef="State_3">
                 <State.Entry>
-                  <Sequence>
+                  <Sequence sap2010:WorkflowViewState.IdRef="Sequence_3">
                     <WriteLine sap2010:WorkflowViewState.IdRef="WriteLine_3" Text="Dep manager approve start" />
-                    <Assign>
+                    <Assign sap2010:WorkflowViewState.IdRef="Assign_2">
                       <Assign.To>
                         <OutArgument x:TypeArguments="x:Boolean">
                           <mca:CSharpReference x:TypeArguments="x:Boolean">IsPass</mca:CSharpReference>
@@ -74,9 +74,7 @@
                       <Assign.Value>
                         <InArgument x:TypeArguments="x:Boolean">True</InArgument>
                       </Assign.Value>
-                      <sap2010:WorkflowViewState.IdRef>Assign_2</sap2010:WorkflowViewState.IdRef>
                     </Assign>
-                    <sap2010:WorkflowViewState.IdRef>Sequence_3</sap2010:WorkflowViewState.IdRef>
                   </Sequence>
                 </State.Entry>
                 <State.Exit>
@@ -141,7 +139,7 @@
                       </State>
                     </Transition.To>
                     <Transition.Action>
-                      <WriteLine Text="Money is more than 10000" sap2010:WorkflowViewState.IdRef="WriteLine_8" />
+                      <WriteLine sap2010:WorkflowViewState.IdRef="WriteLine_8" Text="Money is more than 10000" />
                     </Transition.Action>
                     <Transition.Condition>
                       <mca:CSharpValue x:TypeArguments="x:Boolean">Money &gt; 10000</mca:CSharpValue>
@@ -163,7 +161,7 @@
       <Variable x:TypeArguments="x:Int32" Name="Money" />
       <Variable x:TypeArguments="x:String" Name="VPResult" />
     </StateMachine.Variables>
-    <sads:DebugSymbol.Symbol>d0BEOlxteV9wcm9qZWN0c1xEb3ROZXRfT0FfVjJcSlEuT0FcV0ZXaW5Gcm1EZW1vXERlbW9BY3Rpdml0eS54YW1sJysDpwESAgEBLQebAQ8CATxAD5cBFwIBIGAXZB8CARxpF40BHwIBAi8LOBYCAUI7CztmAgFAPmQ+agIBPkITUB4CATNTE1NtAgExWBdYXQIBLF0XXXcCASiTAReTAWYCASSQAReQAXICASJiG2JrAgEeaxt3JgIBE3obemwCARF/H39uAgEMhAEfhAFuAgEIiQEfiQFtAgEEMA0wagIBSDENNywCAUM7STtjAgFBQxVDcQIBOkQVTh4CATRTUVNqAgEykAEnkAFBAgEjYlliaAIBH2wdbHACARptHXYmAgEUell6aQIBEjBLMGcCAUk0EzRdAgFEQ1NDbgIBO0tBS0UCATlHG0doAgE1bFtsbQIBG3RIdEwCARlwI3BxAgEV</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d0BEOlxteV9wcm9qZWN0c1xEb3ROZXRfT0FfVjJcSlEuT0FcV0ZXaW5Gcm1EZW1vXERlbW9BY3Rpdml0eS54YW1sJysDpQESAgEBLQeZAQ8CATxAD5UBFwIBIF4XYh8CARxnF4sBHwIBAi8LOBYCAUI7CztmAgFAPmQ+agIBPkITTh4CATNRE1FtAgExVhdWXQIBLFsXW3cCASiRAReRAWYCASSOAReOAXICASJgG2BrAgEeaRt1JgIBE3gbeGwCARF9H31uAgEMggEfggFuAgEIhwEfhwFtAgEEMA0wagIBSDENNywCAUM7STtjAgFBQxVDcQIBOkQVTR4CATRRUVFqAgEyjgFVjgFvAgEjYFlgaAIBH2odanACARprHXQmAgEUeFl4aQIBEjBLMGcCAUk0EzRdAgFEQ1NDbgIBO0tBS0UCATlHG0doAgE1altqbQIBG3JIckwCARluI25xAgEV</sads:DebugSymbol.Symbol>
   </StateMachine>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -273,7 +271,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="State_3" sap:VirtualizedContainerService.HintSize="326,704">
+      <sap2010:ViewStateData Id="State_3" sap:VirtualizedContainerService.HintSize="114,61">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <av:Point x:Key="ShapeLocation">73,209.5</av:Point>
@@ -300,12 +298,12 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="StateMachine_1" sap:VirtualizedContainerService.HintSize="614,636">
+      <sap2010:ViewStateData Id="StateMachine_1" sap:VirtualizedContainerService.HintSize="826,636">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">False</x:Boolean>
             <av:Point x:Key="ShapeLocation">270,2.5</av:Point>
-            <x:Double x:Key="StateContainerWidth">600</x:Double>
+            <x:Double x:Key="StateContainerWidth">812</x:Double>
             <x:Double x:Key="StateContainerHeight">600</x:Double>
             <av:PointCollection x:Key="ConnectorLocation">270,43.75 107,43.75 107,80</av:PointCollection>
           </scg:Dictionary>
