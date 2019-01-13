@@ -17,6 +17,10 @@ namespace JQ.QA.Dal
 		{
        
 		}	
+		 public partial class FileInfoDal : BaseDal<FileInfo>,IFileInfoDal
+		{
+       
+		}	
 		 public partial class MenuInfoDal : BaseDal<MenuInfo>,IMenuInfoDal
 		{
        
@@ -34,6 +38,18 @@ namespace JQ.QA.Dal
        
 		}	
 		 public partial class UserInfoMetaDal : BaseDal<UserInfoMeta>,IUserInfoMetaDal
+		{
+       
+		}	
+		 public partial class WF_InstanceDal : BaseDal<WF_Instance>,IWF_InstanceDal
+		{
+       
+		}	
+		 public partial class WF_StepDal : BaseDal<WF_Step>,IWF_StepDal
+		{
+       
+		}	
+		 public partial class WF_TempDal : BaseDal<WF_Temp>,IWF_TempDal
 		{
        
 		}	

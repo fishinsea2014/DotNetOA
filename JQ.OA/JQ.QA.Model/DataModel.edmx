@@ -13,6 +13,10 @@
     <EntitySet Name="R_User_ActionInfo" EntityType="DataModel.Store.R_User_ActionInfo" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UserInfoMeta" EntityType="DataModel.Store.UserInfoMeta" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="MenuInfo" EntityType="DataModel.Store.MenuInfo" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="WF_Temp" EntityType="DataModel.Store.WF_Temp" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="WF_Instance" EntityType="DataModel.Store.WF_Instance" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FileInfoes" EntityType="DataModel.Store.FileInfoes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="WF_Step" EntityType="DataModel.Store.WF_Step" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UserInfoRole" EntityType="DataModel.Store.UserInfoRole" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UserInfoDepartment" EntityType="DataModel.Store.UserInfoDepartment" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ActionInfoRole" EntityType="DataModel.Store.ActionInfoRole" store:Type="Tables" Schema="dbo" />
@@ -47,6 +51,14 @@
     <AssociationSet Name="ActionInfoR_User_ActionInfo" Association="DataModel.Store.ActionInfoR_User_ActionInfo">
       <End Role="ActionInfo" EntitySet="ActionInfo" />
       <End Role="R_User_ActionInfo" EntitySet="R_User_ActionInfo" />
+    </AssociationSet>
+    <AssociationSet Name="WF_TempWF_Instance" Association="DataModel.Store.WF_TempWF_Instance">
+      <End Role="WF_Temp" EntitySet="WF_Temp" />
+      <End Role="WF_Instance" EntitySet="WF_Instance" />
+    </AssociationSet>
+    <AssociationSet Name="WF_InstanceWF_Step" Association="DataModel.Store.WF_InstanceWF_Step">
+      <End Role="WF_Instance" EntitySet="WF_Instance" />
+      <End Role="WF_Step" EntitySet="WF_Step" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="UserInfo">
@@ -144,6 +156,67 @@
     <Property Name="IconUrl" Type="nvarchar" Nullable="false" MaxLength="512" />
     <Property Name="ParentId" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="WF_Temp">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TempName" Type="nvarchar" Nullable="false" MaxLength="32" />
+    <Property Name="SubTime" Type="datetime" Nullable="false" />
+    <Property Name="ActivityType" Type="nvarchar" Nullable="false" MaxLength="512" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FormTemp" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="State" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="WF_Instance">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="32" />
+    <Property Name="SubBy" Type="int" Nullable="false" />
+    <Property Name="SubTime" Type="datetime" Nullable="false" />
+    <Property Name="OutTime" Type="datetime" Nullable="false" />
+    <Property Name="State" Type="smallint" Nullable="false" />
+    <Property Name="Result" Type="smallint" Nullable="false" />
+    <Property Name="Content" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="WF_TempID" Type="int" Nullable="false" />
+    <Property Name="Level" Type="smallint" Nullable="false" />
+    <Property Name="Field" Type="int" Nullable="false" />
+    <Property Name="InstanceId" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FileInfoes">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Alt" Type="nvarchar" Nullable="true" MaxLength="512" />
+    <Property Name="Url" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Size" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="FileType" Type="nvarchar" Nullable="true" MaxLength="32" />
+    <Property Name="FileName" Type="nvarchar" Nullable="true" MaxLength="32" />
+    <Property Name="Ext" Type="nvarchar" Nullable="true" MaxLength="32" />
+  </EntityType>
+  <EntityType Name="WF_Step">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SubTime" Type="datetime" Nullable="false" />
+    <Property Name="ProcessTime" Type="datetime" Nullable="false" />
+    <Property Name="ProcessBy" Type="int" Nullable="false" />
+    <Property Name="StepName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Comment" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FlowTo" Type="int" Nullable="false" />
+    <Property Name="IsStart" Type="bit" Nullable="false" />
+    <Property Name="IsEnd" Type="bit" Nullable="false" />
+    <Property Name="State" Type="smallint" Nullable="false" />
+    <Property Name="WF_InstanceID" Type="int" Nullable="false" />
+    <Property Name="ParentStepId" Type="int" Nullable="false" />
+    <Property Name="Sort" Type="int" Nullable="false" />
+    <Property Name="InstanceId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="IsProcessed" Type="bit" Nullable="false" />
+  </EntityType>
   <EntityType Name="UserInfoRole">
     <Key>
       <PropertyRef Name="UserInfo_ID" />
@@ -189,6 +262,30 @@
       </Principal>
       <Dependent Role="R_User_ActionInfo">
         <PropertyRef Name="ActionInfoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="WF_TempWF_Instance">
+    <End Role="WF_Temp" Type="DataModel.Store.WF_Temp" Multiplicity="1" />
+    <End Role="WF_Instance" Type="DataModel.Store.WF_Instance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WF_Temp">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="WF_Instance">
+        <PropertyRef Name="WF_TempID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="WF_InstanceWF_Step">
+    <End Role="WF_Instance" Type="DataModel.Store.WF_Instance" Multiplicity="1" />
+    <End Role="WF_Step" Type="DataModel.Store.WF_Step" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WF_Instance">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="WF_Step">
+        <PropertyRef Name="WF_InstanceID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -470,37 +567,50 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" Nullable="false" MaxLength="32" />
           <Property Name="SubBy" Type="Int32" Nullable="false" />
-          <Property Name="SubTime" Type="Time" Nullable="false" />
-          <Property Name="OutTime" Type="Time" Nullable="false" />
+          <Property Name="SubTime" Type="DateTime" Nullable="false" />
+          <Property Name="OutTime" Type="DateTime" Nullable="false" />
           <Property Name="State" Type="Int16" Nullable="false" />
           <Property Name="Result" Type="Int16" Nullable="false" />
-          <Property Name="Content" Type="String" Nullable="false" />
+          <Property Name="Content" Type="String" Nullable="true" />
           <NavigationProperty Name="WF_Temp" Relationship="DataModel.WF_TempWF_Instance" FromRole="WF_Instance" ToRole="WF_Temp" />
           <Property Name="WF_TempID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="WF_Step" Relationship="DataModel.WF_InstanceWF_Step" FromRole="WF_Instance" ToRole="WF_Step" />
+          <Property Name="Level" Type="Int16" Nullable="false" />
+          <Property Name="Field" Type="Int32" Nullable="false" />
+          <Property Name="InstanceId" Type="Guid" Nullable="false" />
         </EntityType>
         <EntityType Name="FileInfo">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Alt" Type="String" Nullable="true" MaxLength="512" />
+          <Property Name="Url" Type="String" Nullable="false" />
+          <Property Name="Size" Type="String" Nullable="false" MaxLength="128" />
+          <Property Name="FileType" Type="String" Nullable="true" MaxLength="32" />
+          <Property Name="FileName" Type="String" Nullable="true" MaxLength="32" />
+          <Property Name="Ext" Type="String" Nullable="true" MaxLength="32" />
         </EntityType>
         <EntityType Name="WF_Step">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SubTime" Type="Time" Nullable="false" />
-          <Property Name="ProcessTime" Type="Time" Nullable="false" />
+          <Property Name="SubTime" Type="DateTime" Nullable="false" />
+          <Property Name="ProcessTime" Type="DateTime" Nullable="false" />
           <Property Name="ProcessBy" Type="Int32" Nullable="false" />
           <Property Name="StepName" Type="String" Nullable="false" />
           <Property Name="Comment" Type="String" Nullable="false" />
-          <Property Name="FlowTo" Type="String" Nullable="false" />
-          <Property Name="IsStart" Type="String" Nullable="false" />
-          <Property Name="IsEnd" Type="String" Nullable="false" />
-          <Property Name="State" Type="String" Nullable="false" />
+          <Property Name="FlowTo" Type="Int32" Nullable="false" />
+          <Property Name="IsStart" Type="Boolean" Nullable="false" />
+          <Property Name="IsEnd" Type="Boolean" Nullable="false" />
+          <Property Name="State" Type="Int16" Nullable="false" />
           <NavigationProperty Name="WF_Instance" Relationship="DataModel.WF_InstanceWF_Step" FromRole="WF_Step" ToRole="WF_Instance" />
           <Property Name="WF_InstanceID" Type="Int32" Nullable="false" />
+          <Property Name="ParentStepId" Type="Int32" Nullable="false" />
+          <Property Name="Sort" Type="Int32" Nullable="false" />
+          <Property Name="InstanceId" Type="Guid" Nullable="false" />
+          <Property Name="IsProcessed" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="WF_TempWF_Instance">
           <End Type="DataModel.WF_Temp" Role="WF_Temp" Multiplicity="1" />
@@ -631,6 +741,71 @@
           <ScalarProperty Name="DialogWidth" ColumnName="DialogWidth" />
           <ScalarProperty Name="IconUrl" ColumnName="IconUrl" />
           <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WF_Temp">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.WF_Temp)">
+        <MappingFragment StoreEntitySet="WF_Temp">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="TempName" ColumnName="TempName" />
+          <ScalarProperty Name="SubTime" ColumnName="SubTime" />
+          <ScalarProperty Name="ActivityType" ColumnName="ActivityType" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="FormTemp" ColumnName="FormTemp" />
+          <ScalarProperty Name="State" ColumnName="State" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WF_Instance">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.WF_Instance)">
+        <MappingFragment StoreEntitySet="WF_Instance">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="SubBy" ColumnName="SubBy" />
+          <ScalarProperty Name="SubTime" ColumnName="SubTime" />
+          <ScalarProperty Name="OutTime" ColumnName="OutTime" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="Result" ColumnName="Result" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="WF_TempID" ColumnName="WF_TempID" />
+          <ScalarProperty Name="Level" ColumnName="Level" />
+          <ScalarProperty Name="Field" ColumnName="Field" />
+          <ScalarProperty Name="InstanceId" ColumnName="InstanceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FileInfoes">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.FileInfo)">
+        <MappingFragment StoreEntitySet="FileInfoes">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Alt" ColumnName="Alt" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="Size" ColumnName="Size" />
+          <ScalarProperty Name="FileType" ColumnName="FileType" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="Ext" ColumnName="Ext" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WF_Step">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.WF_Step)">
+        <MappingFragment StoreEntitySet="WF_Step">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SubTime" ColumnName="SubTime" />
+          <ScalarProperty Name="ProcessTime" ColumnName="ProcessTime" />
+          <ScalarProperty Name="ProcessBy" ColumnName="ProcessBy" />
+          <ScalarProperty Name="StepName" ColumnName="StepName" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="FlowTo" ColumnName="FlowTo" />
+          <ScalarProperty Name="IsStart" ColumnName="IsStart" />
+          <ScalarProperty Name="IsEnd" ColumnName="IsEnd" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="WF_InstanceID" ColumnName="WF_InstanceID" />
+          <ScalarProperty Name="ParentStepId" ColumnName="ParentStepId" />
+          <ScalarProperty Name="Sort" ColumnName="Sort" />
+          <ScalarProperty Name="InstanceId" ColumnName="InstanceId" />
+          <ScalarProperty Name="IsProcessed" ColumnName="IsProcessed" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

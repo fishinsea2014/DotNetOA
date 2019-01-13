@@ -38,6 +38,18 @@ namespace JQ.OA.DALFactory
 			}
 		}
 			
+		private IFileInfoDal _FileInfoDal;
+		public IFileInfoDal FileInfoDal {
+			get {
+				if (_FileInfoDal == null)
+				{
+				_FileInfoDal = AbstractFactory.CreateFileInfoDal();
+					//_FileInfoDal =new FileInfoDal();
+				}
+				return _FileInfoDal;
+			}
+		}
+			
 		private IMenuInfoDal _MenuInfoDal;
 		public IMenuInfoDal MenuInfoDal {
 			get {
@@ -95,6 +107,42 @@ namespace JQ.OA.DALFactory
 					//_UserInfoMetaDal =new UserInfoMetaDal();
 				}
 				return _UserInfoMetaDal;
+			}
+		}
+			
+		private IWF_InstanceDal _WF_InstanceDal;
+		public IWF_InstanceDal WF_InstanceDal {
+			get {
+				if (_WF_InstanceDal == null)
+				{
+				_WF_InstanceDal = AbstractFactory.CreateWF_InstanceDal();
+					//_WF_InstanceDal =new WF_InstanceDal();
+				}
+				return _WF_InstanceDal;
+			}
+		}
+			
+		private IWF_StepDal _WF_StepDal;
+		public IWF_StepDal WF_StepDal {
+			get {
+				if (_WF_StepDal == null)
+				{
+				_WF_StepDal = AbstractFactory.CreateWF_StepDal();
+					//_WF_StepDal =new WF_StepDal();
+				}
+				return _WF_StepDal;
+			}
+		}
+			
+		private IWF_TempDal _WF_TempDal;
+		public IWF_TempDal WF_TempDal {
+			get {
+				if (_WF_TempDal == null)
+				{
+				_WF_TempDal = AbstractFactory.CreateWF_TempDal();
+					//_WF_TempDal =new WF_TempDal();
+				}
+				return _WF_TempDal;
 			}
 		}
 			

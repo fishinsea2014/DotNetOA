@@ -22,12 +22,15 @@ namespace JQ.QA.Model
         public int ID { get; set; }
         public string Title { get; set; }
         public int SubBy { get; set; }
-        public System.TimeSpan SubTime { get; set; }
-        public System.TimeSpan OutTime { get; set; }
+        public System.DateTime SubTime { get; set; }
+        public System.DateTime OutTime { get; set; }
         public short State { get; set; }
         public short Result { get; set; }
         public string Content { get; set; }
         public int WF_TempID { get; set; }
+        public short Level { get; set; }
+        public int Field { get; set; }
+        public System.Guid InstanceId { get; set; }
     
         public virtual WF_Temp WF_Temp { get; set; }
         public virtual ICollection<WF_Step> WF_Step { get; set; }

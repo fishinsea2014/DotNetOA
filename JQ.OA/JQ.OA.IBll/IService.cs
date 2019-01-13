@@ -17,6 +17,9 @@ namespace JQ.OA.IBll
 	public partial interface IDepartmentService : IBaseService<Department>{}
 
 
+	public partial interface IFileInfoService : IBaseService<FileInfo>{}
+
+
 	public partial interface IMenuInfoService : IBaseService<MenuInfo>{}
 
 
@@ -30,6 +33,15 @@ namespace JQ.OA.IBll
 
 
 	public partial interface IUserInfoMetaService : IBaseService<UserInfoMeta>{}
+
+
+	public partial interface IWF_InstanceService : IBaseService<WF_Instance>{}
+
+
+	public partial interface IWF_StepService : IBaseService<WF_Step>{}
+
+
+	public partial interface IWF_TempService : IBaseService<WF_Temp>{}
 
 
 

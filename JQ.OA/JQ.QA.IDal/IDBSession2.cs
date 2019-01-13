@@ -16,6 +16,8 @@ namespace JQ.QA.IDal
 		
 				IDepartmentDal DepartmentDal { get; }
 		
+				IFileInfoDal FileInfoDal { get; }
+		
 				IMenuInfoDal MenuInfoDal { get; }
 		
 				IR_User_ActionInfoDal R_User_ActionInfoDal { get; }
@@ -25,5 +27,11 @@ namespace JQ.QA.IDal
 				IUserInfoDal UserInfoDal { get; }
 		
 				IUserInfoMetaDal UserInfoMetaDal { get; }
+		
+				IWF_InstanceDal WF_InstanceDal { get; }
+		
+				IWF_StepDal WF_StepDal { get; }
+		
+				IWF_TempDal WF_TempDal { get; }
 	}	
 }

@@ -15,16 +15,20 @@ namespace JQ.QA.Model
     public partial class WF_Step
     {
         public int ID { get; set; }
-        public System.TimeSpan SubTime { get; set; }
-        public System.TimeSpan ProcessTime { get; set; }
+        public System.DateTime SubTime { get; set; }
+        public System.DateTime ProcessTime { get; set; }
         public int ProcessBy { get; set; }
         public string StepName { get; set; }
         public string Comment { get; set; }
-        public string FlowTo { get; set; }
-        public string IsStart { get; set; }
-        public string IsEnd { get; set; }
-        public string State { get; set; }
+        public int FlowTo { get; set; }
+        public bool IsStart { get; set; }
+        public bool IsEnd { get; set; }
+        public short State { get; set; }
         public int WF_InstanceID { get; set; }
+        public int ParentStepId { get; set; }
+        public int Sort { get; set; }
+        public System.Guid InstanceId { get; set; }
+        public bool IsProcessed { get; set; }
     
         public virtual WF_Instance WF_Instance { get; set; }
     }

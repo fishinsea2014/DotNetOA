@@ -40,6 +40,17 @@ namespace JQ.OA.DALFactory
 
 			
 
+        public static IFileInfoDal CreateFileInfoDal()
+        {
+            string fullClassName = NameSpace + ".FileInfoDal"; //Construct a full name of a class, include namespace
+            return CreateInstance(fullClassName) as IFileInfoDal;
+
+        }
+	
+
+
+			
+
         public static IMenuInfoDal CreateMenuInfoDal()
         {
             string fullClassName = NameSpace + ".MenuInfoDal"; //Construct a full name of a class, include namespace
@@ -88,6 +99,39 @@ namespace JQ.OA.DALFactory
         {
             string fullClassName = NameSpace + ".UserInfoMetaDal"; //Construct a full name of a class, include namespace
             return CreateInstance(fullClassName) as IUserInfoMetaDal;
+
+        }
+	
+
+
+			
+
+        public static IWF_InstanceDal CreateWF_InstanceDal()
+        {
+            string fullClassName = NameSpace + ".WF_InstanceDal"; //Construct a full name of a class, include namespace
+            return CreateInstance(fullClassName) as IWF_InstanceDal;
+
+        }
+	
+
+
+			
+
+        public static IWF_StepDal CreateWF_StepDal()
+        {
+            string fullClassName = NameSpace + ".WF_StepDal"; //Construct a full name of a class, include namespace
+            return CreateInstance(fullClassName) as IWF_StepDal;
+
+        }
+	
+
+
+			
+
+        public static IWF_TempDal CreateWF_TempDal()
+        {
+            string fullClassName = NameSpace + ".WF_TempDal"; //Construct a full name of a class, include namespace
+            return CreateInstance(fullClassName) as IWF_TempDal;
 
         }
 	

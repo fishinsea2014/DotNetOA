@@ -36,6 +36,18 @@ namespace JQ.OA.Bll
 	}
 
 
+	//public partial interface IFileInfoService : IBaseService<FileInfo>{}
+
+	public partial class FileInfoService : BaseService<FileInfo>, IFileInfoService
+    {
+
+        public override void SetCurrentDal()
+        {
+            CurrentDal = this.GetCurrentDbSession.FileInfoDal;
+        }
+	}
+
+
 	//public partial interface IMenuInfoService : IBaseService<MenuInfo>{}
 
 	public partial class MenuInfoService : BaseService<MenuInfo>, IMenuInfoService
@@ -92,6 +104,42 @@ namespace JQ.OA.Bll
         public override void SetCurrentDal()
         {
             CurrentDal = this.GetCurrentDbSession.UserInfoMetaDal;
+        }
+	}
+
+
+	//public partial interface IWF_InstanceService : IBaseService<WF_Instance>{}
+
+	public partial class WF_InstanceService : BaseService<WF_Instance>, IWF_InstanceService
+    {
+
+        public override void SetCurrentDal()
+        {
+            CurrentDal = this.GetCurrentDbSession.WF_InstanceDal;
+        }
+	}
+
+
+	//public partial interface IWF_StepService : IBaseService<WF_Step>{}
+
+	public partial class WF_StepService : BaseService<WF_Step>, IWF_StepService
+    {
+
+        public override void SetCurrentDal()
+        {
+            CurrentDal = this.GetCurrentDbSession.WF_StepDal;
+        }
+	}
+
+
+	//public partial interface IWF_TempService : IBaseService<WF_Temp>{}
+
+	public partial class WF_TempService : BaseService<WF_Temp>, IWF_TempService
+    {
+
+        public override void SetCurrentDal()
+        {
+            CurrentDal = this.GetCurrentDbSession.WF_TempDal;
         }
 	}
 

@@ -20,6 +20,10 @@ namespace JQ.QA.IDal
     { 
 	}	
 	
+	public partial interface IFileInfoDal :IBaseDal<FileInfo>
+    { 
+	}	
+	
 	public partial interface IMenuInfoDal :IBaseDal<MenuInfo>
     { 
 	}	
@@ -37,6 +41,18 @@ namespace JQ.QA.IDal
 	}	
 	
 	public partial interface IUserInfoMetaDal :IBaseDal<UserInfoMeta>
+    { 
+	}	
+	
+	public partial interface IWF_InstanceDal :IBaseDal<WF_Instance>
+    { 
+	}	
+	
+	public partial interface IWF_StepDal :IBaseDal<WF_Step>
+    { 
+	}	
+	
+	public partial interface IWF_TempDal :IBaseDal<WF_Temp>
     { 
 	}	
 
