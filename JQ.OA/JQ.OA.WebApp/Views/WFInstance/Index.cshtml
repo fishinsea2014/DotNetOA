@@ -1,0 +1,43 @@
+﻿@model JQ.QA.Model.WF_Instance
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Workflow Index</title>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/JQEasyUI/themes/default/easyui.css" rel="stylesheet" />
+    <link href="~/Content/JQEasyUI/themes/icon.css" rel="stylesheet" />
+
+    <script src="~/Scripts/jquery-1.8.0.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+
+    <script src="~/Scripts/jquery.easyui.min.js"></script>
+    <script src="~/Scripts/easyui-lang-zh_CN.js"></script>
+    <script src="~/Scripts/datapattern.js"></script>
+    <script src="~/Scripts/MyAjaxForm.js"></script>
+    <script type="text/javascript">
+        function expenseClaim() {
+            window.location.href="/WFInstance/StartFinancial?tempId=1";
+        }
+
+        
+    </script>
+</head>
+
+<body>
+    <div>
+        <p>@*<a href="/WFInstance/StartFinacial?tempId=1" class="easyui-linkbutton" iconCls="icon-redo">Expense Claim</a>*@</p>
+        <p><a id="expenseClaim" onclick="expenseClaim(); return false" class="easyui-linkbutton" iconCls="icon-redo">Expense Claim</a></p>
+        <p><a href="~/Views/Home/Index.cshtml" class="easyui-linkbutton" iconCls="icon-redo">发起 请假申请</a></p>
+        <p><a href="#" class="easyui-linkbutton" iconCls="icon-redo">发起 会议申请</a></p>
+        <p><a href="#" class="easyui-linkbutton" iconCls="icon-redo">发起 出差申请</a></p>
+    </div>
+</body>
+</html>

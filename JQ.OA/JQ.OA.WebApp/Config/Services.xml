@@ -18,5 +18,7 @@
   
   <object type="JQ.OA.Bll.MenuInfoService, JQ.OA.Bll" singleton="false" name="MenuInfoService"></object>
   <object type="JQ.OA.Bll.R_User_ActionInfoService, JQ.OA.Bll" singleton="false" name="R_User_ActionInfoService"></object>
-  
+  <object type="JQ.OA.Bll.WF_TempService, JQ.OA.Bll" singleton="false" name="WF_TempService"></object>
+  <object type="JQ.OA.Bll.WF_InstanceService, JQ.OA.Bll" singleton="false" name="WF_InstanceService"></object>
+  <object type="JQ.OA.Bll.WF_StepService, JQ.OA.Bll" singleton="false" name="WF_StepService"></object>
 </objects>

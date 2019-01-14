@@ -39,4 +39,13 @@
     <property name="MenuInfoService" ref="MenuInfoService" />
   </object>
   
+  <object type="JQ.OA.WebApp.Controllers.WFTempController, JQ.OA.WebApp" singleton="false">
+    <property name="WF_TempService" ref="WF_TempService" />
+  </object>
+
+  <object type="JQ.OA.WebApp.Controllers.WFInstanceController, JQ.OA.WebApp" singleton="false">
+    <property name="WF_InstanceService" ref="WF_InstanceService" />
+    <property name="WF_StepService" ref="WF_StepService" />
+  </object>
+  
 </objects>
