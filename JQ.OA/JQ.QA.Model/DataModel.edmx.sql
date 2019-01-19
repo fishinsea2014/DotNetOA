@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 01/13/2019 13:26:20
+-- Date Created: 01/19/2019 21:41:36
 -- Generated from EDMX file: D:\my_projects\DotNet_OA_V2\JQ.OA\JQ.QA.Model\DataModel.edmx
 -- --------------------------------------------------
 
@@ -41,12 +41,6 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_ActionInfoR_User_ActionInfo]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[R_User_ActionInfo] DROP CONSTRAINT [FK_ActionInfoR_User_ActionInfo];
 GO
-IF OBJECT_ID(N'[dbo].[FK_WF_TempWF_Instance]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[WF_Instance] DROP CONSTRAINT [FK_WF_TempWF_Instance];
-GO
-IF OBJECT_ID(N'[dbo].[FK_WF_InstanceWF_Step]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[WF_Step] DROP CONSTRAINT [FK_WF_InstanceWF_Step];
-GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -72,18 +66,6 @@ IF OBJECT_ID(N'[dbo].[UserInfoMeta]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[MenuInfo]', 'U') IS NOT NULL
     DROP TABLE [dbo].[MenuInfo];
-GO
-IF OBJECT_ID(N'[dbo].[WF_Temp]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[WF_Temp];
-GO
-IF OBJECT_ID(N'[dbo].[WF_Instance]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[WF_Instance];
-GO
-IF OBJECT_ID(N'[dbo].[FileInfoes]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[FileInfoes];
-GO
-IF OBJECT_ID(N'[dbo].[WF_Step]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[WF_Step];
 GO
 IF OBJECT_ID(N'[dbo].[UserInfoRole]', 'U') IS NOT NULL
     DROP TABLE [dbo].[UserInfoRole];
@@ -194,64 +176,64 @@ CREATE TABLE [dbo].[MenuInfo] (
 );
 GO
 
--- Creating table 'WF_Temp'
-CREATE TABLE [dbo].[WF_Temp] (
+-- Creating table 'FileInfo'
+CREATE TABLE [dbo].[FileInfo] (
     [ID] int IDENTITY(1,1) NOT NULL,
-    [TempName] nvarchar(32)  NOT NULL,
-    [SubTime] datetime  NOT NULL,
-    [ActivityType] nvarchar(512)  NOT NULL,
-    [Description] nvarchar(max)  NOT NULL,
-    [FormTemp] nvarchar(max)  NOT NULL,
-    [State] smallint  NOT NULL
+    [FileName] nvarchar(512)  NOT NULL,
+    [Ext] nvarchar(32)  NULL,
+    [Url] nvarchar(max)  NOT NULL,
+    [FileSize] nvarchar(32)  NOT NULL
 );
 GO
 
 -- Creating table 'WF_Instance'
 CREATE TABLE [dbo].[WF_Instance] (
     [ID] int IDENTITY(1,1) NOT NULL,
-    [Title] nvarchar(32)  NOT NULL,
-    [SubBy] int  NOT NULL,
+    [InstanceName] nvarchar(max)  NULL,
     [SubTime] datetime  NOT NULL,
-    [OutTime] datetime  NOT NULL,
-    [State] smallint  NOT NULL,
-    [Result] smallint  NOT NULL,
-    [Content] nvarchar(max)  NULL,
-    [WF_TempID] int  NOT NULL,
+    [StartedBy] int  NOT NULL,
     [Level] smallint  NOT NULL,
-    [Field] int  NOT NULL,
-    [InstanceId] uniqueidentifier  NOT NULL
+    [SubForm] nvarchar(max)  NULL,
+    [Status] smallint  NOT NULL,
+    [Result] smallint  NOT NULL,
+    [WF_TempID] int  NOT NULL,
+    [ApplicationId] uniqueidentifier  NOT NULL
 );
 GO
 
--- Creating table 'FileInfoes'
-CREATE TABLE [dbo].[FileInfoes] (
+-- Creating table 'WF_StepInfo'
+CREATE TABLE [dbo].[WF_StepInfo] (
     [ID] int IDENTITY(1,1) NOT NULL,
-    [Alt] nvarchar(512)  NULL,
-    [Url] nvarchar(max)  NOT NULL,
-    [Size] nvarchar(128)  NOT NULL,
-    [FileType] nvarchar(32)  NULL,
-    [FileName] nvarchar(32)  NULL,
-    [Ext] nvarchar(32)  NULL
-);
-GO
-
--- Creating table 'WF_Step'
-CREATE TABLE [dbo].[WF_Step] (
-    [ID] int IDENTITY(1,1) NOT NULL,
+    [SetpName] nvarchar(32)  NOT NULL,
+    [IsProcessed] bit  NOT NULL,
+    [IsStartStep] bit  NOT NULL,
+    [IsEndStep] bit  NOT NULL,
+    [Title] nvarchar(32)  NULL,
+    [Comment] nvarchar(max)  NULL,
+    [StepResult] smallint  NOT NULL,
+    [DelFlag] smallint  NOT NULL,
     [SubTime] datetime  NOT NULL,
     [ProcessTime] datetime  NOT NULL,
+    [Remark] nvarchar(max)  NULL,
     [ProcessBy] int  NOT NULL,
-    [StepName] nvarchar(max)  NOT NULL,
-    [Comment] nvarchar(max)  NOT NULL,
-    [FlowTo] int  NOT NULL,
-    [IsStart] bit  NOT NULL,
-    [IsEnd] bit  NOT NULL,
-    [State] smallint  NOT NULL,
-    [WF_InstanceID] int  NOT NULL,
-    [ParentStepId] int  NOT NULL,
-    [Sort] int  NOT NULL,
-    [InstanceId] uniqueidentifier  NOT NULL,
-    [IsProcessed] bit  NOT NULL
+    [ParentStepID] int  NOT NULL,
+    [ChildStepID] int  NOT NULL,
+    [WF_InstanceID] int  NOT NULL
+);
+GO
+
+-- Creating table 'WF_Temp'
+CREATE TABLE [dbo].[WF_Temp] (
+    [ID] int IDENTITY(1,1) NOT NULL,
+    [TempName] nvarchar(32)  NULL,
+    [SubTime] datetime  NOT NULL,
+    [ModfiedOn] datetime  NOT NULL,
+    [DelFlag] smallint  NOT NULL,
+    [Remark] nvarchar(256)  NULL,
+    [TempDescription] nvarchar(max)  NULL,
+    [TempForm] nvarchar(max)  NOT NULL,
+    [TempStatus] smallint  NOT NULL,
+    [SubBy] int  NOT NULL
 );
 GO
 
@@ -322,9 +304,9 @@ ADD CONSTRAINT [PK_MenuInfo]
     PRIMARY KEY CLUSTERED ([ID] ASC);
 GO
 
--- Creating primary key on [ID] in table 'WF_Temp'
-ALTER TABLE [dbo].[WF_Temp]
-ADD CONSTRAINT [PK_WF_Temp]
+-- Creating primary key on [ID] in table 'FileInfo'
+ALTER TABLE [dbo].[FileInfo]
+ADD CONSTRAINT [PK_FileInfo]
     PRIMARY KEY CLUSTERED ([ID] ASC);
 GO
 
@@ -334,15 +316,15 @@ ADD CONSTRAINT [PK_WF_Instance]
     PRIMARY KEY CLUSTERED ([ID] ASC);
 GO
 
--- Creating primary key on [ID] in table 'FileInfoes'
-ALTER TABLE [dbo].[FileInfoes]
-ADD CONSTRAINT [PK_FileInfoes]
+-- Creating primary key on [ID] in table 'WF_StepInfo'
+ALTER TABLE [dbo].[WF_StepInfo]
+ADD CONSTRAINT [PK_WF_StepInfo]
     PRIMARY KEY CLUSTERED ([ID] ASC);
 GO
 
--- Creating primary key on [ID] in table 'WF_Step'
-ALTER TABLE [dbo].[WF_Step]
-ADD CONSTRAINT [PK_WF_Step]
+-- Creating primary key on [ID] in table 'WF_Temp'
+ALTER TABLE [dbo].[WF_Temp]
+ADD CONSTRAINT [PK_WF_Temp]
     PRIMARY KEY CLUSTERED ([ID] ASC);
 GO
 
@@ -470,6 +452,21 @@ ON [dbo].[R_User_ActionInfo]
     ([ActionInfoID]);
 GO
 
+-- Creating foreign key on [WF_InstanceID] in table 'WF_StepInfo'
+ALTER TABLE [dbo].[WF_StepInfo]
+ADD CONSTRAINT [FK_WF_InstanceWF_StepInfo]
+    FOREIGN KEY ([WF_InstanceID])
+    REFERENCES [dbo].[WF_Instance]
+        ([ID])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_WF_InstanceWF_StepInfo'
+CREATE INDEX [IX_FK_WF_InstanceWF_StepInfo]
+ON [dbo].[WF_StepInfo]
+    ([WF_InstanceID]);
+GO
+
 -- Creating foreign key on [WF_TempID] in table 'WF_Instance'
 ALTER TABLE [dbo].[WF_Instance]
 ADD CONSTRAINT [FK_WF_TempWF_Instance]
@@ -483,21 +480,6 @@ GO
 CREATE INDEX [IX_FK_WF_TempWF_Instance]
 ON [dbo].[WF_Instance]
     ([WF_TempID]);
-GO
-
--- Creating foreign key on [WF_InstanceID] in table 'WF_Step'
-ALTER TABLE [dbo].[WF_Step]
-ADD CONSTRAINT [FK_WF_InstanceWF_Step]
-    FOREIGN KEY ([WF_InstanceID])
-    REFERENCES [dbo].[WF_Instance]
-        ([ID])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_WF_InstanceWF_Step'
-CREATE INDEX [IX_FK_WF_InstanceWF_Step]
-ON [dbo].[WF_Step]
-    ([WF_InstanceID]);
 GO
 
 -- --------------------------------------------------

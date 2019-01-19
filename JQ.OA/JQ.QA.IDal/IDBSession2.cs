@@ -30,7 +30,7 @@ namespace JQ.QA.IDal
 		
 				IWF_InstanceDal WF_InstanceDal { get; }
 		
-				IWF_StepDal WF_StepDal { get; }
+				IWF_StepInfoDal WF_StepInfoDal { get; }
 		
 				IWF_TempDal WF_TempDal { get; }
 	}	

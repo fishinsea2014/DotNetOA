@@ -120,14 +120,14 @@ namespace JQ.OA.Bll
 	}
 
 
-	//public partial interface IWF_StepService : IBaseService<WF_Step>{}
+	//public partial interface IWF_StepInfoService : IBaseService<WF_StepInfo>{}
 
-	public partial class WF_StepService : BaseService<WF_Step>, IWF_StepService
+	public partial class WF_StepInfoService : BaseService<WF_StepInfo>, IWF_StepInfoService
     {
 
         public override void SetCurrentDal()
         {
-            CurrentDal = this.GetCurrentDbSession.WF_StepDal;
+            CurrentDal = this.GetCurrentDbSession.WF_StepInfoDal;
         }
 	}
 

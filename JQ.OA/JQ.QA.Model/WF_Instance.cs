@@ -16,23 +16,21 @@ namespace JQ.QA.Model
     {
         public WF_Instance()
         {
-            this.WF_Step = new HashSet<WF_Step>();
+            this.WF_StepInfo = new HashSet<WF_StepInfo>();
         }
     
         public int ID { get; set; }
-        public string Title { get; set; }
-        public int SubBy { get; set; }
+        public string InstanceName { get; set; }
         public System.DateTime SubTime { get; set; }
-        public System.DateTime OutTime { get; set; }
-        public short State { get; set; }
-        public short Result { get; set; }
-        public string Content { get; set; }
-        public int WF_TempID { get; set; }
+        public int StartedBy { get; set; }
         public short Level { get; set; }
-        public int Field { get; set; }
-        public System.Guid InstanceId { get; set; }
+        public string SubForm { get; set; }
+        public short Status { get; set; }
+        public short Result { get; set; }
+        public int WF_TempID { get; set; }
+        public System.Guid ApplicationId { get; set; }
     
+        public virtual ICollection<WF_StepInfo> WF_StepInfo { get; set; }
         public virtual WF_Temp WF_Temp { get; set; }
-        public virtual ICollection<WF_Step> WF_Step { get; set; }
     }
 }

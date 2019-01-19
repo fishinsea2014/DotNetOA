@@ -15,11 +15,9 @@ namespace JQ.QA.Model
     public partial class FileInfo
     {
         public int ID { get; set; }
-        public string Alt { get; set; }
-        public string Url { get; set; }
-        public string Size { get; set; }
-        public string FileType { get; set; }
         public string FileName { get; set; }
         public string Ext { get; set; }
+        public string Url { get; set; }
+        public string FileSize { get; set; }
     }
 }

@@ -48,7 +48,7 @@ namespace JQ.QA.IDal
     { 
 	}	
 	
-	public partial interface IWF_StepDal :IBaseDal<WF_Step>
+	public partial interface IWF_StepInfoDal :IBaseDal<WF_StepInfo>
     { 
 	}	
 	

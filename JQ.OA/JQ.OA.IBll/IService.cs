@@ -38,7 +38,7 @@ namespace JQ.OA.IBll
 	public partial interface IWF_InstanceService : IBaseService<WF_Instance>{}
 
 
-	public partial interface IWF_StepService : IBaseService<WF_Step>{}
+	public partial interface IWF_StepInfoService : IBaseService<WF_StepInfo>{}
 
 
 	public partial interface IWF_TempService : IBaseService<WF_Temp>{}

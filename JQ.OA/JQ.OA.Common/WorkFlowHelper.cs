@@ -18,12 +18,15 @@ namespace JQ.OA.Common
         /// </summary>
         /// <param name="activity"></param>
         /// <returns></returns>
-        public static WorkflowApplication CreateApplicationAndRun(Activity activity, IDictionary<string,object> paramsData)
+        //public static WorkflowApplication CreateApplicationAndRun(Activity activity)
+        public static WorkflowApplication CreateApplicationAndRun(Activity activity, IDictionary<string, object> paramsData)
+
         {
             //Using SQL persistence for Workflows and workflow service
             //1. Install data tables with sql file of : SqlWorkflowInstanceStoreSchema.sql
             //,  SqlWorkflowInstanceStoreLogic.sql and SqlWorkflowInstanceStoreSchemaUpgrade.sql	
             //2. Ref workflowapplication: System.Activities.DurableInstancing, System.Activities;
+
 
 
             WorkflowApplication application = new WorkflowApplication(activity, paramsData);
@@ -40,6 +43,7 @@ namespace JQ.OA.Common
             application.Run();
             return application;
         }
+
 
 
         /// <summary>

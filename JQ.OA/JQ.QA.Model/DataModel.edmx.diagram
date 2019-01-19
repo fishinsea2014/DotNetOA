@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f32f174935324ff5a0947789f03e0385" Name="Diagram1" ZoomLevel="80" >
+      <Diagram DiagramId="f32f174935324ff5a0947789f03e0385" Name="Diagram1" ZoomLevel="76" >
         <EntityTypeShape EntityType="DataModel.UserInfo" Width="1.5" PointX="3.125" PointY="0.5" />
         <EntityTypeShape EntityType="DataModel.Role" Width="1.5" PointX="5.625" PointY="1.375" />
         <EntityTypeShape EntityType="DataModel.Department" Width="1.5" PointX="5.625" PointY="5" />
@@ -17,12 +17,12 @@
         <AssociationConnector Association="DataModel.ActionInfoRole" />
         <AssociationConnector Association="DataModel.ActionInfoR_User_ActionInfo" />
         <EntityTypeShape EntityType="DataModel.MenuInfo" Width="1.5" PointX="11.75" PointY="5.125" />
-        <EntityTypeShape EntityType="DataModel.WF_Temp" Width="1.5" PointX="14.75" PointY="2" />
-        <EntityTypeShape EntityType="DataModel.WF_Instance" Width="1.5" PointX="14.625" PointY="5.375" />
-        <EntityTypeShape EntityType="DataModel.FileInfo" Width="1.5" PointX="16.625" PointY="0.875" />
-        <EntityTypeShape EntityType="DataModel.WF_Step" Width="1.5" PointX="17.375" PointY="5.875" />
-        <AssociationConnector Association="DataModel.WF_TempWF_Instance" />
-        <AssociationConnector Association="DataModel.WF_InstanceWF_Step" />
+        <EntityTypeShape EntityType="DataModel.FileInfo" Width="1.5" PointX="8.5" PointY="9.75" />
+        <EntityTypeShape EntityType="DataModel.WF_Instance" Width="1.5" PointX="4" PointY="9.375" />
+        <EntityTypeShape EntityType="DataModel.WF_StepInfo" Width="1.5" PointX="6.25" PointY="8.875" />
+        <EntityTypeShape EntityType="DataModel.WF_Temp" Width="1.5" PointX="1.75" PointY="9.5" />
+        <AssociationConnector Association="DataModel.FK_WF_InstanceWF_StepInfo" />
+        <AssociationConnector Association="DataModel.FK_WF_TempWF_Instance" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

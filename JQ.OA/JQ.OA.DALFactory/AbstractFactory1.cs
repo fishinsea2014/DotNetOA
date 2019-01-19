@@ -117,10 +117,10 @@ namespace JQ.OA.DALFactory
 
 			
 
-        public static IWF_StepDal CreateWF_StepDal()
+        public static IWF_StepInfoDal CreateWF_StepInfoDal()
         {
-            string fullClassName = NameSpace + ".WF_StepDal"; //Construct a full name of a class, include namespace
-            return CreateInstance(fullClassName) as IWF_StepDal;
+            string fullClassName = NameSpace + ".WF_StepInfoDal"; //Construct a full name of a class, include namespace
+            return CreateInstance(fullClassName) as IWF_StepInfoDal;
 
         }
 	

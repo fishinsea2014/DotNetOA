@@ -122,15 +122,15 @@ namespace JQ.OA.DALFactory
 			}
 		}
 			
-		private IWF_StepDal _WF_StepDal;
-		public IWF_StepDal WF_StepDal {
+		private IWF_StepInfoDal _WF_StepInfoDal;
+		public IWF_StepInfoDal WF_StepInfoDal {
 			get {
-				if (_WF_StepDal == null)
+				if (_WF_StepInfoDal == null)
 				{
-				_WF_StepDal = AbstractFactory.CreateWF_StepDal();
-					//_WF_StepDal =new WF_StepDal();
+				_WF_StepInfoDal = AbstractFactory.CreateWF_StepInfoDal();
+					//_WF_StepInfoDal =new WF_StepInfoDal();
 				}
-				return _WF_StepDal;
+				return _WF_StepInfoDal;
 			}
 		}
 			

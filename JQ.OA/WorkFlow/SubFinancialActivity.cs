@@ -17,7 +17,7 @@ namespace WorkFlow
         // Define an activity input argument of type string
         public InArgument<string> FinancialText { get; set; }
         public InArgument<int>  Money { get; set; }
-        public InArgument<Guid> InstanceId { get; set; }
+        //public InArgument<Guid> InstanceId { get; set; }
         public InArgument<int> FlowTo { get; set; }
         public InArgument<int> ProcessBy { get; set; }
         public InArgument<int> WF_InstanceID { get; set; }
@@ -36,7 +36,8 @@ namespace WorkFlow
             {
                 Comment = string.Empty,
                 FlowTo = context.GetValue<int>(FlowTo),
-                InstanceId = context.GetValue<Guid>(InstanceId),
+                //InstanceId = context.GetValue<Guid>(InstanceId),
+                InstanceId = Guid.Empty,
                 IsEnd = false,
                 IsStart = true,
                 ParentStepId = -1,
@@ -44,14 +45,14 @@ namespace WorkFlow
                 ProcessTime = DateTime.Now,
                 Sort = 1,
                 State = 0,
-                StepName = "Initiate Application",
+                StepName = "InitiateApplication",
                 SubTime = DateTime.Now,
                 IsProcessed = true,
                 WF_InstanceID = context.GetValue<int>(WF_InstanceID)
             };
 
             IWF_StepService stepService = new WF_StepService();
-            stepService.AddEntity(step); 
+            stepService.AddEntity(step);             
             #endregion
 
 

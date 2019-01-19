@@ -32,9 +32,9 @@ namespace JQ.QA.Model
         public DbSet<R_User_ActionInfo> R_User_ActionInfo { get; set; }
         public DbSet<UserInfoMeta> UserInfoMeta { get; set; }
         public DbSet<MenuInfo> MenuInfo { get; set; }
-        public DbSet<WF_Temp> WF_Temp { get; set; }
+        public DbSet<FileInfo> FileInfo { get; set; }
         public DbSet<WF_Instance> WF_Instance { get; set; }
-        public DbSet<FileInfo> FileInfoes { get; set; }
-        public DbSet<WF_Step> WF_Step { get; set; }
+        public DbSet<WF_StepInfo> WF_StepInfo { get; set; }
+        public DbSet<WF_Temp> WF_Temp { get; set; }
     }
 }

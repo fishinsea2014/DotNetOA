@@ -10,10 +10,74 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>StartFinancial</title>
+    <link href="~/Content/easyui.css" rel="stylesheet" />
+    <link href="~/Content/JQEasyUI/themes/icon.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.7.1.min.js"></script>
+    <script src="~/Scripts/jquery.easyui.min.js"></script>
+    <script src="~/Scripts/easyui-lang-en.js"></script>
+    <script src="~/Scripts/datapattern.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/MyAjaxForm.js"></script>
+
+    <script type="text/javascript">
+        function afterStart() {
+            if (data == "ok") {
+                alert("You have start a expense claiming workflow.")
+            }
+        }
+    </script>
 </head>
 <body>
-    <div> 
-        this is start a expense claim @ViewBag.tempId
+    <div>
+        <h3>Expense claim workflow</h3>
+        @using (Ajax.BeginForm(new AjaxOptions() { HttpMethod = "Post", OnSuccess = "afterStart" }))
+        {
+        <table>
+            <tr>
+                <td>Title</td>
+                <td>@Html.EditorFor(m => m.Title)</td>
+            </tr>
+
+            <tr>
+                <td>Submit to</td>
+                <td>
+                    <input type="text" name="flowto" id="flowto" />
+                </td>
+            </tr> 
+
+            <tr>
+                <td>Amount</td>
+                <td>
+                    <input type="text" name="Money" id="Money" />
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>Expire Time</td>
+                <td>
+                    <input type="text" name="OutTime" id="OutTime"
+                           class="easyui-datatimebox" value="@DateTime.Now.AddDays(7).ToString()"
+                           style="width:150px"/>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>Reason for applying</td>
+                <td>
+                    @Html.TextAreaFor(m => m.Content)                    
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <input type="hidden" name="hidTempId" value="@ViewBag.TempId" />
+                    <input type="submit" value="Submit"/>
+                </td>
+            </tr>
+        </table>
+        }
     </div>
 </body>
 </html>

@@ -22,10 +22,13 @@ namespace JQ.QA.Model
         public int ID { get; set; }
         public string TempName { get; set; }
         public System.DateTime SubTime { get; set; }
-        public string ActivityType { get; set; }
-        public string Description { get; set; }
-        public string FormTemp { get; set; }
-        public short State { get; set; }
+        public System.DateTime ModfiedOn { get; set; }
+        public short DelFlag { get; set; }
+        public string Remark { get; set; }
+        public string TempDescription { get; set; }
+        public string TempForm { get; set; }
+        public short TempStatus { get; set; }
+        public int SubBy { get; set; }
     
         public virtual ICollection<WF_Instance> WF_Instance { get; set; }
     }

@@ -45,7 +45,7 @@ namespace JQ.QA.Dal
 		{
        
 		}	
-		 public partial class WF_StepDal : BaseDal<WF_Step>,IWF_StepDal
+		 public partial class WF_StepInfoDal : BaseDal<WF_StepInfo>,IWF_StepInfoDal
 		{
        
 		}	

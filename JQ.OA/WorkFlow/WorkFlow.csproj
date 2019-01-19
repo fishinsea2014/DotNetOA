@@ -51,12 +51,6 @@
     <Compile Include="Wait4InputDataActivity.cs" />
   </ItemGroup>
   <ItemGroup>
-    <XamlAppDef Include="FinancialActivity.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </XamlAppDef>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\JQ.OA.Bll\JQ.OA.Bll.csproj">
       <Project>{C3E4BCC8-C375-405B-971E-81BD400CF141}</Project>
       <Name>JQ.OA.Bll</Name>
@@ -69,6 +63,12 @@
       <Project>{CDE28E73-9A92-43F1-8F9A-A9C66BB86107}</Project>
       <Name>JQ.QA.Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <XamlAppDef Include="ExpenseClaimAcitvity.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </XamlAppDef>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
