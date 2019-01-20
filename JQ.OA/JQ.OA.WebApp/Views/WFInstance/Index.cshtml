@@ -1,4 +1,5 @@
 ﻿@model JQ.QA.Model.WF_Instance
+    @using JQ.QA.Model
 
 @{
     Layout = null;
@@ -9,8 +10,10 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Workflow Index</title>
-    <link href="~/Content/Site.css" rel="stylesheet" />
+    <title>Current Workflow List</title>
+    <link href="~/Content/tableStyle.css" rel="stylesheet" />
+
+    @*<link href="~/Content/Site.css" rel="stylesheet" />
     <link href="~/Content/JQEasyUI/themes/default/easyui.css" rel="stylesheet" />
     <link href="~/Content/JQEasyUI/themes/icon.css" rel="stylesheet" />
 
@@ -24,20 +27,38 @@
     <script src="~/Scripts/MyAjaxForm.js"></script>
     <script type="text/javascript">
         function expenseClaim() {
-            window.location.href="/WFInstance/StartFinancial?tempId=1";
+            window.location.href = "/WFInstance/StartFinancial?tempId=1";
         }
 
-        
-    </script>
+
+    </script>*@
 </head>
 
 <body>
     <div>
-        <p>@*<a href="/WFInstance/StartFinacial?tempId=1" class="easyui-linkbutton" iconCls="icon-redo">Expense Claim</a>*@</p>
-        <p><a id="expenseClaim" onclick="expenseClaim(); return false" class="easyui-linkbutton" iconCls="icon-redo">Expense Claim</a></p>
-        <p><a href="~/Views/Home/Index.cshtml" class="easyui-linkbutton" iconCls="icon-redo">发起 请假申请</a></p>
-        <p><a href="#" class="easyui-linkbutton" iconCls="icon-redo">发起 会议申请</a></p>
-        <p><a href="#" class="easyui-linkbutton" iconCls="icon-redo">发起 出差申请</a></p>
+        <h3>Please select a workflow to start</h3>
+        <table>
+            <tr>
+                <th>NO.</th>
+                <th>Name</th>
+                <th>Status</th>
+            </tr>
+
+            @if (ViewData["list"] != null)
+            {
+                foreach (var temp in (List<WF_Temp>)ViewData["list"])
+                {
+                    <tr>
+                        <td>@temp.ID</td>
+                        <td>
+                            <a href="/WFInstance/StartFinancial/?id=@temp.ID">Start workflow @temp.TempName</a>
+                        </td>
+                        <td>@temp.TempStatus</td>
+                    </tr>
+                }
+            }
+        </table>
+       
     </div>
 </body>
 </html>

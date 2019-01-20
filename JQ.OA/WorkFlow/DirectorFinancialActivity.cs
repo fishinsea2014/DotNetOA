@@ -26,9 +26,9 @@ namespace WorkFlow
             
             #region Approve an application
             //Put the info of the step of initiating an application into step table
-            WF_Step step = (WF_Step)context.GetValue<object> (StepInfo);
-            IWF_StepService stepService = new WF_StepService();
-            stepService.AddEntity(step);
+            //WF_Step step = (WF_Step)context.GetValue<object> (StepInfo);
+            //IWF_StepService stepService = new WF_StepService();
+            //stepService.AddEntity(step);
             #endregion
 
 

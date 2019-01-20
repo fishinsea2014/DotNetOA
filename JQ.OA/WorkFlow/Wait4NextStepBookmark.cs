@@ -7,16 +7,15 @@ using System.Activities;
 namespace WorkFlow
 {
 
-    public sealed class Wait4InputDataActivity<T> : NativeActivity
+    public sealed class Wait4NextStepBookmark<T> : NativeActivity
     {
         // Define an activity input argument of type string
         public InOutArgument<string> BookMarkName { get; set; }
         public OutArgument<int> StepId { get; set; }
         public OutArgument<T> Result { get; set; }
-
-        // If your activity returns a value, derive from CodeActivity<TResult>
+        // If your activity returns a value, derive from NativeActivity<TResult>
         // and return the value from the Execute method.
-        
+
         protected override void Execute(NativeActivityContext context)
         {
             string bookMark = context.GetValue(this.BookMarkName);
@@ -30,7 +29,7 @@ namespace WorkFlow
         /// <param name="context"></param>
         /// <param name="bookmark"></param>
         /// <param name="value"></param>
-        public void AfterContinue(NativeActivityContext context, Bookmark bookmark, Object value)
+        public void AfterContinue(NativeActivityContext context, Bookmark bookmark, object value)
         {
             var data = (BookMarkObject<T>)value;
             context.SetValue(BookMarkName, data.BookMark);

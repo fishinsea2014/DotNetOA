@@ -225,6 +225,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Content\tableStyle.css" />
     <Content Include="Error.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -509,7 +510,6 @@
     <Content Include="Views\Menu\Index.cshtml" />
     <Content Include="Views\Menu\Edit.cshtml" />
     <Content Include="Views\WFTemp\Index.cshtml" />
-    <Content Include="Views\WFTemp\Add.cshtml" />
     <Content Include="Scripts\kindeditor-4.0.5\asp.net\bin\vssver2.scc" />
     <Content Include="Scripts\kindeditor-4.0.5\asp.net\file_manager_json.ashx" />
     <Content Include="Scripts\kindeditor-4.0.5\asp.net\upload_json.ashx" />
@@ -552,6 +552,7 @@
     <Content Include="Scripts\kindeditor-4.0.5\vssver2.scc" />
     <Content Include="Views\WFInstance\Index.cshtml" />
     <Content Include="Views\WFInstance\StartFinancial.cshtml" />
+    <Content Include="Views\WFTemp\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

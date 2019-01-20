@@ -30,30 +30,30 @@ namespace WorkFlow
             // Obtain the runtime value of the Text input argument
             //string text = context.GetValue(this.Text);
 
-            #region Initiate an application
-            //Put the info of the step of initiating an application into step table
-            WF_Step step = new WF_Step()
-            {
-                Comment = string.Empty,
-                FlowTo = context.GetValue<int>(FlowTo),
-                //InstanceId = context.GetValue<Guid>(InstanceId),
-                InstanceId = Guid.Empty,
-                IsEnd = false,
-                IsStart = true,
-                ParentStepId = -1,
-                ProcessBy = context.GetValue<int>(ProcessBy),
-                ProcessTime = DateTime.Now,
-                Sort = 1,
-                State = 0,
-                StepName = "InitiateApplication",
-                SubTime = DateTime.Now,
-                IsProcessed = true,
-                WF_InstanceID = context.GetValue<int>(WF_InstanceID)
-            };
+            //#region Initiate an application
+            ////Put the info of the step of initiating an application into step table
+            //WF_Step step = new WF_Step()
+            //{
+            //    Comment = string.Empty,
+            //    FlowTo = context.GetValue<int>(FlowTo),
+            //    //InstanceId = context.GetValue<Guid>(InstanceId),
+            //    InstanceId = Guid.Empty,
+            //    IsEnd = false,
+            //    IsStart = true,
+            //    ParentStepId = -1,
+            //    ProcessBy = context.GetValue<int>(ProcessBy),
+            //    ProcessTime = DateTime.Now,
+            //    Sort = 1,
+            //    State = 0,
+            //    StepName = "InitiateApplication",
+            //    SubTime = DateTime.Now,
+            //    IsProcessed = true,
+            //    WF_InstanceID = context.GetValue<int>(WF_InstanceID)
+            //};
 
-            IWF_StepService stepService = new WF_StepService();
-            stepService.AddEntity(step);             
-            #endregion
+            //IWF_StepService stepService = new WF_StepService();
+            //stepService.AddEntity(step);             
+            //#endregion
 
 
 

@@ -45,7 +45,9 @@
 
   <object type="JQ.OA.WebApp.Controllers.WFInstanceController, JQ.OA.WebApp" singleton="false">
     <property name="WF_InstanceService" ref="WF_InstanceService" />
-    <property name="WF_StepService" ref="WF_StepService" />
+    <property name="WF_StepInfoService" ref="WF_StepInfoService" />
+    <property name="WF_TempService" ref="WF_TempService" />
+    <property name="UserInfoService" ref="UserInfoService" />
   </object>
   
 </objects>

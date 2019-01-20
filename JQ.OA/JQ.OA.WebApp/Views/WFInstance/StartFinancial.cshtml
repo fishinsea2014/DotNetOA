@@ -1,5 +1,5 @@
 ﻿@model JQ.QA.Model.WF_Instance
-
+@using JQ.QA.Model
 @{
     Layout = null;
 }
@@ -9,75 +9,104 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>StartFinancial</title>
-    <link href="~/Content/easyui.css" rel="stylesheet" />
-    <link href="~/Content/JQEasyUI/themes/icon.css" rel="stylesheet" />
-    <script src="~/Scripts/jquery-1.7.1.min.js"></script>
-    <script src="~/Scripts/jquery.easyui.min.js"></script>
-    <script src="~/Scripts/easyui-lang-en.js"></script>
-    <script src="~/Scripts/datapattern.js"></script>
-    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
-    <script src="~/Scripts/MyAjaxForm.js"></script>
-
+    <title>Start an expense claim</title>
+    <script src="~/Scripts/kindeditor-4.0.5/kindeditor-min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link href="~/Scripts/kindeditor-4.0.5/themes/default/default.css" rel="stylesheet" />
+    <link href="~/Scripts/kindeditor-4.0.5/plugins/code/prettify.css" rel="stylesheet" />
+    <script src="~/Scripts/kindeditor-4.0.5/lang/en.js"></script>
     <script type="text/javascript">
-        function afterStart() {
-            if (data == "ok") {
-                alert("You have start a expense claiming workflow.")
-            }
-        }
+        KindEditor.ready(function (K) {
+            var editor1 = K.create('#SubForm', {
+                cssPath: '~/Scripts/kindeditor-4.0.5/plugins/code/prettify.css',
+                uploadJson: '~/Content/KinderEditor/asp.net/upload_json.ashx',
+                fileManagerJson:
+                    '~/Content/KinderEditor/asp.net/file_manager_json.ashx',
+                allowFileManager: true,
+                afterCreate: function () {
+                    var self = this;
+                }
+            });
+
+            prettyPrint();
+
+        })
     </script>
+    @*<link href="~/Content/easyui.css" rel="stylesheet" />
+        <link href="~/Content/JQEasyUI/themes/icon.css" rel="stylesheet" />
+        <script src="~/Scripts/jquery-1.7.1.min.js"></script>
+        <script src="~/Scripts/jquery.easyui.min.js"></script>
+        <script src="~/Scripts/easyui-lang-en.js"></script>
+        <script src="~/Scripts/datapattern.js"></script>
+        <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+        <script src="~/Scripts/MyAjaxForm.js"></script>
+
+        <script type="text/javascript">
+            function afterStart() {
+                if (data == "ok") {
+                    alert("You have start a expense claiming workflow.")
+                }
+            }
+        </script>*@
 </head>
 <body>
     <div>
-        <h3>Expense claim workflow</h3>
-        @using (Ajax.BeginForm(new AjaxOptions() { HttpMethod = "Post", OnSuccess = "afterStart" }))
+        <h3>
+            Start a @{
+                WF_Temp temp = ViewBag.Temp;
+                @temp.TempName
+            } workflow
+        </h3>
+        @using (Html.BeginForm())
         {
-        <table>
-            <tr>
-                <td>Title</td>
-                <td>@Html.EditorFor(m => m.Title)</td>
-            </tr>
 
-            <tr>
-                <td>Submit to</td>
-                <td>
-                    <input type="text" name="flowto" id="flowto" />
-                </td>
-            </tr> 
+            <table>
+                <tr>
+                    <td>Title</td>
+                    <td>
+                        <input type="text" name="InstanceName" />
+                    </td>
+                </tr>
 
-            <tr>
-                <td>Amount</td>
-                <td>
-                    <input type="text" name="Money" id="Money" />
-                </td>
-            </tr>
+                <tr>
+                    <td>Priority</td>
+                    <td>
+                        <select name="Level">
+                            <option value="0">Normal</option>
+                            <option value="1">Urgent</option>
+                            <option value="2">Immediately</option>
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Claim Content</td>
+                    <td>
+                        <textarea id="SubForm" cols="100" rows="8"
+                                  style="width:700px;height:200px;visibility:hidden;"
+                                  name="TempForm"> 
+                        @temp.TempForm
+                        </textarea>
+                    </td>
+                </tr>
 
 
-            <tr>
-                <td>Expire Time</td>
-                <td>
-                    <input type="text" name="OutTime" id="OutTime"
-                           class="easyui-datatimebox" value="@DateTime.Now.AddDays(7).ToString()"
-                           style="width:150px"/>
-                </td>
-            </tr>
+                <tr>
+                    <td>Flow To</td>
+                    <td>
+                        @Html.DropDownList("FlowTo")
+                    </td>
+                </tr>
 
-
-            <tr>
-                <td>Reason for applying</td>
-                <td>
-                    @Html.TextAreaFor(m => m.Content)                    
-                </td>
-            </tr>
-
-            <tr>
-                <td colspan="2">
-                    <input type="hidden" name="hidTempId" value="@ViewBag.TempId" />
-                    <input type="submit" value="Submit"/>
-                </td>
-            </tr>
-        </table>
+                <tr>
+                    <td colspan="2">
+                        <input type="hidden" name="hidTempId" value="@ViewBag.TempId" />
+                        <input type="submit" value="Submit" />
+                    </td>
+                </tr>
+            </table>
         }
     </div>
 </body>
 </html>
+

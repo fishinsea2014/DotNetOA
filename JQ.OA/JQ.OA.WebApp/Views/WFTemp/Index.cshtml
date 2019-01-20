@@ -1,4 +1,5 @@
 ﻿@model JQ.QA.Model.WF_Temp
+@using JQ.QA.Model
 
 @{
     Layout = null;
@@ -10,105 +11,43 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Show All Workflows</title>
-    <link href="~/Content/easyui.css" rel="stylesheet" />
+    <link href="~/Content/tableStyle.css" rel="stylesheet" />
+    @*<link href="~/Content/easyui.css" rel="stylesheet" />
     <link href="~/Content/JQEasyUI/themes/icon.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-1.7.1.min.js"></script>
     <script src="~/Scripts/jquery.easyui.min.js"></script>
     <script src="~/Scripts/easyui-lang-en.js"></script>
     <script src="~/Scripts/datapattern.js"></script>
-    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>*@
     <script type="text/javascript">
-        $(function () {
-            $("#addDiv").css("display", "none");
-            
-            initTable();
-        });
-        function initTable() {
-            $("#tt").datagrid({
-                url: '/WFTemp/LoadTemp',//rows=10  page=1
-                title: 'WorkFlow List',
-                width: 700,
-                height: 400,
-                fitColumns: true,
-                idField: 'ID',
-                loadMsg: 'Loding workflow list...',
-                pagination: true,
-                singleSelect: false,
-                pageSize: 10,
-                pageNumber: 1,
-                pageList: [10, 20, 30],
-                columns: [[
-                    { field: 'ck', checkbox: true, align: 'left', width: 50 },
-                    { field: 'ID', title: 'Action No.', width: 80 },
-                    { field: 'TempName', title: 'Name', width: 120 },
-                    { field: 'State', title: 'State', width: 120 },
-                    {
-                        field: 'SubTime', title: 'Submit time', width: 80, align: 'right',
-                        formatter: function (value, row, index) {
-                            return (eval(value.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d");
-                        }
-                    }
-                ]],
 
-                toolbar: [{
-                    id: 'btnAdd',
-                    text: 'ADD',
-                    iconCls: 'icon-add',
-                    handler: function () {
-                        
-                        showAddDialog();
-                    }
-                }
-                ]
-            });
-        }
-
-        //Add an item dialog
-        function showAddDialog() {
-            $("#frameAdd").attr("src", "/WFTemp/Add");
-            $("#addDiv").css("display", "block");
-            $("#addDiv").dialog({
-                title: "Add a workflow model",
-                width: 800,
-                height: 500,
-                collapsible: true,
-                minimizable: true,
-                maximizable: true,
-                resizable: true,
-                modal: true,
-                buttons: [{
-                    text: 'ADD',
-                    iconCls: 'icon-ok',
-                    handler: function () {                        
-                        $("#frameAdd")[0].contentWindow.submitFrm();
-                    }
-                },
-                {
-                    text: 'CANCEL',
-                    iconCls: 'icon-cancel',
-                    handler: function () {
-                        $('#addDiv').dialog('close');
-                 }
-                    }]
-            });
-        }
-
-        function afterAddSuccess(data) {
-            if (data == "ok") {
-                $('#addDiv').dialog("close");
-                initTable();
-            } else {
-                alert("Failed to add a workflow model.");
-            }
-        }
     </script>
-</head >
+</head>
 <body>
     <div>
-        <table id="tt" style="width: 700px;" title="Workflow List" iconcls="icon-edit"></table>
-    </div>
-    <div id="addDiv">
-        <iframe id="frameAdd" width="100%", height="100%" frameborder="0" src="#"></iframe>
+        <a href="/WFTemp/Add">Create new template</a>
+        <table>
+            <tr>
+                <th>NO.</th>
+                <th>Name</th>
+                <th>Create Time</th>
+                <th>Remark</th>
+                <th>Status</th>
+            </tr>
+            @if (ViewData["list"] != null)
+            {
+                foreach (var temp in (List<WF_Temp>)ViewData["list"])
+                {
+            <tr>
+                <td>@temp.ID</td>
+                <td>@temp.TempName</td>
+                <td>@temp.SubTime</td>
+                <td>@temp.Remark</td>
+                <td>@temp.TempStatus</td>
+            </tr>
+                }
+            }
+        </table>
     </div>
 
 </body>
