@@ -16,6 +16,10 @@ namespace WorkFlow
         // If your activity returns a value, derive from NativeActivity<TResult>
         // and return the value from the Execute method.
 
+        protected override bool CanInduceIdle
+        {
+            get { return true; }
+        }
         protected override void Execute(NativeActivityContext context)
         {
             string bookMark = context.GetValue(this.BookMarkName);

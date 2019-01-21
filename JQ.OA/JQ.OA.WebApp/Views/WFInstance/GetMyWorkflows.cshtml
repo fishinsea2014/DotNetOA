@@ -1,0 +1,56 @@
+﻿@model IEnumerable<JQ.QA.Model.WF_Instance>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>GetMyWorkflows</title>
+</head>
+<body>
+    <h3>My Pending Workflows</h3>
+    <table class="table">
+        <tr>
+            <th>
+                Workflow Name
+            </th>
+            <th>
+                Submit Time
+            </th>
+            <th>
+                Sponser
+            </th>
+            <th>
+                Priority
+            </th>
+            
+            
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.InstanceName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Level)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.ID })                 
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>

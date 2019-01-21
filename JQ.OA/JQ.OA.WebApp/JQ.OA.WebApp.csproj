@@ -553,6 +553,8 @@
     <Content Include="Views\WFInstance\Index.cshtml" />
     <Content Include="Views\WFInstance\StartFinancial.cshtml" />
     <Content Include="Views\WFTemp\Add.cshtml" />
+    <Content Include="Views\WFInstance\GetMyWorkflows.cshtml" />
+    <Content Include="Views\WFInstance\CheckWorkFlow.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

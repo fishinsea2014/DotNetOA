@@ -59,7 +59,7 @@
         </h3>
         @using (Html.BeginForm())
         {
-
+        <input type="hidd" name="hiddenTempId" value="@temp.ID" />
             <table>
                 <tr>
                     <td>Title</td>
@@ -84,7 +84,7 @@
                     <td>
                         <textarea id="SubForm" cols="100" rows="8"
                                   style="width:700px;height:200px;visibility:hidden;"
-                                  name="TempForm"> 
+                                  name="SubForm"> 
                         @temp.TempForm
                         </textarea>
                     </td>
