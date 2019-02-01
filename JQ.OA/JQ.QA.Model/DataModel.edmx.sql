@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 01/19/2019 21:41:36
+-- Date Created: 01/25/2019 20:43:19
 -- Generated from EDMX file: D:\my_projects\DotNet_OA_V2\JQ.OA\JQ.QA.Model\DataModel.edmx
 -- --------------------------------------------------
 
@@ -41,6 +41,12 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_ActionInfoR_User_ActionInfo]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[R_User_ActionInfo] DROP CONSTRAINT [FK_ActionInfoR_User_ActionInfo];
 GO
+IF OBJECT_ID(N'[dbo].[FK_WF_InstanceWF_StepInfo]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[WF_StepInfo] DROP CONSTRAINT [FK_WF_InstanceWF_StepInfo];
+GO
+IF OBJECT_ID(N'[dbo].[FK_WF_TempWF_Instance]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[WF_Instance] DROP CONSTRAINT [FK_WF_TempWF_Instance];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -66,6 +72,18 @@ IF OBJECT_ID(N'[dbo].[UserInfoMeta]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[MenuInfo]', 'U') IS NOT NULL
     DROP TABLE [dbo].[MenuInfo];
+GO
+IF OBJECT_ID(N'[dbo].[FileInfo]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[FileInfo];
+GO
+IF OBJECT_ID(N'[dbo].[WF_Instance]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[WF_Instance];
+GO
+IF OBJECT_ID(N'[dbo].[WF_StepInfo]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[WF_StepInfo];
+GO
+IF OBJECT_ID(N'[dbo].[WF_Temp]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[WF_Temp];
 GO
 IF OBJECT_ID(N'[dbo].[UserInfoRole]', 'U') IS NOT NULL
     DROP TABLE [dbo].[UserInfoRole];
@@ -197,14 +215,15 @@ CREATE TABLE [dbo].[WF_Instance] (
     [Status] smallint  NOT NULL,
     [Result] smallint  NOT NULL,
     [WF_TempID] int  NOT NULL,
-    [ApplicationId] uniqueidentifier  NOT NULL
+    [ApplicationId] uniqueidentifier  NOT NULL,
+    [Amount] decimal(18,2)  NULL
 );
 GO
 
 -- Creating table 'WF_StepInfo'
 CREATE TABLE [dbo].[WF_StepInfo] (
     [ID] int IDENTITY(1,1) NOT NULL,
-    [SetpName] nvarchar(32)  NOT NULL,
+    [StepName] nvarchar(32)  NOT NULL,
     [IsProcessed] bit  NOT NULL,
     [IsStartStep] bit  NOT NULL,
     [IsEndStep] bit  NOT NULL,
@@ -218,7 +237,10 @@ CREATE TABLE [dbo].[WF_StepInfo] (
     [ProcessBy] int  NOT NULL,
     [ParentStepID] int  NOT NULL,
     [ChildStepID] int  NOT NULL,
-    [WF_InstanceID] int  NOT NULL
+    [WF_InstanceID] int  NOT NULL,
+    [FlowTo] int  NULL,
+    [InstanceId] uniqueidentifier  NULL,
+    [State] smallint  NULL
 );
 GO
 

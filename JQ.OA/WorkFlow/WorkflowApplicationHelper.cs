@@ -74,7 +74,7 @@ namespace WorkFlow
 
         }
 
-        public static WorkflowApplication LoadWorkflowApplication (Activity activity, Guid guid, AutoResetEvent synEvent)
+        public static WorkflowApplication LoadWorkflowApplication (Activity activity, Guid guid)
         {
             string strCon = System.Configuration.ConfigurationManager.ConnectionStrings["workFlowDataBase"].ConnectionString;
             WorkflowApplication application = new WorkflowApplication(activity);

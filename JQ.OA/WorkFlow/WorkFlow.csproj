@@ -47,9 +47,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActivityResult.cs" />
     <Compile Include="BookMarkObject.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="DirectorFinancialActivity.cs" />
+    <Compile Include="DMValidateActivity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SubFinancialActivity.cs" />
     <Compile Include="Wait4InputDataActivity.cs" />
@@ -76,11 +78,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <XamlAppDef Include="ExpenseClaimAcitvity.xaml">
+    <XamlAppDef Include="ClaimExpenseActivity.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </XamlAppDef>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

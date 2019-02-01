@@ -29,6 +29,7 @@ namespace JQ.QA.Model
         public short Result { get; set; }
         public int WF_TempID { get; set; }
         public System.Guid ApplicationId { get; set; }
+        public Nullable<decimal> Amount { get; set; }
     
         public virtual ICollection<WF_StepInfo> WF_StepInfo { get; set; }
         public virtual WF_Temp WF_Temp { get; set; }

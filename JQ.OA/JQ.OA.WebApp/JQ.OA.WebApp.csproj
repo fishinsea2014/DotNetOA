@@ -555,6 +555,8 @@
     <Content Include="Views\WFTemp\Add.cshtml" />
     <Content Include="Views\WFInstance\GetMyWorkflows.cshtml" />
     <Content Include="Views\WFInstance\CheckWorkFlow.cshtml" />
+    <Content Include="Views\WFInstance\PMValidate.cshtml" />
+    <Content Include="Views\WFInstance\PMCheck.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

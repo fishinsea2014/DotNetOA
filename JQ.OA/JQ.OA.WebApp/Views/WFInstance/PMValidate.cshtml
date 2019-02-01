@@ -1,0 +1,74 @@
+﻿@model IEnumerable<JQ.QA.Model.WF_Instance>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <title>Project Manager Validation</title>
+</head>
+<body>
+    <div class="container">
+        <div class="panel panel-default " >
+            <div class="panel-heading bg-info ">Project Manager Validation</div>
+            <div class="panel-body">
+                <table class="table-bordered table-striped" width="100%">
+                    <tr class="text-primary">
+                        <th >
+                            Workflow Title
+                        </th>
+                        <th>
+                            Submit Time
+                        </th>
+                        <th>
+                            Sponser
+                        </th>
+                        <th>
+                            Priority
+                        </th>
+
+                        <th>Options</th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.InstanceName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SubTime)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StartedBy)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Level)
+                            </td>
+
+
+                            <td>
+                                @Html.ActionLink("Validate", "PMCheck", new { InstanceId = item.ID })
+                            </td>
+                        </tr>
+                    }
+                    @if (Model.Count() <= 0)
+                    {
+                        <tr>
+                            <td colspan="5">No workflow to be validated!</td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+            <div class="panel-footer">Welcome to Jason's OA</div>
+        </div>        
+    </div>
+</body>
+</html>

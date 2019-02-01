@@ -15,7 +15,7 @@ namespace JQ.QA.Model
     public partial class WF_StepInfo
     {
         public int ID { get; set; }
-        public string SetpName { get; set; }
+        public string StepName { get; set; }
         public bool IsProcessed { get; set; }
         public bool IsStartStep { get; set; }
         public bool IsEndStep { get; set; }
@@ -30,6 +30,9 @@ namespace JQ.QA.Model
         public int ParentStepID { get; set; }
         public int ChildStepID { get; set; }
         public int WF_InstanceID { get; set; }
+        public Nullable<int> FlowTo { get; set; }
+        public Nullable<System.Guid> InstanceId { get; set; }
+        public Nullable<short> State { get; set; }
     
         public virtual WF_Instance WF_Instance { get; set; }
     }

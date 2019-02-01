@@ -15,8 +15,9 @@ namespace WorkFlow
     public sealed class SubFinancialActivity : CodeActivity
     {
         // Define an activity input argument of type string
-        public InArgument<string> FinancialText { get; set; }
-        public InArgument<int>  Money { get; set; }
+        //public InArgument<string> FinancialText { get; set; }
+        //public InArgument<WF_StepInfo> LastStepInfo { get; set; }
+        public InArgument<decimal>  Money { get; set; }
         //public InArgument<Guid> InstanceId { get; set; }
         public InArgument<int> FlowTo { get; set; }
         public InArgument<int> ProcessBy { get; set; }
@@ -30,33 +31,46 @@ namespace WorkFlow
             // Obtain the runtime value of the Text input argument
             //string text = context.GetValue(this.Text);
 
-            //#region Initiate an application
+            #region Initiate an application
             ////Put the info of the step of initiating an application into step table
-            //WF_Step step = new WF_Step()
-            //{
-            //    Comment = string.Empty,
-            //    FlowTo = context.GetValue<int>(FlowTo),
-            //    //InstanceId = context.GetValue<Guid>(InstanceId),
-            //    InstanceId = Guid.Empty,
-            //    IsEnd = false,
-            //    IsStart = true,
-            //    ParentStepId = -1,
-            //    ProcessBy = context.GetValue<int>(ProcessBy),
-            //    ProcessTime = DateTime.Now,
-            //    Sort = 1,
-            //    State = 0,
-            //    StepName = "InitiateApplication",
-            //    SubTime = DateTime.Now,
-            //    IsProcessed = true,
-            //    WF_InstanceID = context.GetValue<int>(WF_InstanceID)
-            //};
+            WF_StepInfo initStep = new WF_StepInfo()
+            {
+                Title= string.Empty,
+                Comment = string.Empty,                
+                FlowTo = context.GetValue<int>(FlowTo),
+                InstanceId = Guid.Empty,                
+                IsEndStep = false,
+                IsStartStep = true,
+                ParentStepID = -1,
+                ProcessBy = context.GetValue<int>(ProcessBy),
+                ProcessTime = DateTime.Now,
+                StepName = "Initiate Application",
+                SubTime = DateTime.Now,
+                IsProcessed = true,
+                WF_InstanceID = context.GetValue<int>(WF_InstanceID)                
+            };
 
-            //IWF_StepService stepService = new WF_StepService();
-            //stepService.AddEntity(step);             
-            //#endregion
+            IWF_StepInfoService stepService = new WF_StepInfoService();
+            stepService.AddEntity(initStep);
+            #endregion
 
-
-
+            WF_StepInfo pmStep = new WF_StepInfo()
+            {
+                Comment = string.Empty,
+                FlowTo = 0,
+                InstanceId = Guid.Empty,                
+                IsEndStep = false,
+                IsStartStep = true,
+                ParentStepID = initStep.ID,
+                ProcessBy = (int)initStep.FlowTo,
+                ProcessTime = DateTime.Now,
+                WF_InstanceID = initStep.WF_InstanceID,
+                SubTime = DateTime.Now,
+                StepName = "PM Validation",                
+                IsProcessed = false,
+            };
+            stepService.AddEntity(pmStep);
+            context.SetValue(NextStepBookMarkName, pmStep.StepName);
         }
     }
 }

@@ -9,9 +9,9 @@ namespace WorkFlow.WFEnum
     public enum WFEnum
     {
         IsPass = 0,
-        IsContinue =1,
-        IsReject =2,
-        IsCancel =3,
+        IsContinue =3,
+        IsReject =1,
+        IsCancel =2,
 
     }
 }

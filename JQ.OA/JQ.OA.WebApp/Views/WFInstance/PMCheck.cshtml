@@ -1,0 +1,123 @@
+﻿@model JQ.QA.Model.WF_StepInfo
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <title>Project Manager Validation</title>
+</head>
+<body>
+    <div class="container"> 
+        <div class="panel panel-default ">
+            <div class="panel-heading bg-info ">Validating claim of @ViewBag.Instance.InstanceName</div>
+            <div class="panel-body">
+                @{
+                    Html.ValidationSummary(true);
+                    JQ.QA.Model.WF_Instance instance = ViewBag.Instance;
+                    List<JQ.QA.Model.WF_StepInfo>
+                        steps = ViewBag.Steps;
+                    <input type="hidden" id="hidId" value="" />
+                    <table class="table table-bordered table-striped">
+
+                        <tr>
+                            <td width="20%">Title</td>
+                            <td width="80%">@instance.InstanceName</td>
+                        </tr>
+                        <tr>
+                            <td>Sponser </td>
+                            <td>@instance.StartedBy</td>
+                        </tr>
+                        <tr>
+                            <td>Initiate Time</td>
+                            <td>@instance.SubTime</td>
+                        </tr>
+                        <tr>
+                            <td>Workflow Template</td>
+                            <td>@instance.WF_Temp.TempName</td>
+                        </tr>
+                        <tr>
+                            <td>Content</td>
+                            <td>@Html.Raw(instance.SubForm)</td>
+                        </tr>
+                        <tr>
+                            <td>Workflow Records:</td>
+                            <td>
+                                @foreach (var wfStepInfo in steps)
+                                {
+                                    <div>
+                                        Step: @wfStepInfo.SetpName <br />
+                                        Sponser: @wfStepInfo.ProcessBy <br />
+                                        Title: @wfStepInfo.Title<br />
+                                        Comment: @wfStepInfo.Comment<br />
+                                        Conclusion:
+                                        @switch (@wfStepInfo.StepResult)
+                                        {
+                                            case 0:
+                                                <p>Pass</p>;
+                                                break;
+                                            case 1:
+                                                <p>Reject</p>
+                                                break;
+                                            case 2:
+                                                <p>Cancel</p>
+                                                break;
+                                            default:
+                                                <p>Unknown</p>;
+                                                break;
+                                        }
+                                        <br />
+                                    </div>
+                                }
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div class="well">
+                        <h3>Your comment:</h3>
+                        <table class="table table-bordered table-striped">
+                            <tr>
+                                <td width="20%">Title</td>
+                                <td>@Html.EditorFor(m => m.Title)</td>
+                            </tr>
+
+                            <tr>
+                                <td>Comment:</td>
+                                <td>@Html.TextAreaFor(t => t.Comment)</td>
+                            </tr>
+
+                            <tr>
+                                <td>Flow to:</td>
+                                <td>@Html.DropDownList("ProcessBy")</td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    Decision:
+                                </td>
+                                <td>
+                                    <input type="hidden" name="StepResult" value="" />
+                                    <label class="radio-inline"><input type="radio" name="StepResult" checked />Pass</label>
+                                    <label class="radio-inline"><input type="radio" name="StepResult" />Reject</label>
+                                </td>
+                            </tr>
+                            <tr></tr>
+
+                        </table>
+                        <input class="btn btn-success" type="submit" value="Submit" />
+                    </div>
+                }
+
+            </div>
+            <div class="panel-footer">Welcome to Jason's OA</div>
+
+            </div>
+        </div>
+</body>
+</html>

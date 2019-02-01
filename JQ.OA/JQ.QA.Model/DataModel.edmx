@@ -180,13 +180,14 @@
     <Property Name="Result" Type="smallint" Nullable="false" />
     <Property Name="WF_TempID" Type="int" Nullable="false" />
     <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Amount" Type="decimal" Nullable="true" Precision="18" Scale="2" />
   </EntityType>
   <EntityType Name="WF_StepInfo">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="SetpName" Type="nvarchar" Nullable="false" MaxLength="32" />
+    <Property Name="StepName" Type="nvarchar" Nullable="false" MaxLength="32" />
     <Property Name="IsProcessed" Type="bit" Nullable="false" />
     <Property Name="IsStartStep" Type="bit" Nullable="false" />
     <Property Name="IsEndStep" Type="bit" Nullable="false" />
@@ -201,6 +202,9 @@
     <Property Name="ParentStepID" Type="int" Nullable="false" />
     <Property Name="ChildStepID" Type="int" Nullable="false" />
     <Property Name="WF_InstanceID" Type="int" Nullable="false" />
+    <Property Name="FlowTo" Type="int" Nullable="true" />
+    <Property Name="InstanceId" Type="uniqueidentifier" Nullable="true" />
+    <Property Name="State" Type="smallint" Nullable="true" />
   </EntityType>
   <EntityType Name="WF_Temp">
     <Key>
@@ -573,13 +577,14 @@
           <Property Name="ApplicationId" Type="Guid" Nullable="false" />
           <NavigationProperty Name="WF_StepInfo" Relationship="DataModel.FK_WF_InstanceWF_StepInfo" FromRole="WF_Instance" ToRole="WF_StepInfo" />
           <NavigationProperty Name="WF_Temp" Relationship="DataModel.FK_WF_TempWF_Instance" FromRole="WF_Instance" ToRole="WF_Temp" />
+          <Property Name="Amount" Type="Decimal" Nullable="true" Scale="2" Precision="18" />
         </EntityType>
         <EntityType Name="WF_StepInfo">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SetpName" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="StepName" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
           <Property Name="IsProcessed" Type="Boolean" Nullable="false" />
           <Property Name="IsStartStep" Type="Boolean" Nullable="false" />
           <Property Name="IsEndStep" Type="Boolean" Nullable="false" />
@@ -595,6 +600,9 @@
           <Property Name="ChildStepID" Type="Int32" Nullable="false" />
           <Property Name="WF_InstanceID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="WF_Instance" Relationship="DataModel.FK_WF_InstanceWF_StepInfo" FromRole="WF_StepInfo" ToRole="WF_Instance" />
+          <Property Name="FlowTo" Type="Int32" Nullable="true" />
+          <Property Name="InstanceId" Type="Guid" Nullable="true" />
+          <Property Name="State" Type="Int16" Nullable="true" />
         </EntityType>
         <EntityType Name="WF_Temp">
           <Key>
@@ -768,6 +776,7 @@
           <ScalarProperty Name="Result" ColumnName="Result" />
           <ScalarProperty Name="WF_TempID" ColumnName="WF_TempID" />
           <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -775,7 +784,7 @@
       <EntityTypeMapping TypeName="IsTypeOf(DataModel.WF_StepInfo)">
         <MappingFragment StoreEntitySet="WF_StepInfo">
           <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="SetpName" ColumnName="SetpName" />
+          <ScalarProperty Name="StepName" ColumnName="StepName" />
           <ScalarProperty Name="IsProcessed" ColumnName="IsProcessed" />
           <ScalarProperty Name="IsStartStep" ColumnName="IsStartStep" />
           <ScalarProperty Name="IsEndStep" ColumnName="IsEndStep" />
@@ -790,6 +799,9 @@
           <ScalarProperty Name="ParentStepID" ColumnName="ParentStepID" />
           <ScalarProperty Name="ChildStepID" ColumnName="ChildStepID" />
           <ScalarProperty Name="WF_InstanceID" ColumnName="WF_InstanceID" />
+          <ScalarProperty Name="FlowTo" ColumnName="FlowTo" />
+          <ScalarProperty Name="InstanceId" ColumnName="InstanceId" />
+          <ScalarProperty Name="State" ColumnName="State" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

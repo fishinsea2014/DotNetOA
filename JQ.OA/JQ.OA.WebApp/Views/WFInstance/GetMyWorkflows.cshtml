@@ -9,11 +9,13 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <title>GetMyWorkflows</title>
 </head>
 <body>
     <h3>My Pending Workflows</h3>
-    <table class="table">
+    <table class="table table-bordered table-striped" >
         <tr>
             <th>
                 Workflow Name
@@ -27,8 +29,11 @@
             <th>
                 Priority
             </th>
-            
-            
+            <th>
+                Options
+            </th>
+
+
         </tr>
     
     @foreach (var item in Model) {
@@ -46,7 +51,7 @@
                 @Html.DisplayFor(modelItem => item.Level)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.ID })                 
+                <a href="/WFInstance/CheckWorkFlow?Id=@item.ID">Validate</a>                
             </td>
         </tr>
     }
