@@ -63,6 +63,11 @@ namespace JQ.OA.Bll
             return entity;
         }
 
+        public int DeteachEntities(params T[] entities)
+        {
+            return CurrentDal.DeteachEntities(entities);
+        }
+
         public bool SaveChanges()
         {
             return GetCurrentDbSession.SaveChange();

@@ -12,6 +12,14 @@ namespace WorkFlow.WFEnum
         IsContinue =3,
         IsReject =1,
         IsCancel =2,
-
     }
+
+    public enum WFStateEnum
+    {
+        InProcess=0,
+        IsComplete=1,
+        IsCanceled =2,
+            
+    }
+
 }

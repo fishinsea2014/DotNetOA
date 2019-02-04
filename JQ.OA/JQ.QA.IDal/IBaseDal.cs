@@ -27,7 +27,8 @@ namespace JQ.QA.IDal
         IQueryable<T> LoadPageEntities<s>(int pageIdex, int pageSize, out int totalCount,
             System.Linq.Expressions.Expression<Func<T, bool>> whereLambda,
             System.Linq.Expressions.Expression<Func<T, s>> orderbyLambda, bool isAsc);
-        
+
+        int DeteachEntities(params T[] entities);
         
         
     }

@@ -13,11 +13,10 @@ namespace WorkFlow
     public class WorkflowApplicationHelper
     {
         static AutoResetEvent synEvent = new AutoResetEvent(false);
-        //private static string strCon = System.Configuration.ConfigurationManager.ConnectionStrings["workFlowDataBase"].ConnectionString;
+        private static string strCon = ConfigurationManager.ConnectionStrings["workFlowDataBase"].ConnectionString;
         public static WorkflowApplication CreateWorkflowApplication(Activity activity, IDictionary<string,object> data)
         {
-            
-            string strCon = ConfigurationManager.ConnectionStrings["workFlowDataBase"].ConnectionString;
+           
             SqlWorkflowInstanceStore store = new SqlWorkflowInstanceStore(strCon);
             WorkflowApplication application = new WorkflowApplication(activity, data)
             {
@@ -74,9 +73,8 @@ namespace WorkFlow
 
         }
 
-        public static WorkflowApplication LoadWorkflowApplication (Activity activity, Guid guid)
+        public static WorkflowApplication LoadWorkflowApplication (Activity activity, Guid guid, Bookmark bookmark, object value)
         {
-            string strCon = System.Configuration.ConfigurationManager.ConnectionStrings["workFlowDataBase"].ConnectionString;
             WorkflowApplication application = new WorkflowApplication(activity);
             SqlWorkflowInstanceStore store = new SqlWorkflowInstanceStore(strCon);
             application.InstanceStore = store;
@@ -89,6 +87,7 @@ namespace WorkFlow
 
 
             application.Load(guid);
+            application.ResumeBookmark(bookmark, value);
             //application.Run();
             return application;
         }

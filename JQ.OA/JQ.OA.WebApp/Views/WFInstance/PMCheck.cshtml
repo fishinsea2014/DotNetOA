@@ -9,21 +9,74 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <title>Project Manager Validation</title>
+    <script type="text/javascript">
+        $(function () {
+            $("#btnDecision").click(function () {
+                let decisionStr = $("input[name='StepResult']:checked").val();
+                let decision = decisionStr == "pass" ? true : false;
+                let requestData = {
+                    insId: $("#hidId").val(),
+                    comment: $("#Comment").val(),
+                    FlowTo: $("#ProcessBy").val(),
+                    isPass: decision
+                }
+                $.post("/WFInstance/PMDecision", requestData, function (data) {
+                    window.location.href = "/WFInstance/PMValidate";
+                })
+
+
+            })
+        })
+    </script>
 </head>
 <body>
     <div class="container"> 
         <div class="panel panel-default ">
             <div class="panel-heading bg-info ">Validating claim of @ViewBag.Instance.InstanceName</div>
             <div class="panel-body">
+                <div class="well">
+                    <h3>Your comment:</h3>
+                    <table class="table table-bordered table-striped">
+                        <tr>
+                            <td width="20%">Title</td>
+                            <td>@Html.EditorFor(m => m.Title)</td>
+                        </tr>
+
+                        <tr>
+                            <td>Comment:</td>
+                            <td>@Html.TextAreaFor(t => t.Comment)</td>
+                        </tr>
+
+                        <tr>
+                            <td>Flow to:</td>
+                            <td>@Html.DropDownList("ProcessBy","==Select Next Handler==")</td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                Decision:
+                            </td>
+                            <td>
+                                <input type="hidden" name="StepResult" value="" />
+                                <label class="radio-inline"><input type="radio" name="StepResult" value="pass" checked />Pass</label>
+                                <label class="radio-inline"><input type="radio" name="StepResult" value="reject"/>Reject</label>
+                            </td>
+                        </tr>
+                        <tr></tr>
+
+                    </table>
+                    <input id="btnDecision" class="btn btn-success" type="submit" value="Submit" />
+                </div>
                 @{
                     Html.ValidationSummary(true);
                     JQ.QA.Model.WF_Instance instance = ViewBag.Instance;
                     List<JQ.QA.Model.WF_StepInfo>
                         steps = ViewBag.Steps;
-                    <input type="hidden" id="hidId" value="" />
+                    <input type="hidden" id="hidId" value=@instance.ID />
                     <table class="table table-bordered table-striped">
 
                         <tr>
@@ -52,7 +105,7 @@
                                 @foreach (var wfStepInfo in steps)
                                 {
                                     <div>
-                                        Step: @wfStepInfo.SetpName <br />
+                                        Step: @wfStepInfo.StepName <br />
                                         Sponser: @wfStepInfo.ProcessBy <br />
                                         Title: @wfStepInfo.Title<br />
                                         Comment: @wfStepInfo.Comment<br />
@@ -79,39 +132,7 @@
                         </tr>
                     </table>
 
-                    <div class="well">
-                        <h3>Your comment:</h3>
-                        <table class="table table-bordered table-striped">
-                            <tr>
-                                <td width="20%">Title</td>
-                                <td>@Html.EditorFor(m => m.Title)</td>
-                            </tr>
-
-                            <tr>
-                                <td>Comment:</td>
-                                <td>@Html.TextAreaFor(t => t.Comment)</td>
-                            </tr>
-
-                            <tr>
-                                <td>Flow to:</td>
-                                <td>@Html.DropDownList("ProcessBy")</td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    Decision:
-                                </td>
-                                <td>
-                                    <input type="hidden" name="StepResult" value="" />
-                                    <label class="radio-inline"><input type="radio" name="StepResult" checked />Pass</label>
-                                    <label class="radio-inline"><input type="radio" name="StepResult" />Reject</label>
-                                </td>
-                            </tr>
-                            <tr></tr>
-
-                        </table>
-                        <input class="btn btn-success" type="submit" value="Submit" />
-                    </div>
+                    
                 }
 
             </div>

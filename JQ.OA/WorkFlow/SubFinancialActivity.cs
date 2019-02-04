@@ -68,6 +68,7 @@ namespace WorkFlow
                 SubTime = DateTime.Now,
                 StepName = "PM Validation",                
                 IsProcessed = false,
+                StepResult = (short)WFEnum.WFEnum.IsContinue 
             };
             stepService.AddEntity(pmStep);
             context.SetValue(NextStepBookMarkName, pmStep.StepName);

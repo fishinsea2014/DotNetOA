@@ -77,9 +77,16 @@ namespace JQ.QA.Dal
             return true;
         }
 
-        public bool SaveChange()
+        
+
+        public int DeteachEntities (params T[] entities)
         {
-            return Db.SaveChanges() > 0;
+            foreach (var entity in entities)
+            {
+                Db.Entry(entity).State = System.Data.Entity.EntityState.Detached;
+            }
+
+            return entities.Count();
         }
     }
 }

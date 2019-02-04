@@ -131,24 +131,41 @@ namespace JQ.OA.WebApp.Controllers
         #region Project Manager validating
         public ActionResult PMValidate()
         {
+            return View();
+
+        }
+
+        public ActionResult GetPMWorkFlow()
+        {
             //TODO: should change to current userid
             //int userId = LoginUser.ID;
             int userId = 2;
             //short isNormal = (short)QA.Model.Enum.DelFlagEnum.Normal;
             var stepList = wF_StepInfoService.LoadEntities(s => s.ProcessBy == userId && s.IsProcessed == false).ToList();
+            var userList = userInfoService.LoadEntities(u => true).ToList();
             var allInstanceList = (from s in stepList
                                    select s.WF_Instance).ToList();
-            return View(allInstanceList.AsEnumerable());
-
+            var allInstance = (from step in allInstanceList
+                               join user in userList
+                               on step.StartedBy equals user.ID
+                               select new
+                               {
+                                   step.ID,
+                                   step.SubTime,
+                                   step.Level,
+                                   step.InstanceName,
+                                   user.UserName
+                               }).ToList();
+            return Json(allInstance, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult PMCheck(int instanceID)
+        public ActionResult PMCheck()
         {
             //var instance = wF_InstanceService.LoadEntities(i => i.ID == instanceID).FirstOrDefault();
             //ViewBag.AllSteps = instance.WF_StepInfo.ToList();
             //return View(instance);
 
-            //int id = int.Parse(Request["id"]);
+            int instanceID = int.Parse(Request["id"]);
             var instance = wF_InstanceService.LoadEntities(i => i.ID == instanceID).FirstOrDefault();
             ViewBag.Instance = instance;
             var steps = wF_StepInfoService.LoadEntities(s => s.WF_InstanceID == instanceID).ToList();
@@ -177,6 +194,16 @@ namespace JQ.OA.WebApp.Controllers
             step.IsProcessed = true;
             step.Comment = Comment;
             step.FlowTo = FlowTo;
+            wF_StepInfoService.DeteachEntities(step);
+
+            ActivityResult activityResult = new ActivityResult();
+            activityResult.Data = step;
+            activityResult.NextStepBookMarkName = step.StepName;
+            activityResult.Result = isPass ? (short)WorkFlow.WFEnum.WFEnum.IsPass 
+                                           : (short)WorkFlow.WFEnum.WFEnum.IsReject;
+
+            WorkflowApplicationHelper.LoadWorkflowApplication(new ClaimExpenseActivity(),
+                instance.ApplicationId, new Bookmark(step.StepName), activityResult);
             return Content("ok");
 
         } 

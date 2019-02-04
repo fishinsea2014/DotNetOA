@@ -1,5 +1,4 @@
-﻿@model IEnumerable<JQ.QA.Model.WF_Instance>
-
+﻿
 @{
     Layout = null;
 }
@@ -9,16 +8,63 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-table.min.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap-table/bootstrap-table.min.js"></script>
     <title>Project Manager Validation</title>
+    <script type="text/javascript">
+        $(function () {
+            $.get("/WFInstance/GetPMWorkFlow", function (data, status) {
+                var jsonDatas = eval(data);
+
+                $.each(jsonDatas, function (i, item) {
+                    let idx = i;
+                    var subTime = ChangeDateFormat(item.SubTime);
+                    var tr = $(`
+                          <tr>
+                            <td >
+                                 ${item.InstanceName}   
+    
+                            </td>
+                            <td>
+                                 ${subTime}   
+                                    
+                            </td>
+                            <td>
+                                 ${item.UserName}   
+
+                            </td>
+                            <td>
+                                 ${item.Level}   
+                            </td>
+
+                            <td>
+                                <a href="/WFInstance/PMCheck?id=${item.ID}">Validate</a>
+                            </td>
+                        </tr>   
+                        `)
+                    $("#wfTable").append(tr);
+                })
+
+
+            })
+        });
+        function ChangeDateFormat(cellval) {
+            var date = new Date(parseInt(cellval.replace("/Date(", "").replace(")/", ""), 10));
+            var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+            var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+            return date.getFullYear() + "-" + month + "-" + currentDate;
+        }
+    </script>
 </head>
 <body>
     <div class="container">
         <div class="panel panel-default " >
             <div class="panel-heading bg-info ">Project Manager Validation</div>
             <div class="panel-body">
-                <table class="table-bordered table-striped" width="100%">
+                <table id="wfTable" class="table-bordered table-striped" width="100%">
                     <tr class="text-primary">
                         <th >
                             Workflow Title
@@ -36,25 +82,25 @@
                         <th>Options</th>
                     </tr>
 
-                    @foreach (var item in Model)
+                    @*@foreach (var item in Model)
                     {
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => item.InstanceName)
+                                @Html.DisplayFor(modelItem => item.Instance.InstanceName)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.SubTime)
+                                @Html.DisplayFor(modelItem => item.Instance.SubTime)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.StartedBy)
+                                @Html.DisplayFor(modelItem => item.userName)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Level)
+                                @Html.DisplayFor(modelItem => item.Instance.Level)
                             </td>
 
 
                             <td>
-                                @Html.ActionLink("Validate", "PMCheck", new { InstanceId = item.ID })
+                                @Html.ActionLink("Validate", "PMCheck", new { InstanceId = item.Instance.ID })
                             </td>
                         </tr>
                     }
@@ -63,7 +109,7 @@
                         <tr>
                             <td colspan="5">No workflow to be validated!</td>
                         </tr>
-                    }
+                    }*@
 
                 </table>
             </div>

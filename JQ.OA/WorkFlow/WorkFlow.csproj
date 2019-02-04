@@ -52,6 +52,7 @@
     <Compile Include="Class1.cs" />
     <Compile Include="DirectorFinancialActivity.cs" />
     <Compile Include="DMValidateActivity.cs" />
+    <Compile Include="PMValidateActivity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SubFinancialActivity.cs" />
     <Compile Include="Wait4InputDataActivity.cs" />
