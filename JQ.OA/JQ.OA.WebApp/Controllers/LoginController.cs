@@ -13,9 +13,9 @@ namespace JQ.OA.WebApp.Controllers
     {
         // GET: Login
 
-        //IBll.IUserInfoService userInfoService { get; set; }
+        IBll.IUserInfoService userInfoService { get; set; }
 
-        IBll.IUserInfoService userInfoService = new UserInfoService();
+        //IBll.IUserInfoService userInfoService = new UserInfoService();
         public ActionResult Index()
         {
             return View();
@@ -72,6 +72,17 @@ namespace JQ.OA.WebApp.Controllers
             Session["ValidateCode"] = code;
             byte[] vCodeGraph = vCode.CreateValidateGraphic(code);
             return File(vCodeGraph, @"image/jpeg");
+        }
+
+
+        /// <summary>
+        /// Clear the session 
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult LogOut()
+        {
+            Session.Clear();
+            return RedirectToAction("Login");
         }
     }
 }

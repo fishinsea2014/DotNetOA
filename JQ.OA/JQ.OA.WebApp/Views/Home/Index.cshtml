@@ -121,8 +121,7 @@
     </style>
     <script type="text/javascript">
         var links = "";
-        $(function () {
-            
+        $(function () {            
             $.getJSON("Home/LoadMenu", {}, function (data) {
                 links = data;                
                 linksInit();
@@ -137,7 +136,7 @@
 
 </head>
 
-<body style="overflow: hidden; background: url(../../Content/Images/7_7.jpg) no-repeat  center center;">
+<body style="overflow: hidden; background: url(../../Content/Images/applebg.jpg) no-repeat  center center;">
     <div id="header">
         <img src="../../Content/Images/logo.jpg" />
         <h1 style="margin-left:15px">WELCOME TO JASON'S OA</h1>
@@ -145,10 +144,11 @@
             <table>
                 <tr>
                     <td style="vertical-align: bottom;font-size: 14px;font-weight:bold;">
-                        <p>@DateTime.Now.ToString("yyyy-MM-dd") &nbsp;&nbsp; @DateTime.Now.DayOfWeek</p>
+                        <p>@DateTime.Now.ToString("yyyy-MM-dd") &nbsp; @DateTime.Now.DayOfWeek</p>
                         <p id="userNameTop"></p>
                     </td>
-                    <td><img id="imgUser" src="../../Content/Images/big.png" /></td>
+                    <td><img id="imgUser" src="../../Content/Images/big.png" style="margin-left:10px" /></td>
+                    <td><a href="~/Login/LogOut">Logout</a></td>
                 </tr>
             </table>
         </div>
@@ -156,7 +156,7 @@
 
     </div>
     <div id="layout1">
-        <div position="center" style="background: url(../../Content/Images/7_7.jpg)  center center;">
+        <div position="center" style="background: url(../../Content/Images/applebg.jpg)  center center;">
             <div id="winlinks">
                 <ul></ul>
             </div>

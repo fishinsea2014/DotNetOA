@@ -15,12 +15,23 @@ namespace JQ.OA.WebApp.Controllers
     public class DepartmentController : BaseController
     {
         IBll.IDepartmentService departmentService { get; set; }
+        IBll.IUserInfoService userInfoService { get; set; }
         //IBll.IDepartmentService departmentService = new Bll.DepartmentService();
        
         // GET: Department
         public ActionResult Index()
         {
             var departmentList = departmentService.LoadEntities(u => true);
+            short isNormal = (short)QA.Model.Enum.DelFlagEnum.Normal;
+            var userList = from u in userInfoService.LoadEntities(u => u.DelFlag == isNormal).ToList()
+                           select new SelectListItem()
+                           {
+                               Selected = false,
+                               Text = u.UserName,
+                               Value = u.ID.ToString()
+
+                           };
+            ViewData["DepMasterId"] = userList;
             ViewData.Model = departmentList;
 
             return View();
@@ -45,6 +56,8 @@ namespace JQ.OA.WebApp.Controllers
             depParam.PageIndex = pageIndex;
             depParam.SName = Request["name"];
             var pagedData = departmentService.LoadSearchEntities(depParam);
+            var userList = userInfoService.LoadEntities(u => u.DelFlag == delNormal);
+            
 
             //Assembe the data into EasyUI table data, like : {total: 10; rows:[]}
             //Sovle the issue of loop dependency caused by navigation properties when serialising the data to Json
@@ -52,12 +65,13 @@ namespace JQ.OA.WebApp.Controllers
             {
                 total = depParam.Total,
                 rows = (from u in pagedData
+                        join user in userList on u.DepMasterId equals user.ID
                         select
                             new
                             {
                                 u.ID,
                                 u.DepName,
-                                u.DepMasterId,
+                                user.UserName,
                                 u.DepNo,  
                                 u.TreePath                                                            }
                         ).ToList()
@@ -120,7 +134,7 @@ namespace JQ.OA.WebApp.Controllers
         }
         #endregion
 
-        #region Add an user
+        #region Add an department
         public ActionResult Add(Department department)
         {
             department.DelFlag = 0;
@@ -160,6 +174,8 @@ namespace JQ.OA.WebApp.Controllers
             //}
 
             //return Content("Fail to add an user.");
+            
+
             return Content("Ok");
         }
         #endregion

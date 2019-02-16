@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace JQ.OA.WebApp.Controllers
 {
-    public class WFTempController : Controller
+    public class WFTempController : BaseController
     {
         // GET: WFTemp
 
@@ -49,8 +49,8 @@ namespace JQ.OA.WebApp.Controllers
             wF_Temp.DelFlag = 0;
             wF_Temp.ModfiedOn = DateTime.Now;
             //For test
-            wF_Temp.SubBy = 28;
-            //wF_Temp.SubBy = LoginUser.ID;
+            //wF_Temp.SubBy = 28;
+            wF_Temp.SubBy = LoginUserInfo.ID;
             wF_Temp.SubTime = DateTime.Now;
             wF_Temp.TempStatus = 0;
             wF_TempService.AddEntity(wF_Temp);

@@ -30,7 +30,7 @@
             $("#tt").datagrid({
                 url: '/ActionInfo/LoadActionInfos',//rows=10  page=1
                 title: 'Actions List',
-                width: 700,
+                width: 900,
                 height: 400,
                 fitColumns: true,
                 idField: 'ID',
@@ -43,13 +43,12 @@
                 //queryParams: sarcheParam,//parameters for searching items
                 columns: [[// a.ID,a.ActionName,a.HttpMethod,a.Remark,a.Url,a.SubTime,a.SubBy,a.Controoller,a.ActionMethod
                     { field: 'ck', checkbox: true, align: 'left', width: 50 },
-                    { field: 'ID', title: 'Action No.', width: 80 },
-                    { field: 'ActionName', title: 'Name', width: 120 },
-                    { field: 'HttpMethod', title: 'Request Type', width: 120 },
-                    { field: 'Url', title: 'Request URL', width: 120 },
+                    { field: 'ID', title: 'Action No.', width: 60 },
+                    { field: 'ActionName', title: 'Name', width: 160 },
+                    { field: 'HttpMethod', title: 'Request Type', width: 60 },
+                    { field: 'Url', title: 'Request URL', width: 160 },
                     { field: 'Controoller', title: 'Request controller', width: 120 },
-                    { field: 'ActionMethod', title: 'Request method', width: 120 },
-                    { field: 'SubBy', title: 'Submitter', width: 120 },
+                    { field: 'ActionMethod', title: 'Request method', width: 100 },
                     {
                         field: 'SubTime', title: 'Submit time', width: 80, align: 'right',
                         formatter: function (value, row, index) {

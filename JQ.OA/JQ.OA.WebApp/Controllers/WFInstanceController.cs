@@ -11,7 +11,7 @@ using WorkFlow;
 
 namespace JQ.OA.WebApp.Controllers
 {
-    public class WFInstanceController : Controller
+    public class WFInstanceController : BaseController
     {
         //string strCon = ConfigurationManager.ConnectionStrings["workFlowDataBase"].ConnectionString;
         //private const string strCon = "Data Source=JASON\\SQLEXPRESS; initial catalog=OAData;  Integrated Security = TRUE";
@@ -58,8 +58,7 @@ namespace JQ.OA.WebApp.Controllers
             wFInstance.WF_TempID = int.Parse(Request["hiddenTempId"]);           
             wFInstance.Status = 0;
             wFInstance.SubTime = DateTime.Now;
-            wFInstance.StartedBy = 38;
-            //instance.SubBy = this.LoginUserInfo.ID;
+            wFInstance.StartedBy = LoginUserInfo.ID;
             wF_InstanceService.AddEntity(wFInstance);
 
             // Start workflow

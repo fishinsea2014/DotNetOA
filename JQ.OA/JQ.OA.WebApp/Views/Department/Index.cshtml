@@ -115,7 +115,7 @@
                     { field: 'ID', title: 'No.', width: 30 },
                     { field: 'DepName', title: 'Name', width: 120 },
                     { field: 'DepNo', title: 'Dep No.', width: 100 },
-                    { field: 'DepMasterId', title: 'Dep Director', width: 120 },
+                    { field: 'UserName', title: 'Dep Director', width: 120 },
                     //{
                     //    field: 'SubTime', title: 'Reg Time', width: 130, align: 'right',
                     //    formatter: function (value, row, index) {
@@ -294,19 +294,20 @@
         @using (Ajax.BeginForm("Add", "Department",
             new { }, new AjaxOptions() { HttpMethod = "post", OnSuccess = "afterAdd" }, new { id = "addForm" }))
         {
-            <table>
-                <tr>
-                    <td>Superior Department</td>
-                    <td>
-                        <input type="text" value="--Select the superior--" name="Parent" id="Parent" />
-                        <input type="hidden" name="ParentId" id="ParentId" value="-1" />
-                    </td>
-                </tr>
-                <tr><td>Department Name</td><td><input type="text" name="DepName" /></td></tr>
-                <tr><td>Department No.</td><td><input type="text" name="DepNo" /></td></tr>
-                <tr><td>Master ID</td><td><input type="text" name="DepMasterId" /></td></tr>
+        <table>
+            <tr>
+                <td>Superior Department</td>
+                <td>
+                    <input type="text" value="--Select the superior--" name="Parent" id="Parent" />
+                    <input type="hidden" name="ParentId" id="ParentId" value="-1" />
+                </td>
+            </tr>
+            <tr><td>Department Name</td><td><input type="text" name="DepName" /></td></tr>
+            <tr><td>Department No.</td><td><input type="text" name="DepNo" /></td></tr>
+            <tr><td>Master ID</td><td>@Html.DropDownList("DepMasterId", "++Pls Choose Director++")</td></tr>
+            @*<tr><td>Master ID</td><td><input type="text" name="DepMasterId" /></td></tr>*@
 
-            </table>
+        </table>
         }
     </div>
 

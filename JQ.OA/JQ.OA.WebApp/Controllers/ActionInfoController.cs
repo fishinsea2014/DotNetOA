@@ -12,6 +12,7 @@ namespace JQ.OA.WebApp.Controllers
 
         IBll.IActionInfoService actionInfoService { get; set; }
         IBll.IRoleService roleService { get; set; }
+        IBll.IUserInfoService userInfoService { get; set; }
         public ActionResult Index()
         {
             return View();

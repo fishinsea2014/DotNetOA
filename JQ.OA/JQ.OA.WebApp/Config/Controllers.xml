@@ -15,6 +15,7 @@
   
   <object type="JQ.OA.WebApp.Controllers.DepartmentController, JQ.OA.WebApp" singleton="false">
     <property name="DepartmentService" ref="DepartmentService" />
+    <property name="UserInfoService" ref="UserInfoService" />
   </object>
   
   <object type="JQ.OA.WebApp.Controllers.LoginController, JQ.OA.WebApp" singleton="false">
@@ -47,6 +48,10 @@
     <property name="WF_InstanceService" ref="WF_InstanceService" />
     <property name="WF_StepInfoService" ref="WF_StepInfoService" />
     <property name="WF_TempService" ref="WF_TempService" />
+    <property name="UserInfoService" ref="UserInfoService" />
+  </object>
+
+  <object type="JQ.OA.WebApp.Controllers.FileManagementController, JQ.OA.WebApp" singleton="false">
     <property name="UserInfoService" ref="UserInfoService" />
   </object>
   
