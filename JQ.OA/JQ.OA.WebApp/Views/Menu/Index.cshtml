@@ -50,7 +50,7 @@
             $("#tt").datagrid({
                 url: '/Menu/LoadMenuInfos',//rows=10  page=1
                 title: 'Menu List',
-                width: 700,
+                width: 900,
                 height: 400,
                 fitColumns: true,
                 idField: 'ID',
@@ -64,13 +64,13 @@
                 columns: [[
                     { field: 'ck', checkbox: true, align: 'left', width: 50 },
                     { field: 'ID', title: 'Menu No.', width: 80 },
-                    { field: 'MenuName', title: 'Name', width: 120 },
-                    { field: 'Url', title: 'Request URL', width: 120 },
-                    { field: 'ActionName', title: 'Action Name', width: 120 },
-                    { field: 'IsVisable', title: 'Visible? ', width: 120 },
-                    { field: 'SubBy', title: 'Submitter', width: 120 },
+                    { field: 'MenuName', title: 'Menu Name', width: 160 },
+                    { field: 'Url', title: 'Request URL', width: 160 },
+                    { field: 'ActionName', title: 'Action Name', width: 160 },
+                    { field: 'IsVisable', title: 'Is Visible ', width: 60 },
+                    //{ field: 'SubBy', title: 'Submitter', width: 120 },
                     {
-                        field: 'IconUrl', title: 'Icon Url', width: 100, align: "right",
+                        field: 'IconUrl', title: 'Icon Url', width: 70, align: "right",
                         formatter: function (value, row, index) {
                             return "<img alt='' src='" + value + "' width='50' height='50' /> ";
                         }

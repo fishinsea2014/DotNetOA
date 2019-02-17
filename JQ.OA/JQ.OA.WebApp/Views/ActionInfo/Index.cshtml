@@ -47,8 +47,8 @@
                     { field: 'ActionName', title: 'Name', width: 160 },
                     { field: 'HttpMethod', title: 'Request Type', width: 60 },
                     { field: 'Url', title: 'Request URL', width: 160 },
-                    { field: 'Controoller', title: 'Request controller', width: 120 },
-                    { field: 'ActionMethod', title: 'Request method', width: 100 },
+                    { field: 'Remark', title: 'Remark', width: 180 },
+                    
                     {
                         field: 'SubTime', title: 'Submit time', width: 80, align: 'right',
                         formatter: function (value, row, index) {
@@ -96,9 +96,9 @@
                             var rows = $("#tt").datagrid('getSelections');
 
                             if (rows.length != 1) {
-                                $.messager.alert("error", "Please choose an item and only one item.");
+                                $.messager.alert("error", "Please choose one and only one item.");
                                 return;
-                            }
+                            }                            
                             showSetRoleDialog(rows[0].ID);
                         }
                     }
